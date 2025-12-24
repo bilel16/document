@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Débutant - ContratCpt et Personne - Système SMILE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .nav-pill {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .nav-pill:hover, .nav-pill.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #2a5298;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        h4 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #1e3c72;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        pre code {
+            background: none;
+            color: #f8f8f2;
+            padding: 0;
+        }
+
+        .flow-diagram {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .flow-box {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd54f 0%, #ffeb3b 100%);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+
+        .badge-primary { background: #667eea; color: white; }
+        .badge-success { background: #28a745; color: white; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .badge-danger { background: #dc3545; color: white; }
+        .badge-info { background: #17a2b8; color: white; }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .architecture-diagram {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .layer {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #667eea;
+        }
+
+        .layer h4 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .layer-item {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guide Débutant : ContratCpt & Personne</h1>
+            <p>Comprendre le système bancaire SMILE - Architecture et Fonctionnalités</p>
+        </header>
+
+        <div class="content">
+            <div class="nav-pills">
+                <div class="nav-pill active" onclick="showSection('introduction')">Introduction</div>
+                <div class="nav-pill" onclick="showSection('personne')">Entité Personne</div>
+                <div class="nav-pill" onclick="showSection('contratcpt')">Entité ContratCpt</div>
+                <div class="nav-pill" onclick="showSection('relation')">Relation & Client</div>
+                <div class="nav-pill" onclick="showSection('architecture')">Architecture</div>
+                <div class="nav-pill" onclick="showSection('fonctionnalites')">Fonctionnalités</div>
+                <div class="nav-pill" onclick="showSection('exemples')">Exemples Pratiques</div>
+            </div>
+
+            <!-- SECTION 1: INTRODUCTION -->
+            <div id="introduction" class="section active">
+                <h2>Introduction au Système SMILE</h2>
+
+                <div class="info-box">
+                    <strong>Qu'est-ce que SMILE ?</strong><br>
+                    SMILE est un système bancaire complet développé en Java qui gère l'ensemble des opérations d'une banque. Il utilise des technologies modernes comme Spring Framework, Hibernate ORM et un framework personnalisé appelé OXIA.
+                </div>
+
+                <h3>Les Deux Entités Principales</h3>
+
+                <div class="card">
+                    <div class="card-title">1. Personne (Person)</div>
+                    <p>Représente un individu ou une entreprise qui peut devenir client de la banque. C'est l'identité de base avec toutes les informations personnelles (nom, prénom, adresse, pièce d'identité, etc.)</p>
+                    <div style="margin-top: 10px;">
+                        <span class="badge badge-info">Identifiant : numSeqPers</span>
+                        <span class="badge badge-primary">Package : com.bna.commun.model</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">2. ContratCpt (Contrat de Compte)</div>
+                    <p>Représente un compte bancaire. Un client peut avoir plusieurs comptes (compte courant, compte épargne, compte devises, etc.)</p>
+                    <div style="margin-top: 10px;">
+                        <span class="badge badge-info">Identifiant : ContratCptId (composite)</span>
+                        <span class="badge badge-primary">Package : com.bna.commun.model</span>
+                    </div>
+                </div>
+
+                <h3>Le Flux de Base</h3>
+
+                <div class="flow-diagram">
+                    <div class="flow-box">1. Personne (Individu/Entreprise)</div>
+                    <div class="arrow">⬇️</div>
+                    <div class="flow-box">2. Client (Personne qui devient client de la banque)</div>
+                    <div class="arrow">⬇️</div>
+                    <div class="flow-box">3. ContratCpt (Compte bancaire du client)</div>
+                    <div class="arrow">⬇️</div>
+                    <div class="flow-box">4. Opérations (Virements, Dépôts, Retraits...)</div>
+                </div>
+
+                <div class="success-box">
+                    <strong>Analogie Simple :</strong><br>
+                    - <strong>Personne</strong> = Votre identité (carte d'identité)<br>
+                    - <strong>Client</strong> = Votre relation avec la banque (contrat client)<br>
+                    - <strong>ContratCpt</strong> = Votre compte bancaire (RIB, solde, etc.)
+                </div>
+            </div>
+
+            <!-- SECTION 2: PERSONNE -->
+            <div id="personne" class="section">
+                <h2>L'Entité Personne en Détail</h2>
+
+                <div class="info-box">
+                    <strong>Fichier :</strong> <code>commun/src/main/java/com/bna/commun/model/Personne.java</code>
+                </div>
+
+                <h3>Qu'est-ce qu'une Personne ?</h3>
+
+                <p>La classe <code>Personne</code> est la représentation informatique d'un individu ou d'une entreprise dans le système bancaire. Elle contient TOUTES les informations nécessaires pour identifier et caractériser cette personne.</p>
+
+                <h3>Les Champs Principaux</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Champ</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>numSeqPers</code></td>
+                            <td>Long</td>
+                            <td><span class="highlight">Identifiant unique</span> de la personne (Clé primaire)</td>
+                            <td>12345</td>
+                        </tr>
+                        <tr>
+                            <td><code>nomNomPers</code></td>
+                            <td>String</td>
+                            <td>Nom de famille</td>
+                            <td>"BEN SALEM"</td>
+                        </tr>
+                        <tr>
+                            <td><code>nomPrnPers</code></td>
+                            <td>String</td>
+                            <td>Prénom</td>
+                            <td>"Ahmed"</td>
+                        </tr>
+                        <tr>
+                            <td><code>nomRsPers</code></td>
+                            <td>String</td>
+                            <td>Raison sociale (pour entreprises)</td>
+                            <td>"SARL TechCorp"</td>
+                        </tr>
+                        <tr>
+                            <td><code>numPcePers</code></td>
+                            <td>String</td>
+                            <td>Numéro de pièce d'identité</td>
+                            <td>"12345678"</td>
+                        </tr>
+                        <tr>
+                            <td><code>typePiece</code></td>
+                            <td>TypePiece</td>
+                            <td>Type de pièce d'identité</td>
+                            <td>CIN, Passeport, RNE...</td>
+                        </tr>
+                        <tr>
+                            <td><code>datNaisPers</code></td>
+                            <td>Date</td>
+                            <td>Date de naissance</td>
+                            <td>01/01/1980</td>
+                        </tr>
+                        <tr>
+                            <td><code>codSexPers</code></td>
+                            <td>String</td>
+                            <td>Sexe (M/F)</td>
+                            <td>"M"</td>
+                        </tr>
+                        <tr>
+                            <td><code>numTelPers</code></td>
+                            <td>String</td>
+                            <td>Numéro de téléphone</td>
+                            <td>"+216 98 123 456"</td>
+                        </tr>
+                        <tr>
+                            <td><code>adrMailPers</code></td>
+                            <td>String</td>
+                            <td>Adresse email</td>
+                            <td>"ahmed@email.com"</td>
+                        </tr>
+                        <tr>
+                            <td><code>categoriePersonne</code></td>
+                            <td>CategoriePersonne</td>
+                            <td>Catégorie de la personne</td>
+                            <td>Particulier, Professionnel...</td>
+                        </tr>
+                        <tr>
+                            <td><code>activite</code></td>
+                            <td>Activite</td>
+                            <td>Activité économique</td>
+                            <td>Commerce, Services...</td>
+                        </tr>
+                        <tr>
+                            <td><code>paysByCodNat1Pays</code></td>
+                            <td>Pays</td>
+                            <td>Nationalité principale</td>
+                            <td>Tunisie, France...</td>
+                        </tr>
+                        <tr>
+                            <td><code>adresseResid</code></td>
+                            <td>Adresse</td>
+                            <td>Adresse de résidence</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><code>adresseProf</code></td>
+                            <td>Adresse</td>
+                            <td>Adresse professionnelle</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Les Relations de Personne</h3>
+
+                <div class="card">
+                    <div class="card-title">Collections associées (Relations One-to-Many)</div>
+                    <ul>
+                        <li><code>clients</code> - La personne peut être client</li>
+                        <li><code>mandatPersonnes</code> - Procurations données ou reçues</li>
+                        <li><code>signatures</code> - Spécimens de signature</li>
+                        <li><code>pieceAnnexes</code> - Documents justificatifs</li>
+                        <li><code>diplomesPersonnes</code> - Diplômes de la personne</li>
+                        <li><code>coTitulaires</code> - Co-titularité de comptes</li>
+                        <li><code>sousDelegataires</code> - Sous-délégations</li>
+                    </ul>
+                </div>
+
+                <h3>Types de Pièces d'Identité</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Sigle</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>RNE</td><td>Registre National des Entreprises</td></tr>
+                        <tr><td>2</td><td>CIN</td><td>Carte d'Identité Nationale</td></tr>
+                        <tr><td>3</td><td>PAS</td><td>Passeport</td></tr>
+                        <tr><td>4</td><td>SEJ</td><td>Carte de séjour</td></tr>
+                        <tr><td>5</td><td>VISA</td><td>Visa</td></tr>
+                        <tr><td>6</td><td>MNS</td><td>Matricule National de Sécurité</td></tr>
+                        <tr><td>9</td><td>RCS</td><td>Registre de Commerce et des Sociétés</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <strong>Important :</strong> Le champ <code>numSeqPers</code> est l'identifiant unique de la personne dans tout le système. Il est automatiquement généré par une séquence et ne doit JAMAIS être modifié.
+                </div>
+            </div>
+
+            <!-- SECTION 3: CONTRATCPT -->
+            <div id="contratcpt" class="section">
+                <h2>L'Entité ContratCpt en Détail</h2>
+
+                <div class="info-box">
+                    <strong>Fichier :</strong> <code>commun/src/main/java/com/bna/commun/model/ContratCpt.java</code>
+                </div>
+
+                <h3>Qu'est-ce qu'un ContratCpt ?</h3>
+
+                <p>Le <code>ContratCpt</code> (Contrat de Compte) représente un compte bancaire dans le système. C'est l'élément central de toutes les opérations bancaires.</p>
+
+                <h3>Identifiant Composite : ContratCptId</h3>
+
+                <div class="card">
+                    <div class="card-title">La clé primaire est COMPOSITE (3 éléments)</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Champ</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>numCcptCcpt</code></td>
+                                <td>Long</td>
+                                <td><span class="highlight">Numéro de compte</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>codStrcStrc</code></td>
+                                <td>Long</td>
+                                <td><span class="highlight">Code de structure</span> (agence bancaire)</td>
+                            </tr>
+                            <tr>
+                                <td><code>codPrdPrd</code></td>
+                                <td>Long</td>
+                                <td><span class="highlight">Code produit</span> (type de compte)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 10px;"><strong>Exemple :</strong> Compte n° <code>123456</code> - Agence <code>001</code> - Produit <code>10</code> (Compte Courant)</p>
+                </div>
+
+                <h3>Les Champs Principaux</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Champ</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>client</code></td>
+                            <td>Client</td>
+                            <td><span class="highlight">Propriétaire du compte</span></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><code>devise</code></td>
+                            <td>Devise</td>
+                            <td>Monnaie du compte</td>
+                            <td>TND, EUR, USD...</td>
+                        </tr>
+                        <tr>
+                            <td><code>structure</code></td>
+                            <td>Structure</td>
+                            <td>Agence bancaire</td>
+                            <td>Agence Tunis Centre</td>
+                        </tr>
+                        <tr>
+                            <td><code>produit</code></td>
+                            <td>Produit</td>
+                            <td>Type de compte</td>
+                            <td>Compte Courant, Épargne...</td>
+                        </tr>
+                        <tr>
+                            <td><code>codEtatCcpt</code></td>
+                            <td>String</td>
+                            <td><span class="highlight">État du compte</span></td>
+                            <td>V (Valide), B (Bloqué), C (Clôturé)...</td>
+                        </tr>
+                        <tr>
+                            <td><code>montSoldCcpt</code></td>
+                            <td>Long</td>
+                            <td><span class="highlight">Solde du compte</span> (en millimes)</td>
+                            <td>150000 (= 150.000 TND)</td>
+                        </tr>
+                        <tr>
+                            <td><code>datOuvCcpt</code></td>
+                            <td>Date</td>
+                            <td>Date d'ouverture</td>
+                            <td>01/01/2023</td>
+                        </tr>
+                        <tr>
+                            <td><code>datBlocCcpt</code></td>
+                            <td>Date</td>
+                            <td>Date de blocage (si bloqué)</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><code>datCloCcpt</code></td>
+                            <td>Date</td>
+                            <td>Date de clôture (si clôturé)</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><code>montBlocCcpt</code></td>
+                            <td>Long</td>
+                            <td>Montant bloqué</td>
+                            <td>50000 (= 50.000 TND)</td>
+                        </tr>
+                        <tr>
+                            <td><code>montAutCcpt</code></td>
+                            <td>Long</td>
+                            <td>Montant d'autorisation (découvert)</td>
+                            <td>10000 (= 10.000 TND)</td>
+                        </tr>
+                        <tr>
+                            <td><code>nomIntiCcpt</code></td>
+                            <td>String</td>
+                            <td>Intitulé du compte</td>
+                            <td>"Compte Courant M. Ahmed"</td>
+                        </tr>
+                        <tr>
+                            <td><code>catCcptCcpt</code></td>
+                            <td>String</td>
+                            <td>Catégorie du compte</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><code>adresseCorresp</code></td>
+                            <td>Adresse</td>
+                            <td>Adresse de correspondance</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>États du Compte (codEtatCcpt)</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>État</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-success">V</span></td>
+                            <td>Valide</td>
+                            <td>Compte actif et opérationnel</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-warning">W</span></td>
+                            <td>Web - En instance</td>
+                            <td>Compte créé via web en attente de validation</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-danger">B</span></td>
+                            <td>Bloqué</td>
+                            <td>Compte bloqué (pas d'opérations possibles)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-danger">C</span></td>
+                            <td>Clôturé</td>
+                            <td>Compte fermé définitivement</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Les Relations de ContratCpt</h3>
+
+                <div class="card">
+                    <div class="card-title">Collections associées (Relations One-to-Many)</div>
+                    <ul>
+                        <li><code>operationComptes</code> - Toutes les opérations du compte (virements, retraits...)</li>
+                        <li><code>chequiers</code> - Chéquiers émis pour ce compte</li>
+                        <li><code>demandeCheques</code> - Demandes de chéquiers</li>
+                        <li><code>carteBancaires</code> - Cartes bancaires liées au compte</li>
+                        <li><code>demandeCartes</code> - Demandes de cartes bancaires</li>
+                        <li><code>blocages</code> - Historique des blocages du compte</li>
+                        <li><code>oppositionMoyenPaiements</code> - Oppositions sur chèques/cartes</li>
+                        <li><code>mandats</code> - Procurations sur le compte</li>
+                        <li><code>mouvementChanges</code> - Opérations de change</li>
+                        <li><code>sousDelegataires</code> - Sous-délégations</li>
+                    </ul>
+                </div>
+
+                <h3>Calcul de la Provision</h3>
+
+                <div class="info-box">
+                    <strong>La provision</strong> est le montant réellement disponible sur le compte pour effectuer des opérations.
+                </div>
+
+                <pre><code>Provision = Solde + Autorisation - Montant Bloqué
+
+Exemple :
+- Solde : 100.000 TND
+- Autorisation (découvert) : 10.000 TND
+- Montant bloqué : 20.000 TND
+
+Provision = 100.000 + 10.000 - 20.000 = 90.000 TND disponibles</code></pre>
+
+                <div class="warning-box">
+                    <strong>Attention :</strong> Les montants sont stockés en <span class="highlight">millimes</span> (1 TND = 1000 millimes). Donc un solde de 150000 dans la base = 150.000 TND.
+                </div>
+            </div>
+
+            <!-- SECTION 4: RELATION -->
+            <div id="relation" class="section">
+                <h2>La Relation Personne ↔ Client ↔ ContratCpt</h2>
+
+                <h3>Comment ça marche ?</h3>
+
+                <div class="flow-diagram">
+                    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 250px; margin: 10px;">
+                            <div class="flow-box" style="background: #28a745;">
+                                PERSONNE<br>
+                                <small>numSeqPers = 12345</small>
+                            </div>
+                            <p style="text-align: center; margin-top: 10px;">Individu ou Entreprise</p>
+                        </div>
+
+                        <div style="font-size: 3em; color: #667eea;">→</div>
+
+                        <div style="flex: 1; min-width: 250px; margin: 10px;">
+                            <div class="flow-box" style="background: #ffc107; color: #333;">
+                                CLIENT<br>
+                                <small>numSeqPers = 12345 (FK)</small>
+                            </div>
+                            <p style="text-align: center; margin-top: 10px;">Relation bancaire</p>
+                        </div>
+
+                        <div style="font-size: 3em; color: #667eea;">→</div>
+
+                        <div style="flex: 1; min-width: 250px; margin: 10px;">
+                            <div class="flow-box" style="background: #dc3545;">
+                                CONTRATCPT<br>
+                                <small>client → numSeqPers = 12345</small>
+                            </div>
+                            <p style="text-align: center; margin-top: 10px;">Compte(s) bancaire(s)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>L'Entité Client</h3>
+
+                <div class="info-box">
+                    <strong>Fichier :</strong> <code>commun/src/main/java/com/bna/commun/model/Client.java</code>
+                </div>
+
+                <p>Le <code>Client</code> est l'intermédiaire entre une <code>Personne</code> et ses <code>ContratCpt</code>. Il représente la relation contractuelle entre la personne et la banque.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Champ</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>numSeqPers</code></td>
+                            <td>Long</td>
+                            <td><span class="highlight">Identifiant (FK vers Personne)</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>personne</code></td>
+                            <td>Personne</td>
+                            <td>Référence vers la personne</td>
+                        </tr>
+                        <tr>
+                            <td><code>typePers</code></td>
+                            <td>TypePers</td>
+                            <td>Type de personne (Physique/Morale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>structure</code></td>
+                            <td>Structure</td>
+                            <td>Agence de rattachement</td>
+                        </tr>
+                        <tr>
+                            <td><code>codEtatClt</code></td>
+                            <td>String</td>
+                            <td>État du client (Actif/Inactif...)</td>
+                        </tr>
+                        <tr>
+                            <td><code>datRelClt</code></td>
+                            <td>Date</td>
+                            <td>Date de début de relation bancaire</td>
+                        </tr>
+                        <tr>
+                            <td><code>numBctClt</code></td>
+                            <td>String</td>
+                            <td>Numéro BCT (Banque Centrale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>contratCpts</code></td>
+                            <td>Set</td>
+                            <td><span class="highlight">Liste de tous les comptes du client</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Exemple Complet</h3>
+
+                <div class="card">
+                    <div class="card-title">Scénario : M. Ahmed BEN SALEM ouvre un compte</div>
+
+                    <h4>Étape 1 : Création de la Personne</h4>
+                    <pre><code>Personne personne = new Personne();
+personne.setNumSeqPers(12345L);  // Généré automatiquement
+personne.setNomNomPers("BEN SALEM");
+personne.setNomPrnPers("Ahmed");
+personne.setNumPcePers("12345678");  // CIN
+personne.setTypePiece(typePieceCIN);  // Type = CIN
+personne.setDatNaisPers(new Date("1980-01-01"));
+personne.setNumTelPers("+216 98 123 456");
+personne.setAdrMailPers("ahmed@email.com");</code></pre>
+
+                    <h4>Étape 2 : Création du Client</h4>
+                    <pre><code>Client client = new Client();
+client.setNumSeqPers(12345L);  // Même ID que la personne
+client.setPersonne(personne);
+client.setDatRelClt(new Date());  // Aujourd'hui
+client.setCodEtatClt("A");  // Actif
+client.setStructure(agenceTunis);</code></pre>
+
+                    <h4>Étape 3 : Création du Compte</h4>
+                    <pre><code>// Création de l'ID composite
+ContratCptId id = new ContratCptId();
+id.setNumCcptCcpt(123456L);  // Numéro de compte
+id.setCodStrcStrc(1L);  // Code agence
+id.setCodPrdPrd(10L);  // Code produit (Compte Courant)
+
+// Création du compte
+ContratCpt compte = new ContratCpt();
+compte.setContratCptId(id);
+compte.setClient(client);
+compte.setDevise(deviseTND);  // Dinar tunisien
+compte.setStructure(agenceTunis);
+compte.setProduit(produitCompteCourant);
+compte.setDatOuvCcpt(new Date());
+compte.setCodEtatCcpt("V");  // Valide
+compte.setMontSoldCcpt(0L);  // Solde initial = 0
+compte.setNomIntiCcpt("Compte Courant M. Ahmed BEN SALEM");</code></pre>
+                </div>
+
+                <h3>La Classe PersonneCpt</h3>
+
+                <div class="info-box">
+                    <strong>Fichier :</strong> <code>smile/src/main/java/com/bna/smile/model/domainecommun/model/PersonneCpt.java</code>
+                </div>
+
+                <p>C'est une classe <strong>wrapper</strong> (enveloppe) qui combine une personne avec ses comptes.</p>
+
+                <pre><code>public class PersonneCpt {
+    private Personne personne;          // La personne
+    private Client client;              // Le client
+    private List listeContratCpt;       // Liste de ses comptes
+    private Long codQualQual;           // Code qualité
+    private Long numSeqPersHer;         // Héritier (pour succession)
+}</code></pre>
+
+                <div class="success-box">
+                    <strong>Utilité :</strong> Cette classe est utilisée pour récupérer en une seule fois toutes les informations d'une personne ET tous ses comptes. Très pratique pour les interfaces utilisateur !
+                </div>
+            </div>
+
+            <!-- SECTION 5: ARCHITECTURE -->
+            <div id="architecture" class="section">
+                <h2>Architecture du Système</h2>
+
+                <h3>Architecture en Couches</h3>
+
+                <div class="architecture-diagram">
+                    <div class="layer">
+                        <h4>🌐 Couche Présentation (Web)</h4>
+                        <div class="layer-item">Actions (Struts)</div>
+                        <div class="layer-item">JSP / Interfaces</div>
+                        <div class="layer-item">Value Objects (VO)</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Gère les interactions utilisateur</p>
+                    </div>
+
+                    <div class="layer">
+                        <h4>⚙️ Couche Métier (Business)</h4>
+                        <div class="layer-item">Services</div>
+                        <div class="layer-item">Commandes (Cmd)</div>
+                        <div class="layer-item">Traitements (Trt)</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Logique métier bancaire</p>
+                    </div>
+
+                    <div class="layer">
+                        <h4>💾 Couche Données (DAO)</h4>
+                        <div class="layer-item">DAO (Data Access)</div>
+                        <div class="layer-item">Hibernate/JPA</div>
+                        <div class="layer-item">JdbcTemplate</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Accès base de données</p>
+                    </div>
+
+                    <div class="layer">
+                        <h4>📦 Couche Modèle</h4>
+                        <div class="layer-item">Entités (Personne)</div>
+                        <div class="layer-item">Entités (ContratCpt)</div>
+                        <div class="layer-item">Entités (Client)</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Modèle de données</p>
+                    </div>
+                </div>
+
+                <h3>Design Patterns Utilisés</h3>
+
+                <div class="card">
+                    <div class="card-title">1. Command Pattern (Pattern Commande)</div>
+                    <p>Chaque action métier est encapsulée dans une classe <code>Commande</code> qui implémente l'interface <code>ICommande</code>.</p>
+                    <pre><code>public class GetPersonneCptCmd implements ICommande {
+    public IValueObject execute(IValueObject vo) {
+        return personneService.getPersonneCpt(vo);
+    }
+}</code></pre>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">2. Service Layer Pattern</div>
+                    <p>Les services contiennent la logique métier et délèguent aux traitements.</p>
+                    <pre><code>@Service
+public class PersonneService extends BasicService {
+    public PersonneCpt getPersonneCpt(IValueObject vo) {
+        // Logique métier
+    }
+}</code></pre>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">3. DAO Pattern (Data Access Object)</div>
+                    <p>Les DAO gèrent l'accès aux données et isolent la logique de persistance.</p>
+                    <pre><code>public class ContratCptDAO {
+    public ContratCpt getContatContratCpt(ContratCptId id) {
+        // Requête vers la base
+    }
+}</code></pre>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">4. Value Object Pattern</div>
+                    <p>Les Value Objects (VO) transportent les données entre les couches.</p>
+                    <pre><code>public class PersonneStrc extends ValueObject {
+    private String codTpceTpce;
+    private String numPcePers;
+    private Long codStrcStrc;
+}</code></pre>
+                </div>
+
+                <h3>Organisation des Packages</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>Description</th>
+                            <th>Exemples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>com.bna.commun.model</code></td>
+                            <td>Entités communes (modèle)</td>
+                            <td>Personne, ContratCpt, Client</td>
+                        </tr>
+                        <tr>
+                            <td><code>com.bna.smile.model.domainecommun.service</code></td>
+                            <td>Services métier communs</td>
+                            <td>PersonneService, CreatePersonneService</td>
+                        </tr>
+                        <tr>
+                            <td><code>com.bna.smile.model.domainecommun.dao</code></td>
+                            <td>DAO communs</td>
+                            <td>ContratCptDAO, PersonneDAO</td>
+                        </tr>
+                        <tr>
+                            <td><code>com.bna.smile.model.domainecommun.commande</code></td>
+                            <td>Commandes métier</td>
+                            <td>GetPersonneCptCmd</td>
+                        </tr>
+                        <tr>
+                            <td><code>com.bna.smile.model.domainecommun.traitement</code></td>
+                            <td>Traitements métier</td>
+                            <td>GetPersonneCptTrt</td>
+                        </tr>
+                        <tr>
+                            <td><code>com.bna.smile.web.commun.actions</code></td>
+                            <td>Actions web (Struts)</td>
+                            <td>CreationPersonneAction</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 6: FONCTIONNALITES -->
+            <div id="fonctionnalites" class="section">
+                <h2>Fonctionnalités Principales</h2>
+
+                <h3>1. Gestion des Personnes</h3>
+
+                <div class="card">
+                    <div class="card-title">📋 Service : PersonneService</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Méthode</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>getPersonneCpt()</code></td>
+                                <td>Récupère une personne et ses comptes <span class="badge badge-success">VALIDES</span></td>
+                            </tr>
+                            <tr>
+                                <td><code>getPersonneCptSemiActifs()</code></td>
+                                <td>Récupère une personne et ses comptes semi-actifs</td>
+                            </tr>
+                            <tr>
+                                <td><code>insertPersonne()</code></td>
+                                <td>Crée une nouvelle personne</td>
+                            </tr>
+                            <tr>
+                                <td><code>updatePersonne()</code></td>
+                                <td>Met à jour les données d'une personne</td>
+                            </tr>
+                            <tr>
+                                <td><code>getPersonneByCin()</code></td>
+                                <td>Recherche une personne par CIN/pièce d'identité</td>
+                            </tr>
+                            <tr>
+                                <td><code>getListCotitulairePersonne()</code></td>
+                                <td>Récupère les co-titulaires d'un compte</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>2. Gestion des Comptes (ContratCpt)</h3>
+
+                <div class="card">
+                    <div class="card-title">💰 DAO : ContratCptDAO</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Méthode</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>getContatContratCpt()</code></td>
+                                <td>Récupère un compte par son ID</td>
+                            </tr>
+                            <tr>
+                                <td><code>getCompteInterne()</code></td>
+                                <td>Récupère un compte interne de la banque</td>
+                            </tr>
+                            <tr>
+                                <td><code>getListeStructuresComptes()</code></td>
+                                <td>Liste toutes les structures (agences) avec comptes</td>
+                            </tr>
+                            <tr>
+                                <td><code>verifExistContratCompte()</code></td>
+                                <td>Vérifie si un compte existe</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>3. Traitement GetPersonneCptTrt</h3>
+
+                <div class="info-box">
+                    <strong>Fichier :</strong> <code>smile/src/main/java/com/bna/smile/model/domainecommun/traitement/GetPersonneCptTrt.java</code>
+                </div>
+
+                <p>C'est le traitement PRINCIPAL pour récupérer une personne et ses comptes valides.</p>
+
+                <div class="card">
+                    <div class="card-title">Flux de Traitement</div>
+
+                    <div class="flow-diagram">
+                        <div class="flow-box" style="background: #28a745;">
+                            1. Entrée : PersonneStrc<br>
+                            <small>(Type pièce + Numéro + Structure)</small>
+                        </div>
+                        <div class="arrow">⬇️</div>
+                        <div class="flow-box" style="background: #17a2b8;">
+                            2. Recherche PERSONNE<br>
+                            <small>Par type et numéro de pièce</small>
+                        </div>
+                        <div class="arrow">⬇️</div>
+                        <div class="flow-box" style="background: #ffc107; color: #333;">
+                            3. Recherche CLIENT<br>
+                            <small>Par numSeqPers</small>
+                        </div>
+                        <div class="arrow">⬇️</div>
+                        <div class="flow-box" style="background: #fd7e14;">
+                            4. Recherche COMPTES<br>
+                            <small>État = "V" (Valides uniquement)</small>
+                        </div>
+                        <div class="arrow">⬇️</div>
+                        <div class="flow-box" style="background: #6f42c1; color: white;">
+                            5. Filtrage par Structure<br>
+                            <small>Si structure spécifiée</small>
+                        </div>
+                        <div class="arrow">⬇️</div>
+                        <div class="flow-box" style="background: #dc3545;">
+                            6. Sortie : PersonneCpt<br>
+                            <small>(Personne + Client + Liste de comptes)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>4. Autres Fonctionnalités Importantes</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fonctionnalité</th>
+                            <th>Fichiers Concernés</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Procurations (Mandats)</strong></td>
+                            <td>MandatPersonne, Mandat</td>
+                            <td>Gestion des procurations sur comptes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Co-titularité</strong></td>
+                            <td>CoTitulaire</td>
+                            <td>Comptes joints (plusieurs titulaires)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Signatures</strong></td>
+                            <td>Signature, SignaturePersCpt</td>
+                            <td>Spécimens de signature des clients</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chéquiers</strong></td>
+                            <td>Chequier, DemandeCheque</td>
+                            <td>Gestion des chéquiers</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cartes bancaires</strong></td>
+                            <td>CarteBancaire, DemandeCarte</td>
+                            <td>Gestion des cartes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Oppositions</strong></td>
+                            <td>OppositionMoyenPaiement</td>
+                            <td>Opposition sur chèques/cartes perdus</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blocages</strong></td>
+                            <td>Blocage</td>
+                            <td>Blocage temporaire de comptes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Opérations</strong></td>
+                            <td>OperationCompte</td>
+                            <td>Toutes les transactions (virements, etc.)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 7: EXEMPLES -->
+            <div id="exemples" class="section">
+                <h2>Exemples Pratiques</h2>
+
+                <h3>Exemple 1 : Créer une nouvelle personne et ouvrir un compte</h3>
+
+                <div class="card">
+                    <div class="card-title">Scénario Complet</div>
+
+                    <h4>Étape 1 : Créer la Personne</h4>
+                    <pre><code>// Créer l'objet Personne
+Personne personne = new Personne();
+
+// Informations d'identité
+personne.setNomNomPers("TRABELSI");
+personne.setNomPrnPers("Sarra");
+personne.setNumPcePers("11223344");
+personne.setTypePiece(typePieceCIN);
+personne.setCodSexPers("F");
+personne.setDatNaisPers(new Date("1990-05-15"));
+
+// Coordonnées
+personne.setNumTelPers("+216 22 334 455");
+personne.setAdrMailPers("sarra.trabelsi@email.com");
+
+// Adresse résidentielle
+Adresse adresseResid = new Adresse();
+adresseResid.setAdrRimmPers("Appartement 5");
+adresseResid.setAdrRruePers("Avenue Habib Bourguiba");
+adresseResid.setAdrRvilPers("Tunis");
+adresseResid.setAdrRcpPers("1000");
+personne.setAdresseResid(adresseResid);
+
+// Informations complémentaires
+personne.setCategoriePersonne(categorieParticulier);
+personne.setActivite(activiteEmploye);
+personne.setPaysByCodNat1Pays(paysTunisie);
+
+// Insérer en base
+personneService.insertPersonne(personne);</code></pre>
+
+                    <h4>Étape 2 : Créer le Client</h4>
+                    <pre><code>// Créer l'objet Client
+Client client = new Client();
+client.setNumSeqPers(personne.getNumSeqPers());
+client.setPersonne(personne);
+client.setTypePers(typePersonnePhysique);
+client.setStructure(agenceTunisCentre);
+client.setDatRelClt(new Date());  // Date d'aujourd'hui
+client.setCodEtatClt("A");  // Actif
+
+// Insérer en base
+clientService.insertClient(client);</code></pre>
+
+                    <h4>Étape 3 : Créer le Compte</h4>
+                    <pre><code>// Créer l'ID composite du compte
+ContratCptId contratId = new ContratCptId();
+contratId.setNumCcptCcpt(987654L);  // Numéro de compte généré
+contratId.setCodStrcStrc(1L);       // Code structure (agence)
+contratId.setCodPrdPrd(10L);        // Code produit (Compte Courant)
+
+// Créer le contrat de compte
+ContratCpt contratCpt = new ContratCpt();
+contratCpt.setContratCptId(contratId);
+contratCpt.setClient(client);
+contratCpt.setDevise(deviseTND);
+contratCpt.setStructure(agenceTunisCentre);
+contratCpt.setProduit(produitCompteCourant);
+contratCpt.setDatOuvCcpt(new Date());
+contratCpt.setCodEtatCcpt("V");  // Valide
+contratCpt.setMontSoldCcpt(0L);  // Solde initial
+contratCpt.setMontAutCcpt(5000000L);  // Autorisation 5000 TND
+contratCpt.setNomIntiCcpt("Compte Courant Mme Sarra TRABELSI");
+
+// Insérer en base
+contratCptService.insertContratCpt(contratCpt);</code></pre>
+                </div>
+
+                <h3>Exemple 2 : Récupérer une personne et ses comptes</h3>
+
+                <div class="card">
+                    <div class="card-title">Recherche par CIN</div>
+                    <pre><code>// Créer l'objet de recherche
+PersonneStrc personneStrc = new PersonneStrc();
+personneStrc.setCodTpceTpce("2");  // Type pièce = CIN
+personneStrc.setNumPcePers("11223344");  // Numéro CIN
+personneStrc.setCodStrcStrc(1L);  // Structure (agence)
+
+// Appeler le traitement
+GetPersonneCptTrt traitement = new GetPersonneCptTrt();
+PersonneCpt result = traitement.perform(personneStrc);
+
+// Résultat
+Personne personne = result.getPersonne();
+Client client = result.getClient();
+List&lt;ContratCpt&gt; comptes = result.getListeContratCpt();
+
+// Afficher les informations
+System.out.println("Nom : " + personne.getNomNomPers());
+System.out.println("Prénom : " + personne.getNomPrnPers());
+System.out.println("Nombre de comptes : " + comptes.size());
+
+// Parcourir les comptes
+for (ContratCpt compte : comptes) {
+    System.out.println("Compte n° " + compte.getContratCptId().getNumCcptCcpt());
+    System.out.println("Solde : " + compte.getMontSoldCcpt() / 1000.0 + " TND");
+    System.out.println("État : " + compte.getEtatCpt());
+}</code></pre>
+                </div>
+
+                <h3>Exemple 3 : Effectuer un virement</h3>
+
+                <div class="card">
+                    <div class="card-title">Virement entre deux comptes</div>
+                    <pre><code>// Récupérer le compte débiteur
+ContratCptId compteDebiteurId = new ContratCptId();
+compteDebiteurId.setNumCcptCcpt(987654L);
+compteDebiteurId.setCodStrcStrc(1L);
+compteDebiteurId.setCodPrdPrd(10L);
+
+ContratCpt compteDebiteur = contratCptDAO.getContatContratCpt(compteDebiteurId);
+
+// Récupérer le compte créditeur
+ContratCptId compteCrediteurId = new ContratCptId();
+compteCrediteurId.setNumCcptCcpt(123456L);
+compteCrediteurId.setCodStrcStrc(1L);
+compteCrediteurId.setCodPrdPrd(10L);
+
+ContratCpt compteCrediteur = contratCptDAO.getContatContratCpt(compteCrediteurId);
+
+// Montant du virement (100 TND = 100000 millimes)
+Long montantVirement = 100000L;
+
+// Vérifier la provision disponible
+Long provision = compteDebiteur.getProvision(new Date());
+if (provision >= montantVirement) {
+    // Débiter le compte
+    Long nouveauSoldeDebiteur = compteDebiteur.getMontSoldCcpt() - montantVirement;
+    compteDebiteur.setMontSoldCcpt(nouveauSoldeDebiteur);
+
+    // Créditer le compte
+    Long nouveauSoldeCrediteur = compteCrediteur.getMontSoldCcpt() + montantVirement;
+    compteCrediteur.setMontSoldCcpt(nouveauSoldeCrediteur);
+
+    // Enregistrer les opérations
+    OperationCompte opDebit = new OperationCompte();
+    opDebit.setContratCpt(compteDebiteur);
+    opDebit.setMontOp(-montantVirement);
+    opDebit.setTypeOperation("VIREMENT_DEBIT");
+
+    OperationCompte opCredit = new OperationCompte();
+    opCredit.setContratCpt(compteCrediteur);
+    opCredit.setMontOp(montantVirement);
+    opCredit.setTypeOperation("VIREMENT_CREDIT");
+
+    // Sauvegarder
+    contratCptDAO.update(compteDebiteur);
+    contratCptDAO.update(compteCrediteur);
+    operationDAO.insert(opDebit);
+    operationDAO.insert(opCredit);
+
+    System.out.println("Virement effectué avec succès !");
+} else {
+    System.out.println("Provision insuffisante !");
+}</code></pre>
+                </div>
+
+                <h3>Exemple 4 : Bloquer/Débloquer un compte</h3>
+
+                <div class="card">
+                    <div class="card-title">Gestion du blocage</div>
+
+                    <h4>Bloquer un compte</h4>
+                    <pre><code>// Récupérer le compte
+ContratCpt compte = contratCptDAO.getContatContratCpt(contratCptId);
+
+// Bloquer le compte
+compte.setCodEtatCcpt("B");  // B = Bloqué
+compte.setDatBlocCcpt(new Date());  // Date du blocage
+
+// Créer l'enregistrement de blocage
+Blocage blocage = new Blocage();
+blocage.setContratCpt(compte);
+blocage.setDateBlocage(new Date());
+blocage.setMotifBlocage("Opposition pour chèque perdu");
+blocage.setMontantBloque(50000L);  // 50 TND bloqués
+
+// Sauvegarder
+contratCptDAO.update(compte);
+blocageDAO.insert(blocage);
+
+System.out.println("Compte bloqué");</code></pre>
+
+                    <h4>Débloquer un compte</h4>
+                    <pre><code>// Récupérer le compte
+ContratCpt compte = contratCptDAO.getContatContratCpt(contratCptId);
+
+// Débloquer le compte
+compte.setCodEtatCcpt("V");  // V = Valide
+compte.setDatDeblCcpt(new Date());  // Date du déblocage
+
+// Mettre à jour le blocage
+Blocage blocage = blocageDAO.getBlocageActif(compte);
+blocage.setDateDeblocage(new Date());
+blocage.setStatut("TERMINE");
+
+// Sauvegarder
+contratCptDAO.update(compte);
+blocageDAO.update(blocage);
+
+System.out.println("Compte débloqué");</code></pre>
+                </div>
+
+                <h3>Exemple 5 : Créer une procuration</h3>
+
+                <div class="card">
+                    <div class="card-title">Donner procuration sur un compte</div>
+                    <pre><code>// Récupérer le titulaire du compte
+Personne titulaire = personneDAO.getPersonne(12345L);
+
+// Récupérer le mandataire (personne qui reçoit la procuration)
+Personne mandataire = personneDAO.getPersonne(67890L);
+
+// Récupérer le compte
+ContratCpt compte = contratCptDAO.getContatContratCpt(contratCptId);
+
+// Créer le mandat
+Mandat mandat = new Mandat();
+mandat.setContratCpt(compte);
+mandat.setDateDebut(new Date());
+mandat.setDateFin(new Date("2025-12-31"));
+mandat.setTypeMandat("PROCURATION");
+
+// Créer la relation MandatPersonne
+MandatPersonne mandatPersonne = new MandatPersonne();
+mandatPersonne.setPersonne(mandataire);
+mandatPersonne.setMandat(mandat);
+mandatPersonne.setCodEtatMp("A");  // Actif
+mandatPersonne.setLibQualMp("MANDATAIRE");
+
+// Sauvegarder
+mandatDAO.insert(mandat);
+mandatPersonneDAO.insert(mandatPersonne);
+
+System.out.println("Procuration créée : " +
+    titulaire.getNomNomPers() + " → " + mandataire.getNomNomPers());</code></pre>
+                </div>
+
+                <h3>Points Clés à Retenir</h3>
+
+                <div class="success-box">
+                    <strong>✅ Les Bonnes Pratiques</strong>
+                    <ul>
+                        <li>Toujours vérifier l'état du compte (<code>codEtatCcpt</code>) avant une opération</li>
+                        <li>Toujours vérifier la provision avant un débit</li>
+                        <li>Les montants sont en <strong>millimes</strong> (1 TND = 1000 millimes)</li>
+                        <li>Utiliser les services et traitements, pas directement les DAO</li>
+                        <li>Respecter les transitions d'état (V → B → V)</li>
+                        <li>Enregistrer toutes les opérations dans <code>OperationCompte</code></li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Erreurs à Éviter</strong>
+                    <ul>
+                        <li>Ne jamais modifier <code>numSeqPers</code> après création</li>
+                        <li>Ne jamais modifier l'ID composite d'un <code>ContratCpt</code></li>
+                        <li>Ne pas oublier de créer le <code>Client</code> entre <code>Personne</code> et <code>ContratCpt</code></li>
+                        <li>Ne pas mélanger les devises dans les calculs</li>
+                        <li>Ne pas oublier de vérifier les autorisations (procurations)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Guide Technique - Système Bancaire SMILE</p>
+            <p>ContratCpt & Personne - Version 1.0</p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Masquer toutes les sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Désactiver tous les pills
+            const pills = document.querySelectorAll('.nav-pill');
+            pills.forEach(pill => {
+                pill.classList.remove('active');
+            });
+
+            // Afficher la section sélectionnée
+            document.getElementById(sectionId).classList.add('active');
+
+            // Activer le pill correspondant
+            event.target.classList.add('active');
+
+            // Scroll vers le haut
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conception Technique - Règlement Frais au Niveau de l'Agence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .metadata {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .metadata-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .metadata-label {
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .nav-pill {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .nav-pill:hover, .nav-pill.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #2a5298;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        h4 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #1e3c72;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 0.95em;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        pre code {
+            background: none;
+            color: #f8f8f2;
+            padding: 0;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd54f 0%, #ffeb3b 100%);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+
+        .badge-primary { background: #667eea; color: white; }
+        .badge-success { background: #28a745; color: white; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .badge-danger { background: #dc3545; color: white; }
+        .badge-info { background: #17a2b8; color: white; }
+
+        .entity-diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #667eea;
+        }
+
+        .entity-box {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .entity-header {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .entity-field {
+            padding: 5px 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .field-name {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .field-type {
+            color: #666;
+            font-style: italic;
+        }
+
+        .workflow-step {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .workflow-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .workflow-title {
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        .sql-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .sql-keyword {
+            color: #569cd6;
+            font-weight: bold;
+        }
+
+        .sql-string {
+            color: #ce9178;
+        }
+
+        .sql-comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .architecture-layer {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .formula {
+            background: #fff8e1;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Conception Technique Détaillée</h1>
+            <p>Règlement Frais au Niveau de l'Agence - Système SMILE</p>
+        </header>
+
+        <div class="metadata">
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <span class="metadata-label">Projet :</span>
+                    <span>Règlement frais au niveau de l'agence</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Version :</span>
+                    <span>V1.0</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Date :</span>
+                    <span>24/01/2025</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">AMOA :</span>
+                    <span>Alma AMRI</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Base de données :</span>
+                    <span>Oracle - Schéma SMILE existant</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Framework :</span>
+                    <span>Spring + Hibernate + OXIA</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="nav-pills">
+                <div class="nav-pill active" onclick="showSection('introduction')">Introduction</div>
+                <div class="nav-pill" onclick="showSection('analyse')">Analyse Métier</div>
+                <div class="nav-pill" onclick="showSection('modele-donnees')">Modèle de Données</div>
+                <div class="nav-pill" onclick="showSection('architecture')">Architecture</div>
+                <div class="nav-pill" onclick="showSection('services')">Services & Traitements</div>
+                <div class="nav-pill" onclick="showSection('workflow')">Workflow</div>
+                <div class="nav-pill" onclick="showSection('integration')">Intégration</div>
+                <div class="nav-pill" onclick="showSection('scripts-sql')">Scripts SQL</div>
+            </div>
+
+            <!-- SECTION 1: INTRODUCTION -->
+            <div id="introduction" class="section active">
+                <h2>📌 Introduction & Contexte</h2>
+
+                <div class="info-box">
+                    <strong>Objectif du Projet :</strong><br>
+                    Mettre en place une solution permettant la gestion automatisée des frais liés aux prestations fournies par des auxiliaires (avocats, huissiers, experts) ainsi que des dépenses d'agence et des règlements de loyer, avec débit automatique du compte bancaire du client.
+                </div>
+
+                <h3>Périmètre Fonctionnel</h3>
+
+                <div class="card">
+                    <div class="card-title">3 Opérations Principales</div>
+
+                    <h4>1️⃣ Opération 1 : Règlement Frais Auxiliaires à la charge du client</h4>
+                    <ul>
+                        <li><strong>PEC frais auxiliaires</strong> - Prise en charge des frais</li>
+                        <li><strong>Modification PEC</strong> - Modification avant validation</li>
+                        <li><strong>Annulation PEC</strong> - Annulation avant validation</li>
+                        <li><strong>Validation</strong> - Validation et débit compte client</li>
+                    </ul>
+
+                    <h4>2️⃣ Opération 2 : Règlement Dépenses Agence</h4>
+                    <ul>
+                        <li><strong>PEC dépenses agence</strong> - Enregistrement des factures (STEG, SONEDE, Télécom, Entretiens...)</li>
+                        <li><strong>Annulation PEC</strong> - Annulation avant validation</li>
+                        <li><strong>Validation</strong> - Validation et règlement</li>
+                    </ul>
+
+                    <h4>3️⃣ Opération 3 : Règlement Loyer</h4>
+                    <ul>
+                        <li><strong>PEC Règlement loyer</strong> - Enregistrement contrat de loyer (Agence, DR, LF...)</li>
+                        <li><strong>Annulation PEC</strong> - Annulation avant validation</li>
+                        <li><strong>Validation</strong> - Validation et règlement périodique</li>
+                    </ul>
+                </div>
+
+                <h3>Contraintes Techniques</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contrainte</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Base de données</td>
+                            <td>Oracle - Utilisation du schéma SMILE existant</td>
+                        </tr>
+                        <tr>
+                            <td>Framework</td>
+                            <td>Spring Framework + Hibernate ORM + OXIA</td>
+                        </tr>
+                        <tr>
+                            <td>Architecture</td>
+                            <td>Architecture en couches (Modèle, DAO, Service, Traitement, Web)</td>
+                        </tr>
+                        <tr>
+                            <td>Réutilisation</td>
+                            <td>Maximiser la réutilisation des entités existantes (Personne, ContratCpt, Client...)</td>
+                        </tr>
+                        <tr>
+                            <td>Intégration</td>
+                            <td>Intégration avec le système de virement central et fichiers télé-compensables</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 2: ANALYSE MÉTIER -->
+            <div id="analyse" class="section">
+                <h2>🎯 Analyse Métier Détaillée</h2>
+
+                <h3>Opération 1 : Frais Auxiliaires</h3>
+
+                <div class="card">
+                    <div class="card-title">Règles de Gestion - Frais Auxiliaires</div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>RG</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>RG1</td>
+                                <td>Opération effectuée au niveau de l'agence</td>
+                            </tr>
+                            <tr>
+                                <td>RG2</td>
+                                <td>L'avocat ou l'huissier doit disposer d'un compte valide chez la BNA</td>
+                            </tr>
+                            <tr>
+                                <td>RG3</td>
+                                <td>Choix du mode de règlement : Virement ou Chèque BCT</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Types d'Auxiliaires</h4>
+                    <ul>
+                        <li><strong>Avocat</strong> - Conventionné ou Non Conventionné</li>
+                        <li><strong>Huissier</strong> - Conventionné ou Non Conventionné</li>
+                        <li><strong>Expert</strong> - Conventionné ou Non Conventionné</li>
+                    </ul>
+
+                    <h4>Nature du Régime Fiscal</h4>
+                    <ul>
+                        <li><strong>Forfaitaire</strong> - Retenue à la source 3%</li>
+                        <li><strong>Réel</strong> - Retenue à la source 10%</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Formules de Calcul - Frais Auxiliaires</div>
+
+                    <div class="formula">
+                        <strong>Montant TTC</strong> = Montant honoraires HT + (Montant honoraires HT × Taux TVA)
+                    </div>
+
+                    <div class="formula">
+                        <strong>Retenue à la source</strong> = Montant TTC × Taux R/S (3% ou 10%)
+                    </div>
+
+                    <div class="formula">
+                        <strong>TVA déductible</strong> = (Montant honoraires HT × Taux TVA) × Taux TVA déductible (25%)
+                    </div>
+
+                    <div class="formula">
+                        <strong>Retenue sur TVA</strong> = (Montant honoraires HT × Taux TVA) × Taux retenue TVA (25%)<br>
+                        <em>Seulement si Montant TTC ≥ 1000 DT</em>
+                    </div>
+
+                    <div class="formula">
+                        <strong>Montant Honoraires</strong> = Montant TTC - TVA déductible
+                    </div>
+
+                    <div class="formula">
+                        <strong>Montant à servir</strong> = Montant TTC - Retenue à la source - Retenue sur TVA (si TTC > 1000) + Frais remboursables
+                    </div>
+                </div>
+
+                <h3>Opération 2 : Dépenses Agence</h3>
+
+                <div class="card">
+                    <div class="card-title">Natures de Dépenses</div>
+                    <ul>
+                        <li>Facture Télécom</li>
+                        <li>Facture STEG (Électricité et Gaz)</li>
+                        <li>Facture SONEDE (Eau)</li>
+                        <li>Entretiens et réparations (PP ou PM)</li>
+                        <li>Timbrage</li>
+                        <li>Enregistrement</li>
+                        <li>Autre</li>
+                    </ul>
+
+                    <h4>Taux de Retenue à la Source</h4>
+                    <ul>
+                        <li><strong>Facture PP (Personne Physique)</strong> : 1,5%</li>
+                        <li><strong>Facture PM (Personne Morale)</strong> : 1,0%</li>
+                        <li><strong>Autres factures</strong> : 0%</li>
+                    </ul>
+                </div>
+
+                <h3>Opération 3 : Règlement Loyer</h3>
+
+                <div class="card">
+                    <div class="card-title">Paramètres du Loyer</div>
+
+                    <h4>Nature du Loyer</h4>
+                    <ul>
+                        <li>Agence</li>
+                        <li>Direction Régionale</li>
+                        <li>LF Chef d'agence (Logement de Fonction)</li>
+                        <li>LF DR (Logement de Fonction Directeur Régional)</li>
+                    </ul>
+
+                    <h4>Périodicité de Paiement</h4>
+                    <ul>
+                        <li>Mensuel</li>
+                        <li>Trimestriel</li>
+                        <li>Semestriel</li>
+                        <li>Annuel</li>
+                    </ul>
+
+                    <h4>Majoration Annuelle</h4>
+                    <p>Possibilité d'appliquer une majoration annuelle avec un taux paramétrable</p>
+                </div>
+            </div>
+
+            <!-- SECTION 3: MODÈLE DE DONNÉES -->
+            <div id="modele-donnees" class="section">
+                <h2>🗄️ Modèle de Données - Tables Oracle</h2>
+
+                <div class="warning-box">
+                    <strong>⚠️ Stratégie de Conception :</strong><br>
+                    Réutilisation maximale des entités existantes du système SMILE (Personne, Client, ContratCpt, Structure...) et création de nouvelles tables spécifiques pour ce module.
+                </div>
+
+                <h3>Tables Existantes Réutilisées</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Description</th>
+                            <th>Utilisation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>PERSONNE</code></td>
+                            <td>Entité personne (client, auxiliaire, bénéficiaire)</td>
+                            <td>Stockage des auxiliaires et bénéficiaires</td>
+                        </tr>
+                        <tr>
+                            <td><code>CLIENT</code></td>
+                            <td>Client de la banque</td>
+                            <td>Client débiteur des frais auxiliaires</td>
+                        </tr>
+                        <tr>
+                            <td><code>CONTRAT_CPT</code></td>
+                            <td>Compte bancaire</td>
+                            <td>Compte débité (client) et compte crédité (auxiliaire)</td>
+                        </tr>
+                        <tr>
+                            <td><code>STRUCTURE</code></td>
+                            <td>Agence/Structure bancaire</td>
+                            <td>Agence où l'opération est effectuée</td>
+                        </tr>
+                        <tr>
+                            <td><code>DEVISE</code></td>
+                            <td>Devise (TND, EUR, USD...)</td>
+                            <td>Devise des montants</td>
+                        </tr>
+                        <tr>
+                            <td><code>PIECE_ANNEXE</code></td>
+                            <td>Documents joints</td>
+                            <td>Stockage des factures scannées</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Nouvelles Tables à Créer</h3>
+
+                <div class="entity-diagram">
+                    <div class="entity-box">
+                        <div class="entity-header">1. FRAIS_AUXILIAIRE</div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_SEQ_FRAUX (PK)</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_SEQ_PERS_CLIENT (FK)</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_SEQ_PERS_AUXILIAIRE (FK)</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">COD_STRC_STRC (FK)</span>
+                            <span class="field-type">NUMBER(10)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TYP_AUXILIAIRE</span>
+                            <span class="field-type">VARCHAR2(20) - AVOCAT/HUISSIER/EXPERT</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NAT_AUXILIAIRE</span>
+                            <span class="field-type">VARCHAR2(20) - CONVENTIONNE/NON_CONVENTIONNE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">REGIME_AUXILIAIRE</span>
+                            <span class="field-type">VARCHAR2(20) - FORFAITAIRE/REEL</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_AFFAIRE</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_REGLEMENT</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_HONORAIRES_HT</span>
+                            <span class="field-type">NUMBER(20) - en millimes</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_FRAIS_REMBOURSABLES</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TAUX_RS</span>
+                            <span class="field-type">NUMBER(5,2) - 3.00 ou 10.00</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TAUX_TVA</span>
+                            <span class="field-type">NUMBER(5,2) - 19.00</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TAUX_TVA_DEDUCTIBLE</span>
+                            <span class="field-type">NUMBER(5,2) - 25.00</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TAUX_RETENUE_TVA</span>
+                            <span class="field-type">NUMBER(5,2) - 25.00</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_TTC</span>
+                            <span class="field-type">NUMBER(20) - Calculé</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_RS</span>
+                            <span class="field-type">NUMBER(20) - Calculé</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_TVA_DEDUCTIBLE</span>
+                            <span class="field-type">NUMBER(20) - Calculé</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_RETENUE_TVA</span>
+                            <span class="field-type">NUMBER(20) - Calculé</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_A_SERVIR</span>
+                            <span class="field-type">NUMBER(20) - Calculé</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MODE_REGLEMENT</span>
+                            <span class="field-type">VARCHAR2(20) - VIREMENT/CHEQUE_BCT</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">RIB_AUXILIAIRE</span>
+                            <span class="field-type">VARCHAR2(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">ETAT_PEC</span>
+                            <span class="field-type">VARCHAR2(20) - SAISIE/VALIDE/ANNULE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_CREATION</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">USER_CREATION</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_VALIDATION</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">USER_VALIDATION</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_SEQ_PIECE_ANNEXE (FK)</span>
+                            <span class="field-type">NUMBER(20) - Facture jointe</span>
+                        </div>
+                    </div>
+
+                    <div class="entity-box">
+                        <div class="entity-header">2. DEPENSE_AGENCE</div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_SEQ_DEPAG (PK)</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">COD_STRC_STRC (FK)</span>
+                            <span class="field-type">NUMBER(10)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NATURE_DEPENSE</span>
+                            <span class="field-type">VARCHAR2(50) - TELECOM/STEG/SONEDE/ENTRETIEN/TIMBRAGE/...</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NATURE_BENEFICIAIRE</span>
+                            <span class="field-type">VARCHAR2(2) - PP/PM</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">CIN_MATRICULE_FISC</span>
+                            <span class="field-type">VARCHAR2(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_SEQ_PERS_BENEFICIAIRE (FK)</span>
+                            <span class="field-type">NUMBER(20) - Si client BNA</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NOM_BENEFICIAIRE</span>
+                            <span class="field-type">VARCHAR2(200)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">ADRESSE_MAIL</span>
+                            <span class="field-type">VARCHAR2(100)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_TEL</span>
+                            <span class="field-type">VARCHAR2(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">RIB_BENEFICIAIRE</span>
+                            <span class="field-type">VARCHAR2(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DOMICILIATION</span>
+                            <span class="field-type">VARCHAR2(200)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_FACTURE</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_FACTURE</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_REGLEMENT_FACTURE</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_BRUT</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TAUX_TVA</span>
+                            <span class="field-type">NUMBER(5,2)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_TVA</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_TTC</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TAUX_RS</span>
+                            <span class="field-type">NUMBER(5,2) - 0/1.0/1.5</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_RS</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_TVA_DEDUCTIBLE</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_RETENUE_TVA</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_A_REGLER</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">ETAT_PEC</span>
+                            <span class="field-type">VARCHAR2(20) - SAISIE/VALIDE/ANNULE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_CREATION</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">USER_CREATION</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_VALIDATION</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">USER_VALIDATION</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_SEQ_PIECE_ANNEXE (FK)</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                    </div>
+
+                    <div class="entity-box">
+                        <div class="entity-header">3. REGLEMENT_LOYER</div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_SEQ_LOYER (PK)</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">COD_STRC_STRC (FK)</span>
+                            <span class="field-type">NUMBER(10) - Agence/DR concernée</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NATURE_BENEFICIAIRE</span>
+                            <span class="field-type">VARCHAR2(2) - PP/PM</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NOM_BENEFICIAIRE</span>
+                            <span class="field-type">VARCHAR2(200)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">CIN_MATRICULE_FISC</span>
+                            <span class="field-type">VARCHAR2(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_TEL</span>
+                            <span class="field-type">VARCHAR2(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">ADRESSE_MAIL</span>
+                            <span class="field-type">VARCHAR2(100)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">RIB_BENEFICIAIRE</span>
+                            <span class="field-type">VARCHAR2(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DOMICILIATION</span>
+                            <span class="field-type">VARCHAR2(200)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NATURE_LOYER</span>
+                            <span class="field-type">VARCHAR2(50) - AGENCE/DR/LF_CHEF_AGENCE/LF_DR</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_INITIAL</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_DEBUT_CONTRAT</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">PERIODICITE_PAIEMENT</span>
+                            <span class="field-type">VARCHAR2(20) - MENSUEL/TRIMESTRIEL/SEMESTRIEL/ANNUEL</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">BOOL_MAJORATION</span>
+                            <span class="field-type">NUMBER(1) - 0/1</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TAUX_MAJORATION</span>
+                            <span class="field-type">NUMBER(5,2) - Ex: 5.00 pour 5%</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_ACTUALISE_HT</span>
+                            <span class="field-type">NUMBER(20) - Si majoration</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TAUX_TVA</span>
+                            <span class="field-type">NUMBER(5,2)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_TVA</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_TTC</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_TVA_DEDUCTIBLE</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_RETENUE_TVA</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TAUX_RS</span>
+                            <span class="field-type">NUMBER(5,2)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_RS_LOYER</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">MONT_NET_A_PAYER</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">ETAT_PEC</span>
+                            <span class="field-type">VARCHAR2(20) - SAISIE/VALIDE/ANNULE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_CREATION</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">USER_CREATION</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_VALIDATION</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">USER_VALIDATION</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                    </div>
+
+                    <div class="entity-box">
+                        <div class="entity-header">4. FICHIER_TELECOMPENSABLE (Pour virements inter-bancaires)</div>
+                        <div class="entity-field">
+                            <span class="field-name">NUM_SEQ_FICHIER (PK)</span>
+                            <span class="field-type">NUMBER(20)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">DAT_GENERATION</span>
+                            <span class="field-type">DATE</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TYPE_OPERATION</span>
+                            <span class="field-type">VARCHAR2(50) - FRAIS_AUXILIAIRE/DEPENSE_AGENCE/LOYER</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">ETAT_FICHIER</span>
+                            <span class="field-type">VARCHAR2(20) - EN_ATTENTE/ENVOYE/CONFIRME</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">NOM_FICHIER</span>
+                            <span class="field-type">VARCHAR2(200)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">CHEMIN_FICHIER</span>
+                            <span class="field-type">VARCHAR2(500)</span>
+                        </div>
+                    </div>
+
+                    <div class="entity-box">
+                        <div class="entity-header">5. PARAMETRE_FRAIS (Table de paramétrage)</div>
+                        <div class="entity-field">
+                            <span class="field-name">CODE_PARAM (PK)</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">LIBELLE_PARAM</span>
+                            <span class="field-type">VARCHAR2(200)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">VALEUR_PARAM</span>
+                            <span class="field-type">VARCHAR2(50)</span>
+                        </div>
+                        <div class="entity-field">
+                            <span class="field-name">TYPE_PARAM</span>
+                            <span class="field-type">VARCHAR2(20) - TAUX/MONTANT/TEXTE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>💡 Exemple de Paramètres :</strong><br>
+                    • TAUX_TVA = 19.00<br>
+                    • TAUX_TVA_DEDUCTIBLE = 25.00<br>
+                    • TAUX_RETENUE_TVA = 25.00<br>
+                    • TAUX_RS_FORFAITAIRE = 3.00<br>
+                    • TAUX_RS_REEL = 10.00<br>
+                    • TAUX_RS_PP = 1.50<br>
+                    • TAUX_RS_PM = 1.00<br>
+                    • SEUIL_RETENUE_TVA = 1000 (en dinars)
+                </div>
+            </div>
+
+            <!-- SECTION 4: ARCHITECTURE -->
+            <div id="architecture" class="section">
+                <h2>🏗️ Architecture Technique</h2>
+
+                <h3>Architecture en Couches - Approche SMILE</h3>
+
+                <div class="architecture-layer">
+                    <h4>📱 Couche Présentation (Web)</h4>
+                    <p><strong>Package :</strong> <code>com.bna.smile.web.fraisagence</code></p>
+                    <ul>
+                        <li><strong>Actions Struts :</strong>
+                            <ul>
+                                <li><code>PecFraisAuxiliairesAction.java</code></li>
+                                <li><code>ModificationFraisAuxiliairesAction.java</code></li>
+                                <li><code>AnnulationFraisAuxiliairesAction.java</code></li>
+                                <li><code>ValidationFraisAuxiliairesAction.java</code></li>
+                                <li><code>PecDepenseAgenceAction.java</code></li>
+                                <li><code>ValidationDepenseAgenceAction.java</code></li>
+                                <li><code>PecReglementLoyerAction.java</code></li>
+                                <li><code>ValidationReglementLoyerAction.java</code></li>
+                            </ul>
+                        </li>
+                        <li><strong>JSP :</strong> Interfaces utilisateur pour la saisie et validation</li>
+                    </ul>
+                </div>
+
+                <div class="architecture-layer">
+                    <h4>⚙️ Couche Métier (Services & Commandes)</h4>
+                    <p><strong>Package Services :</strong> <code>com.bna.smile.model.fraisagence.service</code></p>
+                    <ul>
+                        <li><code>FraisAuxiliaireService.java</code> - Gestion des frais auxiliaires</li>
+                        <li><code>DepenseAgenceService.java</code> - Gestion des dépenses agence</li>
+                        <li><code>ReglementLoyerService.java</code> - Gestion des loyers</li>
+                        <li><code>ParametreFraisService.java</code> - Gestion des paramètres</li>
+                    </ul>
+
+                    <p><strong>Package Commandes :</strong> <code>com.bna.smile.model.fraisagence.commande</code></p>
+                    <ul>
+                        <li><code>PecFraisAuxiliaireCmd.java</code></li>
+                        <li><code>ValidationFraisAuxiliaireCmd.java</code></li>
+                        <li><code>PecDepenseAgenceCmd.java</code></li>
+                        <li><code>ValidationDepenseAgenceCmd.java</code></li>
+                        <li><code>PecReglementLoyerCmd.java</code></li>
+                        <li><code>ValidationReglementLoyerCmd.java</code></li>
+                    </ul>
+
+                    <p><strong>Package Traitements :</strong> <code>com.bna.smile.model.fraisagence.traitement</code></p>
+                    <ul>
+                        <li><code>PecFraisAuxiliaireTrt.java</code></li>
+                        <li><code>CalculFraisAuxiliaireTrt.java</code></li>
+                        <li><code>ValidationFraisAuxiliaireTrt.java</code></li>
+                        <li><code>GenerationFichierTelecompensableTrt.java</code></li>
+                        <li><code>VirementCompteBNATrt.java</code></li>
+                    </ul>
+                </div>
+
+                <div class="architecture-layer">
+                    <h4>💾 Couche Accès Données (DAO)</h4>
+                    <p><strong>Package :</strong> <code>com.bna.smile.model.fraisagence.dao</code></p>
+                    <ul>
+                        <li><code>FraisAuxiliaireDAO.java</code></li>
+                        <li><code>DepenseAgenceDAO.java</code></li>
+                        <li><code>ReglementLoyerDAO.java</code></li>
+                        <li><code>FichierTelecompensableDAO.java</code></li>
+                        <li><code>ParametreFraisDAO.java</code></li>
+                    </ul>
+                </div>
+
+                <div class="architecture-layer">
+                    <h4>📦 Couche Modèle (Entités)</h4>
+                    <p><strong>Package :</strong> <code>com.bna.commun.model</code> (entités partagées)</p>
+                    <ul>
+                        <li><code>FraisAuxiliaire.java</code></li>
+                        <li><code>DepenseAgence.java</code></li>
+                        <li><code>ReglementLoyer.java</code></li>
+                        <li><code>FichierTelecompensable.code>java</code></li>
+                        <li><code>ParametreFrais.java</code></li>
+                    </ul>
+                    <p>+ Réutilisation des entités existantes : Personne, Client, ContratCpt, Structure...</p>
+                </div>
+
+                <h3>Diagramme de Flux</h3>
+
+                <div class="card">
+                    <pre>
+┌─────────────────┐
+│  JSP / Action   │  ← Couche Présentation
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│    Commande     │  ← Pattern Command
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│     Service     │  ← Couche Métier
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│   Traitement    │  ← Logique Métier
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│      DAO        │  ← Accès Données
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Base Oracle    │  ← Persistance
+└─────────────────┘
+                    </pre>
+                </div>
+            </div>
+
+            <!-- SECTION 5: SERVICES & TRAITEMENTS -->
+            <div id="services" class="section">
+                <h2>⚙️ Services & Traitements Détaillés</h2>
+
+                <h3>1. FraisAuxiliaireService</h3>
+
+                <div class="card">
+                    <div class="card-title">Classe : FraisAuxiliaireService.java</div>
+                    <p><strong>Package :</strong> <code>com.bna.smile.model.fraisagence.service</code></p>
+
+                    <h4>Méthodes Principales :</h4>
+
+                    <pre><code>@Service
+public class FraisAuxiliaireService extends BasicService {
+
+    @Autowired
+    private FraisAuxiliaireDAO fraisAuxiliaireDAO;
+
+    @Autowired
+    private PersonneService personneService;
+
+    @Autowired
+    private ContratCptDAO contratCptDAO;
+
+    @Autowired
+    private ParametreFraisService parametreFraisService;
+
+    /**
+     * Prise en charge d'un frais auxiliaire
+     */
+    public FraisAuxiliaire pecFraisAuxiliaire(FraisAuxiliaireVo vo) {
+        // Validation des données
+        // Calcul des montants
+        // Enregistrement en base avec état SAISIE
+    }
+
+    /**
+     * Modification d'un frais auxiliaire non validé
+     */
+    public FraisAuxiliaire modifierFraisAuxiliaire(FraisAuxiliaireVo vo) {
+        // Vérification état = SAISIE
+        // Modification des données
+    }
+
+    /**
+     * Annulation d'un frais auxiliaire non validé
+     */
+    public void annulerFraisAuxiliaire(Long numSeqFraux) {
+        // Vérification état = SAISIE
+        // Passage état à ANNULE
+    }
+
+    /**
+     * Validation d'un frais auxiliaire
+     */
+    public void validerFraisAuxiliaire(Long numSeqFraux) {
+        // Débit compte client
+        // Crédit compte auxiliaire ou génération fichier
+        // Passage état à VALIDE
+    }
+
+    /**
+     * Récupération de la liste des frais non validés
+     */
+    public List&lt;FraisAuxiliaire&gt; getListeFraisNonValides(Long codStrc) {
+        return fraisAuxiliaireDAO.findByEtatAndStructure("SAISIE", codStrc);
+    }
+
+    /**
+     * Calcul automatique des montants
+     */
+    public FraisAuxiliaire calculerMontants(FraisAuxiliaire frais) {
+        // Récupération des paramètres (taux)
+        // Application des formules
+        return frais;
+    }
+}</code></pre>
+                </div>
+
+                <h3>2. CalculFraisAuxiliaireTrt (Traitement de Calcul)</h3>
+
+                <div class="card">
+                    <div class="card-title">Classe : CalculFraisAuxiliaireTrt.java</div>
+                    <p><strong>Package :</strong> <code>com.bna.smile.model.fraisagence.traitement</code></p>
+
+                    <pre><code>public class CalculFraisAuxiliaireTrt extends Traitement {
+
+    public FraisAuxiliaire perform(FraisAuxiliaire frais) throws Exception {
+
+        // 1. Récupération des paramètres
+        BigDecimal tauxTVA = parametreFraisDAO.getTaux("TAUX_TVA");
+        BigDecimal tauxTVADeductible = parametreFraisDAO.getTaux("TAUX_TVA_DEDUCTIBLE");
+        BigDecimal tauxRetenueTVA = parametreFraisDAO.getTaux("TAUX_RETENUE_TVA");
+        BigDecimal seuilRetenueTVA = parametreFraisDAO.getMontant("SEUIL_RETENUE_TVA");
+
+        // 2. Calcul Montant TTC
+        BigDecimal montantHT = new BigDecimal(frais.getMontHonorairesHt());
+        BigDecimal montantTVA = montantHT.multiply(tauxTVA).divide(new BigDecimal(100));
+        BigDecimal montantTTC = montantHT.add(montantTVA);
+
+        frais.setMontTtc(montantTTC.longValue());
+
+        // 3. Calcul Retenue à la Source
+        BigDecimal tauxRS = new BigDecimal(frais.getTauxRs());
+        BigDecimal montantRS = montantTTC.multiply(tauxRS).divide(new BigDecimal(100));
+
+        frais.setMontRs(montantRS.longValue());
+
+        // 4. Calcul TVA Déductible
+        BigDecimal montantTVADeductible = montantTVA.multiply(tauxTVADeductible)
+                                                     .divide(new BigDecimal(100));
+
+        frais.setMontTvaDeductible(montantTVADeductible.longValue());
+
+        // 5. Calcul Retenue sur TVA (si TTC >= 1000)
+        Long montantRetenueTVA = 0L;
+        if (montantTTC.compareTo(seuilRetenueTVA) >= 0) {
+            BigDecimal retenueTVA = montantTVA.multiply(tauxRetenueTVA)
+                                               .divide(new BigDecimal(100));
+            montantRetenueTVA = retenueTVA.longValue();
+        }
+
+        frais.setMontRetenueTva(montantRetenueTVA);
+
+        // 6. Calcul Montant à Servir
+        BigDecimal montantAServir = montantTTC
+                .subtract(montantRS)
+                .subtract(new BigDecimal(montantRetenueTVA))
+                .add(new BigDecimal(frais.getMontFraisRemboursables()));
+
+        frais.setMontAServir(montantAServir.longValue());
+
+        return frais;
+    }
+}</code></pre>
+                </div>
+
+                <h3>3. ValidationFraisAuxiliaireTrt</h3>
+
+                <div class="card">
+                    <div class="card-title">Classe : ValidationFraisAuxiliaireTrt.java</div>
+
+                    <pre><code>public class ValidationFraisAuxiliaireTrt extends Traitement {
+
+    @Autowired
+    private ContratCptDAO contratCptDAO;
+
+    @Autowired
+    private OperationCompteDAO operationCompteDAO;
+
+    @Autowired
+    private VirementCentralService virementCentralService;
+
+    public void perform(FraisAuxiliaire frais) throws Exception {
+
+        // 1. Débit du compte client
+        ContratCpt compteClient = getCompteClient(frais);
+
+        // Vérification provision
+        Long provision = compteClient.getProvision(new Date());
+        if (provision < frais.getMontAServir()) {
+            throw new InsufficientFundsException("Provision insuffisante");
+        }
+
+        // Débit
+        Long nouveauSolde = compteClient.getMontSoldCcpt() - frais.getMontAServir();
+        compteClient.setMontSoldCcpt(nouveauSolde);
+        contratCptDAO.update(compteClient);
+
+        // Enregistrement opération débit
+        OperationCompte opDebit = new OperationCompte();
+        opDebit.setContratCpt(compteClient);
+        opDebit.setMontOp(-frais.getMontAServir());
+        opDebit.setLibOp("Frais " + frais.getTypAuxiliaire() + " - " + frais.getNumAffaire());
+        opDebit.setDatOp(new Date());
+        operationCompteDAO.insert(opDebit);
+
+        // 2. Traitement selon mode de règlement
+        if ("VIREMENT".equals(frais.getModeReglement())) {
+
+            // Virement BNA → BNA (compte à compte)
+            if (isCompteBNA(frais.getRibAuxiliaire())) {
+                ContratCpt compteAuxiliaire = getCompteAuxiliaire(frais);
+
+                // Crédit
+                Long nouveauSoldeAux = compteAuxiliaire.getMontSoldCcpt() + frais.getMontAServir();
+                compteAuxiliaire.setMontSoldCcpt(nouveauSoldeAux);
+                contratCptDAO.update(compteAuxiliaire);
+
+                // Enregistrement opération crédit
+                OperationCompte opCredit = new OperationCompte();
+                opCredit.setContratCpt(compteAuxiliaire);
+                opCredit.setMontOp(frais.getMontAServir());
+                opCredit.setLibOp("Honoraires - " + frais.getNumAffaire());
+                opCredit.setDatOp(new Date());
+                operationCompteDAO.insert(opCredit);
+            }
+            // Virement inter-bancaire
+            else {
+                genererFichierTelecompensable(frais);
+            }
+
+        } else if ("CHEQUE_BCT".equals(frais.getModeReglement())) {
+            // Envoi à la trésorerie pour établissement chèque BCT
+            envoyerDemandeChequeBCT(frais);
+        }
+
+        // 3. Mise à jour état
+        frais.setEtatPec("VALIDE");
+        frais.setDatValidation(new Date());
+        frais.setUserValidation(getCurrentUser());
+
+        fraisAuxiliaireDAO.update(frais);
+    }
+
+    private void genererFichierTelecompensable(FraisAuxiliaire frais) {
+        // Génération fichier pour envoi à la trésorerie
+        // Format SWIFT ou format BCT selon spécifications
+    }
+}</code></pre>
+                </div>
+
+                <h3>4. DepenseAgenceService & ReglementLoyerService</h3>
+
+                <div class="info-box">
+                    <strong>Structure Similaire :</strong><br>
+                    Les services DepenseAgenceService et ReglementLoyerService suivent la même architecture que FraisAuxiliaireService avec :
+                    <ul>
+                        <li>Méthodes de PEC, modification, annulation, validation</li>
+                        <li>Traitements de calcul spécifiques</li>
+                        <li>Intégration avec le système de virement</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 6: WORKFLOW -->
+            <div id="workflow" class="section">
+                <h2>🔄 Workflow Détaillé des Opérations</h2>
+
+                <h3>Workflow 1 : Frais Auxiliaires</h3>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">1</div>
+                    <div class="workflow-title">Recherche Client</div>
+                    <p>L'utilisateur recherche le client via :</p>
+                    <ul>
+                        <li>Numéro de Personne (NP)</li>
+                        <li>Numéro de pièce d'identité (CIN, Passeport...)</li>
+                        <li>Numéro de compte (N15)</li>
+                    </ul>
+                    <p><strong>Système :</strong> Affichage signalétique client via <code>PersonneService.getPersonneCpt()</code></p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">2</div>
+                    <div class="workflow-title">Saisie Informations Auxiliaire</div>
+                    <p>Sélection type auxiliaire : Avocat / Huissier / Expert</p>
+                    <p>Choix nature : Conventionné / Non Conventionné</p>
+                    <ul>
+                        <li><strong>Si Conventionné :</strong> Sélection dans liste déroulante (table référentiel)</li>
+                        <li><strong>Si Non Conventionné :</strong> Saisie manuelle (CIN, RNE, Nom, Prénom, Matricule fiscal)</li>
+                    </ul>
+                    <p>Saisie régime fiscal : Forfaitaire (3%) ou Réel (10%)</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">3</div>
+                    <div class="workflow-title">Saisie Détails Facture</div>
+                    <ul>
+                        <li>Date de règlement</li>
+                        <li>Numéro d'affaire/PV</li>
+                        <li>Montant honoraires HT</li>
+                        <li>Montant frais remboursables</li>
+                        <li>Mode de règlement (Virement/Chèque BCT)</li>
+                        <li>RIB de l'auxiliaire</li>
+                        <li>Upload facture (PDF/Image)</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">4</div>
+                    <div class="workflow-title">Calcul Automatique</div>
+                    <p><strong>Système :</strong> Appel <code>CalculFraisAuxiliaireTrt</code></p>
+                    <p>Calcul et affichage :</p>
+                    <ul>
+                        <li>Montant TTC</li>
+                        <li>Retenue à la source</li>
+                        <li>TVA déductible</li>
+                        <li>Retenue sur TVA (si TTC ≥ 1000 DT)</li>
+                        <li>Montant Honoraires</li>
+                        <li><strong class="highlight">Montant à servir</strong></li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">5</div>
+                    <div class="workflow-title">Enregistrement PEC</div>
+                    <p><strong>Système :</strong></p>
+                    <ul>
+                        <li>Insertion dans table <code>FRAIS_AUXILIAIRE</code></li>
+                        <li>État = <code>SAISIE</code></li>
+                        <li>Stockage facture dans <code>PIECE_ANNEXE</code></li>
+                    </ul>
+                    <p><strong>Message :</strong> "Enregistrement des données pris en charge"</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">6</div>
+                    <div class="workflow-title">Validation (Étape Séparée)</div>
+                    <p>L'utilisateur accède à la liste des frais en attente</p>
+                    <p>Sélection du frais à valider</p>
+                    <p>Affichage récapitulatif pour vérification</p>
+                    <p><strong>Système :</strong> Appel <code>ValidationFraisAuxiliaireTrt</code></p>
+                    <ul>
+                        <li>✅ Débit compte client</li>
+                        <li>✅ Crédit compte auxiliaire (si BNA) OU</li>
+                        <li>✅ Génération fichier télé-compensable (si autre banque) OU</li>
+                        <li>✅ Envoi demande chèque BCT (si chèque)</li>
+                        <li>✅ Enregistrement opérations comptables</li>
+                        <li>✅ Passage état à <code>VALIDE</code></li>
+                    </ul>
+                </div>
+
+                <h3>Workflow 2 : Dépenses Agence</h3>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">1</div>
+                    <div class="workflow-title">Sélection Nature Dépense</div>
+                    <p>Choix dans liste : STEG, SONEDE, Télécom, Entretiens, Timbrage, Enregistrement, Autre</p>
+                    <p>Si Entretiens : Sélection nature bénéficiaire (PP/PM)</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">2</div>
+                    <div class="workflow-title">Saisie Bénéficiaire</div>
+                    <p>Saisie CIN/Matricule fiscal</p>
+                    <p><strong>Si client BNA :</strong></p>
+                    <ul>
+                        <li>Affichage signalétique automatique</li>
+                        <li>Sélection compte</li>
+                    </ul>
+                    <p><strong>Si non client BNA :</strong></p>
+                    <ul>
+                        <li>Saisie manuelle : Nom, Email, Tél, RIB</li>
+                        <li>Affichage domiciliation bancaire</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">3</div>
+                    <div class="workflow-title">Saisie Facture</div>
+                    <ul>
+                        <li>Numéro facture</li>
+                        <li>Date facture</li>
+                        <li>Date règlement</li>
+                        <li>Montant brut</li>
+                        <li>Upload facture</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">4</div>
+                    <div class="workflow-title">Calcul Automatique</div>
+                    <p>Application des taux selon nature bénéficiaire :</p>
+                    <ul>
+                        <li>PP : R/S 1,5%</li>
+                        <li>PM : R/S 1,0%</li>
+                        <li>Autres : R/S 0%</li>
+                    </ul>
+                    <p>Calcul TVA, TVA déductible, Retenue TVA, Montant à régler</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">5</div>
+                    <div class="workflow-title">Validation</div>
+                    <p>Génération fichier télé-compensable OU Virement compte BNA</p>
+                    <p>Pas de débit compte client (dépense de l'agence)</p>
+                </div>
+
+                <h3>Workflow 3 : Règlement Loyer</h3>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">1</div>
+                    <div class="workflow-title">Saisie Contrat Loyer</div>
+                    <p>Informations bénéficiaire (propriétaire)</p>
+                    <p>Nature loyer : Agence / DR / LF Chef / LF DR</p>
+                    <p>Montant initial HT</p>
+                    <p>Date début contrat</p>
+                    <p>Périodicité : Mensuel / Trimestriel / Semestriel / Annuel</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">2</div>
+                    <div class="workflow-title">Paramétrage Majoration</div>
+                    <p>Choix majoration annuelle : Oui / Non</p>
+                    <p>Si Oui : Saisie taux majoration et montant actualisé HT</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">3</div>
+                    <div class="workflow-title">Calcul & Enregistrement</div>
+                    <p>Calcul automatique TTC, TVA, Retenues, Montant net à payer</p>
+                    <p>Enregistrement contrat loyer</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="workflow-number">4</div>
+                    <div class="workflow-title">Validation Périodique</div>
+                    <p>Génération automatique (batch) ou validation manuelle selon périodicité</p>
+                    <p>Virement du montant net</p>
+                    <p>Application majoration si année écoulée</p>
+                </div>
+            </div>
+
+            <!-- SECTION 7: INTÉGRATION -->
+            <div id="integration" class="section">
+                <h2>🔗 Points d'Intégration</h2>
+
+                <h3>1. Intégration avec Virement Central</h3>
+
+                <div class="card">
+                    <div class="card-title">Réutilisation du Module Virement Central</div>
+                    <p>Le système doit s'intégrer avec le module de virement central existant pour les virements compte à compte BNA.</p>
+
+                    <h4>Classe à Utiliser :</h4>
+                    <code>com.bna.smile.web.virement.controller.PecVirementCentralCtr</code>
+
+                    <h4>Méthode d'Intégration :</h4>
+                    <pre><code>// Dans ValidationFraisAuxiliaireTrt
+@Autowired
+private VirementCentralService virementCentralService;
+
+public void effectuerVirementBNA(FraisAuxiliaire frais) {
+    VirementVo virementVo = new VirementVo();
+
+    // Compte débiteur (client)
+    virementVo.setNumCcptDebiteur(frais.getCompteClient().getNumCcptCcpt());
+    virementVo.setCodStrcDebiteur(frais.getCompteClient().getCodStrcStrc());
+
+    // Compte créditeur (auxiliaire)
+    ContratCpt compteAuxiliaire = getCompteByRIB(frais.getRibAuxiliaire());
+    virementVo.setNumCcptCrediteur(compteAuxiliaire.getNumCcptCcpt());
+    virementVo.setCodStrcCrediteur(compteAuxiliaire.getCodStrcStrc());
+
+    // Montant
+    virementVo.setMontant(frais.getMontAServir());
+
+    // Libellé
+    virementVo.setLibelle("Frais " + frais.getTypAuxiliaire() +
+                          " - Affaire " + frais.getNumAffaire());
+
+    // Exécution virement
+    virementCentralService.executerVirement(virementVo);
+}</code></pre>
+                </div>
+
+                <h3>2. Génération Fichiers Télé-compensables</h3>
+
+                <div class="card">
+                    <div class="card-title">Format Fichier SWIFT MT103</div>
+                    <p>Pour les virements vers d'autres banques, génération d'un fichier au format SWIFT MT103 ou format spécifique BCT.</p>
+
+                    <pre><code>public class GenerationFichierTelecompensableTrt extends Traitement {
+
+    public void genererFichier(List&lt;FraisAuxiliaire&gt; listeFrais) {
+
+        StringBuilder fichier = new StringBuilder();
+
+        // En-tête fichier
+        fichier.append(genererEntete());
+
+        // Pour chaque frais
+        for (FraisAuxiliaire frais : listeFrais) {
+            // Format SWIFT MT103
+            fichier.append(":20:").append(frais.getNumSeqFraux()).append("\n");
+            fichier.append(":32A:").append(formatDate(new Date()))
+                   .append(frais.getDevise().getCodDevDev())
+                   .append(formatMontant(frais.getMontAServir())).append("\n");
+            fichier.append(":50K:").append("BNA\n");
+            fichier.append(":59:").append(frais.getRibAuxiliaire()).append("\n")
+                   .append(frais.getNomAuxiliaire()).append("\n");
+            fichier.append(":70:").append("Frais ").append(frais.getTypAuxiliaire())
+                   .append(" - ").append(frais.getNumAffaire()).append("\n");
+            fichier.append("-}\n");
+        }
+
+        // Pied de fichier
+        fichier.append(genererPied(listeFrais.size()));
+
+        // Enregistrement fichier
+        String nomFichier = "FRAIS_AUX_" + new SimpleDateFormat("yyyyMMdd_HHmmss")
+                                              .format(new Date()) + ".txt";
+
+        enregistrerFichier(nomFichier, fichier.toString());
+
+        // Enregistrement dans table FICHIER_TELECOMPENSABLE
+        FichierTelecompensable fichierTc = new FichierTelecompensable();
+        fichierTc.setNomFichier(nomFichier);
+        fichierTc.setTypeOperation("FRAIS_AUXILIAIRE");
+        fichierTc.setEtatFichier("EN_ATTENTE");
+        fichierTc.setDatGeneration(new Date());
+
+        fichierTelecompensableDAO.insert(fichierTc);
+    }
+}</code></pre>
+                </div>
+
+                <h3>3. Intégration avec Chèque BCT</h3>
+
+                <div class="card">
+                    <div class="card-title">Établissement Chèque BCT</div>
+                    <p>Envoi d'une demande à la trésorerie pour l'établissement d'un chèque BCT.</p>
+
+                    <pre><code>public void envoyerDemandeChequeBCT(FraisAuxiliaire frais) {
+
+    DemandeChequeBCTVo demande = new DemandeChequeBCTVo();
+
+    demande.setNumSeqFrais(frais.getNumSeqFraux());
+    demande.setTypeFrais("AUXILIAIRE");
+    demande.setBeneficiaire(frais.getNomAuxiliaire());
+    demande.setMontant(frais.getMontAServir());
+    demande.setLibelle("Honoraires " + frais.getTypAuxiliaire() +
+                       " - Affaire " + frais.getNumAffaire());
+    demande.setDateDemande(new Date());
+    demande.setEtat("EN_ATTENTE");
+
+    // Envoi à la trésorerie via service existant
+    tresorerieService.demanderChequeBCT(demande);
+}</code></pre>
+                </div>
+
+                <h3>4. Schémas Comptables</h3>
+
+                <div class="card">
+                    <div class="card-title">Écritures Comptables Automatiques</div>
+
+                    <h4>Pour Frais Auxiliaires :</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Compte</th>
+                                <th>Libellé</th>
+                                <th>Débit</th>
+                                <th>Crédit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>622XXX</td>
+                                <td>Honoraires avocat/huissier/expert</td>
+                                <td>Mont. Honoraires</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>4456</td>
+                                <td>TVA déductible</td>
+                                <td>Mont. TVA déductible</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>4427</td>
+                                <td>Retenue à la source</td>
+                                <td>-</td>
+                                <td>Mont. R/S</td>
+                            </tr>
+                            <tr>
+                                <td>4428</td>
+                                <td>Retenue sur TVA</td>
+                                <td>-</td>
+                                <td>Mont. Retenue TVA</td>
+                            </tr>
+                            <tr>
+                                <td>401XXX ou 512XXX</td>
+                                <td>Fournisseur ou Banque</td>
+                                <td>-</td>
+                                <td>Mont. à servir</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Pour Dépenses Agence & Loyer :</h4>
+                    <p>Schémas similaires adaptés à la nature de la dépense</p>
+                </div>
+            </div>
+
+            <!-- SECTION 8: SCRIPTS SQL -->
+            <div id="scripts-sql" class="section">
+                <h2>💾 Scripts SQL de Création</h2>
+
+                <h3>Script 1 : Création Table FRAIS_AUXILIAIRE</h3>
+
+                <div class="sql-block">
+<pre><span class="sql-comment">-- Table FRAIS_AUXILIAIRE</span>
+<span class="sql-keyword">CREATE TABLE</span> FRAIS_AUXILIAIRE (
+    NUM_SEQ_FRAUX <span class="sql-keyword">NUMBER</span>(20) <span class="sql-keyword">PRIMARY KEY</span>,
+    NUM_SEQ_PERS_CLIENT <span class="sql-keyword">NUMBER</span>(20) <span class="sql-keyword">NOT NULL</span>,
+    NUM_SEQ_PERS_AUXILIAIRE <span class="sql-keyword">NUMBER</span>(20),
+    COD_STRC_STRC <span class="sql-keyword">NUMBER</span>(10) <span class="sql-keyword">NOT NULL</span>,
+    TYP_AUXILIAIRE <span class="sql-keyword">VARCHAR2</span>(20) <span class="sql-keyword">NOT NULL</span>, <span class="sql-comment">-- AVOCAT, HUISSIER, EXPERT</span>
+    NAT_AUXILIAIRE <span class="sql-keyword">VARCHAR2</span>(20) <span class="sql-keyword">NOT NULL</span>, <span class="sql-comment">-- CONVENTIONNE, NON_CONVENTIONNE</span>
+    REGIME_AUXILIAIRE <span class="sql-keyword">VARCHAR2</span>(20), <span class="sql-comment">-- FORFAITAIRE, REEL</span>
+    NUM_AFFAIRE <span class="sql-keyword">VARCHAR2</span>(50),
+    DAT_REGLEMENT <span class="sql-keyword">DATE</span>,
+    MONT_HONORAIRES_HT <span class="sql-keyword">NUMBER</span>(20) <span class="sql-keyword">NOT NULL</span>,
+    MONT_FRAIS_REMBOURSABLES <span class="sql-keyword">NUMBER</span>(20) <span class="sql-keyword">DEFAULT</span> 0,
+    TAUX_RS <span class="sql-keyword">NUMBER</span>(5,2) <span class="sql-keyword">NOT NULL</span>,
+    TAUX_TVA <span class="sql-keyword">NUMBER</span>(5,2) <span class="sql-keyword">NOT NULL</span>,
+    TAUX_TVA_DEDUCTIBLE <span class="sql-keyword">NUMBER</span>(5,2) <span class="sql-keyword">NOT NULL</span>,
+    TAUX_RETENUE_TVA <span class="sql-keyword">NUMBER</span>(5,2) <span class="sql-keyword">NOT NULL</span>,
+    MONT_TTC <span class="sql-keyword">NUMBER</span>(20),
+    MONT_RS <span class="sql-keyword">NUMBER</span>(20),
+    MONT_TVA_DEDUCTIBLE <span class="sql-keyword">NUMBER</span>(20),
+    MONT_RETENUE_TVA <span class="sql-keyword">NUMBER</span>(20),
+    MONT_A_SERVIR <span class="sql-keyword">NUMBER</span>(20),
+    MODE_REGLEMENT <span class="sql-keyword">VARCHAR2</span>(20), <span class="sql-comment">-- VIREMENT, CHEQUE_BCT</span>
+    RIB_AUXILIAIRE <span class="sql-keyword">VARCHAR2</span>(20),
+    ETAT_PEC <span class="sql-keyword">VARCHAR2</span>(20) <span class="sql-keyword">DEFAULT</span> <span class="sql-string">'SAISIE'</span>, <span class="sql-comment">-- SAISIE, VALIDE, ANNULE</span>
+    DAT_CREATION <span class="sql-keyword">DATE</span> <span class="sql-keyword">DEFAULT</span> <span class="sql-keyword">SYSDATE</span>,
+    USER_CREATION <span class="sql-keyword">VARCHAR2</span>(50),
+    DAT_VALIDATION <span class="sql-keyword">DATE</span>,
+    USER_VALIDATION <span class="sql-keyword">VARCHAR2</span>(50),
+    NUM_SEQ_PIECE_ANNEXE <span class="sql-keyword">NUMBER</span>(20),
+
+    <span class="sql-keyword">CONSTRAINT</span> FK_FRAUX_CLIENT
+        <span class="sql-keyword">FOREIGN KEY</span> (NUM_SEQ_PERS_CLIENT)
+        <span class="sql-keyword">REFERENCES</span> PERSONNE(NUM_SEQ_PERS),
+    <span class="sql-keyword">CONSTRAINT</span> FK_FRAUX_AUXILIAIRE
+        <span class="sql-keyword">FOREIGN KEY</span> (NUM_SEQ_PERS_AUXILIAIRE)
+        <span class="sql-keyword">REFERENCES</span> PERSONNE(NUM_SEQ_PERS),
+    <span class="sql-keyword">CONSTRAINT</span> FK_FRAUX_STRUCTURE
+        <span class="sql-keyword">FOREIGN KEY</span> (COD_STRC_STRC)
+        <span class="sql-keyword">REFERENCES</span> STRUCTURE(COD_STRC_STRC),
+    <span class="sql-keyword">CONSTRAINT</span> FK_FRAUX_PIECE
+        <span class="sql-keyword">FOREIGN KEY</span> (NUM_SEQ_PIECE_ANNEXE)
+        <span class="sql-keyword">REFERENCES</span> PIECE_ANNEXE(NUM_SEQ_PIECE_ANNEXE)
+);
+
+<span class="sql-comment">-- Séquence pour génération NUM_SEQ_FRAUX</span>
+<span class="sql-keyword">CREATE SEQUENCE</span> SEQ_FRAIS_AUXILIAIRE
+    <span class="sql-keyword">START WITH</span> 1
+    <span class="sql-keyword">INCREMENT BY</span> 1
+    <span class="sql-keyword">NOCACHE</span>;
+
+<span class="sql-comment">-- Index pour performances</span>
+<span class="sql-keyword">CREATE INDEX</span> IDX_FRAUX_CLIENT <span class="sql-keyword">ON</span> FRAIS_AUXILIAIRE(NUM_SEQ_PERS_CLIENT);
+<span class="sql-keyword">CREATE INDEX</span> IDX_FRAUX_ETAT <span class="sql-keyword">ON</span> FRAIS_AUXILIAIRE(ETAT_PEC);
+<span class="sql-keyword">CREATE INDEX</span> IDX_FRAUX_STRUCTURE <span class="sql-keyword">ON</span> FRAIS_AUXILIAIRE(COD_STRC_STRC);
+<span class="sql-keyword">CREATE INDEX</span> IDX_FRAUX_DAT_CREATION <span class="sql-keyword">ON</span> FRAIS_AUXILIAIRE(DAT_CREATION);</pre>
+                </div>
+
+                <h3>Script 2 : Création Table DEPENSE_AGENCE</h3>
+
+                <div class="sql-block">
+<pre><span class="sql-comment">-- Table DEPENSE_AGENCE</span>
+<span class="sql-keyword">CREATE TABLE</span> DEPENSE_AGENCE (
+    NUM_SEQ_DEPAG <span class="sql-keyword">NUMBER</span>(20) <span class="sql-keyword">PRIMARY KEY</span>,
+    COD_STRC_STRC <span class="sql-keyword">NUMBER</span>(10) <span class="sql-keyword">NOT NULL</span>,
+    NATURE_DEPENSE <span class="sql-keyword">VARCHAR2</span>(50) <span class="sql-keyword">NOT NULL</span>,
+    NATURE_BENEFICIAIRE <span class="sql-keyword">VARCHAR2</span>(2), <span class="sql-comment">-- PP, PM</span>
+    CIN_MATRICULE_FISC <span class="sql-keyword">VARCHAR2</span>(20),
+    NUM_SEQ_PERS_BENEFICIAIRE <span class="sql-keyword">NUMBER</span>(20),
+    NOM_BENEFICIAIRE <span class="sql-keyword">VARCHAR2</span>(200),
+    ADRESSE_MAIL <span class="sql-keyword">VARCHAR2</span>(100),
+    NUM_TEL <span class="sql-keyword">VARCHAR2</span>(20),
+    RIB_BENEFICIAIRE <span class="sql-keyword">VARCHAR2</span>(20),
+    DOMICILIATION <span class="sql-keyword">VARCHAR2</span>(200),
+    NUM_FACTURE <span class="sql-keyword">VARCHAR2</span>(50),
+    DAT_FACTURE <span class="sql-keyword">DATE</span>,
+    DAT_REGLEMENT_FACTURE <span class="sql-keyword">DATE</span>,
+    MONT_BRUT <span class="sql-keyword">NUMBER</span>(20) <span class="sql-keyword">NOT NULL</span>,
+    TAUX_TVA <span class="sql-keyword">NUMBER</span>(5,2),
+    MONT_TVA <span class="sql-keyword">NUMBER</span>(20),
+    MONT_TTC <span class="sql-keyword">NUMBER</span>(20),
+    TAUX_RS <span class="sql-keyword">NUMBER</span>(5,2),
+    MONT_RS <span class="sql-keyword">NUMBER</span>(20),
+    MONT_TVA_DEDUCTIBLE <span class="sql-keyword">NUMBER</span>(20),
+    MONT_RETENUE_TVA <span class="sql-keyword">NUMBER</span>(20),
+    MONT_A_REGLER <span class="sql-keyword">NUMBER</span>(20),
+    ETAT_PEC <span class="sql-keyword">VARCHAR2</span>(20) <span class="sql-keyword">DEFAULT</span> <span class="sql-string">'SAISIE'</span>,
+    DAT_CREATION <span class="sql-keyword">DATE</span> <span class="sql-keyword">DEFAULT</span> <span class="sql-keyword">SYSDATE</span>,
+    USER_CREATION <span class="sql-keyword">VARCHAR2</span>(50),
+    DAT_VALIDATION <span class="sql-keyword">DATE</span>,
+    USER_VALIDATION <span class="sql-keyword">VARCHAR2</span>(50),
+    NUM_SEQ_PIECE_ANNEXE <span class="sql-keyword">NUMBER</span>(20),
+
+    <span class="sql-keyword">CONSTRAINT</span> FK_DEPAG_STRUCTURE
+        <span class="sql-keyword">FOREIGN KEY</span> (COD_STRC_STRC)
+        <span class="sql-keyword">REFERENCES</span> STRUCTURE(COD_STRC_STRC),
+    <span class="sql-keyword">CONSTRAINT</span> FK_DEPAG_BENEFICIAIRE
+        <span class="sql-keyword">FOREIGN KEY</span> (NUM_SEQ_PERS_BENEFICIAIRE)
+        <span class="sql-keyword">REFERENCES</span> PERSONNE(NUM_SEQ_PERS),
+    <span class="sql-keyword">CONSTRAINT</span> FK_DEPAG_PIECE
+        <span class="sql-keyword">FOREIGN KEY</span> (NUM_SEQ_PIECE_ANNEXE)
+        <span class="sql-keyword">REFERENCES</span> PIECE_ANNEXE(NUM_SEQ_PIECE_ANNEXE)
+);
+
+<span class="sql-keyword">CREATE SEQUENCE</span> SEQ_DEPENSE_AGENCE
+    <span class="sql-keyword">START WITH</span> 1
+    <span class="sql-keyword">INCREMENT BY</span> 1;</pre>
+                </div>
+
+                <h3>Script 3 : Création Table REGLEMENT_LOYER</h3>
+
+                <div class="sql-block">
+<pre><span class="sql-comment">-- Table REGLEMENT_LOYER</span>
+<span class="sql-keyword">CREATE TABLE</span> REGLEMENT_LOYER (
+    NUM_SEQ_LOYER <span class="sql-keyword">NUMBER</span>(20) <span class="sql-keyword">PRIMARY KEY</span>,
+    COD_STRC_STRC <span class="sql-keyword">NUMBER</span>(10) <span class="sql-keyword">NOT NULL</span>,
+    NATURE_BENEFICIAIRE <span class="sql-keyword">VARCHAR2</span>(2),
+    NOM_BENEFICIAIRE <span class="sql-keyword">VARCHAR2</span>(200),
+    CIN_MATRICULE_FISC <span class="sql-keyword">VARCHAR2</span>(20),
+    NUM_TEL <span class="sql-keyword">VARCHAR2</span>(20),
+    ADRESSE_MAIL <span class="sql-keyword">VARCHAR2</span>(100),
+    RIB_BENEFICIAIRE <span class="sql-keyword">VARCHAR2</span>(20),
+    DOMICILIATION <span class="sql-keyword">VARCHAR2</span>(200),
+    NATURE_LOYER <span class="sql-keyword">VARCHAR2</span>(50) <span class="sql-keyword">NOT NULL</span>,
+    MONT_INITIAL <span class="sql-keyword">NUMBER</span>(20) <span class="sql-keyword">NOT NULL</span>,
+    DAT_DEBUT_CONTRAT <span class="sql-keyword">DATE</span> <span class="sql-keyword">NOT NULL</span>,
+    PERIODICITE_PAIEMENT <span class="sql-keyword">VARCHAR2</span>(20) <span class="sql-keyword">NOT NULL</span>,
+    BOOL_MAJORATION <span class="sql-keyword">NUMBER</span>(1) <span class="sql-keyword">DEFAULT</span> 0,
+    TAUX_MAJORATION <span class="sql-keyword">NUMBER</span>(5,2),
+    MONT_ACTUALISE_HT <span class="sql-keyword">NUMBER</span>(20),
+    TAUX_TVA <span class="sql-keyword">NUMBER</span>(5,2),
+    MONT_TVA <span class="sql-keyword">NUMBER</span>(20),
+    MONT_TTC <span class="sql-keyword">NUMBER</span>(20),
+    MONT_TVA_DEDUCTIBLE <span class="sql-keyword">NUMBER</span>(20),
+    MONT_RETENUE_TVA <span class="sql-keyword">NUMBER</span>(20),
+    TAUX_RS <span class="sql-keyword">NUMBER</span>(5,2),
+    MONT_RS_LOYER <span class="sql-keyword">NUMBER</span>(20),
+    MONT_NET_A_PAYER <span class="sql-keyword">NUMBER</span>(20),
+    ETAT_PEC <span class="sql-keyword">VARCHAR2</span>(20) <span class="sql-keyword">DEFAULT</span> <span class="sql-string">'SAISIE'</span>,
+    DAT_CREATION <span class="sql-keyword">DATE</span> <span class="sql-keyword">DEFAULT</span> <span class="sql-keyword">SYSDATE</span>,
+    USER_CREATION <span class="sql-keyword">VARCHAR2</span>(50),
+    DAT_VALIDATION <span class="sql-keyword">DATE</span>,
+    USER_VALIDATION <span class="sql-keyword">VARCHAR2</span>(50),
+
+    <span class="sql-keyword">CONSTRAINT</span> FK_LOYER_STRUCTURE
+        <span class="sql-keyword">FOREIGN KEY</span> (COD_STRC_STRC)
+        <span class="sql-keyword">REFERENCES</span> STRUCTURE(COD_STRC_STRC)
+);
+
+<span class="sql-keyword">CREATE SEQUENCE</span> SEQ_REGLEMENT_LOYER
+    <span class="sql-keyword">START WITH</span> 1
+    <span class="sql-keyword">INCREMENT BY</span> 1;</pre>
+                </div>
+
+                <h3>Script 4 : Table PARAMETRE_FRAIS</h3>
+
+                <div class="sql-block">
+<pre><span class="sql-comment">-- Table PARAMETRE_FRAIS</span>
+<span class="sql-keyword">CREATE TABLE</span> PARAMETRE_FRAIS (
+    CODE_PARAM <span class="sql-keyword">VARCHAR2</span>(50) <span class="sql-keyword">PRIMARY KEY</span>,
+    LIBELLE_PARAM <span class="sql-keyword">VARCHAR2</span>(200) <span class="sql-keyword">NOT NULL</span>,
+    VALEUR_PARAM <span class="sql-keyword">VARCHAR2</span>(50) <span class="sql-keyword">NOT NULL</span>,
+    TYPE_PARAM <span class="sql-keyword">VARCHAR2</span>(20) <span class="sql-keyword">NOT NULL</span> <span class="sql-comment">-- TAUX, MONTANT, TEXTE</span>
+);
+
+<span class="sql-comment">-- Insertion des paramètres par défaut</span>
+<span class="sql-keyword">INSERT INTO</span> PARAMETRE_FRAIS <span class="sql-keyword">VALUES</span>
+    (<span class="sql-string">'TAUX_TVA'</span>, <span class="sql-string">'Taux TVA'</span>, <span class="sql-string">'19.00'</span>, <span class="sql-string">'TAUX'</span>);
+
+<span class="sql-keyword">INSERT INTO</span> PARAMETRE_FRAIS <span class="sql-keyword">VALUES</span>
+    (<span class="sql-string">'TAUX_TVA_DEDUCTIBLE'</span>, <span class="sql-string">'Taux TVA déductible'</span>, <span class="sql-string">'25.00'</span>, <span class="sql-string">'TAUX'</span>);
+
+<span class="sql-keyword">INSERT INTO</span> PARAMETRE_FRAIS <span class="sql-keyword">VALUES</span>
+    (<span class="sql-string">'TAUX_RETENUE_TVA'</span>, <span class="sql-string">'Taux retenue sur TVA'</span>, <span class="sql-string">'25.00'</span>, <span class="sql-string">'TAUX'</span>);
+
+<span class="sql-keyword">INSERT INTO</span> PARAMETRE_FRAIS <span class="sql-keyword">VALUES</span>
+    (<span class="sql-string">'TAUX_RS_FORFAITAIRE'</span>, <span class="sql-string">'Taux R/S régime forfaitaire'</span>, <span class="sql-string">'3.00'</span>, <span class="sql-string">'TAUX'</span>);
+
+<span class="sql-keyword">INSERT INTO</span> PARAMETRE_FRAIS <span class="sql-keyword">VALUES</span>
+    (<span class="sql-string">'TAUX_RS_REEL'</span>, <span class="sql-string">'Taux R/S régime réel'</span>, <span class="sql-string">'10.00'</span>, <span class="sql-string">'TAUX'</span>);
+
+<span class="sql-keyword">INSERT INTO</span> PARAMETRE_FRAIS <span class="sql-keyword">VALUES</span>
+    (<span class="sql-string">'TAUX_RS_PP'</span>, <span class="sql-string">'Taux R/S personne physique'</span>, <span class="sql-string">'1.50'</span>, <span class="sql-string">'TAUX'</span>);
+
+<span class="sql-keyword">INSERT INTO</span> PARAMETRE_FRAIS <span class="sql-keyword">VALUES</span>
+    (<span class="sql-string">'TAUX_RS_PM'</span>, <span class="sql-string">'Taux R/S personne morale'</span>, <span class="sql-string">'1.00'</span>, <span class="sql-string">'TAUX'</span>);
+
+<span class="sql-keyword">INSERT INTO</span> PARAMETRE_FRAIS <span class="sql-keyword">VALUES</span>
+    (<span class="sql-string">'SEUIL_RETENUE_TVA'</span>, <span class="sql-string">'Seuil retenue TVA (en millimes)'</span>, <span class="sql-string">'1000000'</span>, <span class="sql-string">'MONTANT'</span>);
+
+<span class="sql-keyword">COMMIT</span>;</pre>
+                </div>
+
+                <h3>Script 5 : Table FICHIER_TELECOMPENSABLE</h3>
+
+                <div class="sql-block">
+<pre><span class="sql-comment">-- Table FICHIER_TELECOMPENSABLE</span>
+<span class="sql-keyword">CREATE TABLE</span> FICHIER_TELECOMPENSABLE (
+    NUM_SEQ_FICHIER <span class="sql-keyword">NUMBER</span>(20) <span class="sql-keyword">PRIMARY KEY</span>,
+    DAT_GENERATION <span class="sql-keyword">DATE</span> <span class="sql-keyword">DEFAULT</span> <span class="sql-keyword">SYSDATE</span>,
+    TYPE_OPERATION <span class="sql-keyword">VARCHAR2</span>(50) <span class="sql-keyword">NOT NULL</span>,
+    ETAT_FICHIER <span class="sql-keyword">VARCHAR2</span>(20) <span class="sql-keyword">DEFAULT</span> <span class="sql-string">'EN_ATTENTE'</span>,
+    NOM_FICHIER <span class="sql-keyword">VARCHAR2</span>(200),
+    CHEMIN_FICHIER <span class="sql-keyword">VARCHAR2</span>(500)
+);
+
+<span class="sql-keyword">CREATE SEQUENCE</span> SEQ_FICHIER_TELECOMPENSABLE
+    <span class="sql-keyword">START WITH</span> 1
+    <span class="sql-keyword">INCREMENT BY</span> 1;</pre>
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ Résumé des Scripts SQL :</strong><br>
+                    • 5 nouvelles tables créées<br>
+                    • 4 séquences pour auto-incrémentation<br>
+                    • Clés étrangères vers tables existantes (PERSONNE, STRUCTURE, PIECE_ANNEXE)<br>
+                    • Index pour optimisation des requêtes<br>
+                    • Paramètres initialisés
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Conception Technique - Règlement Frais au Niveau de l'Agence</strong></p>
+            <p>BNA BANK - Système SMILE - Version 1.0 - 24/01/2025</p>
+            <p>Document généré pour intégration dans le système bancaire SMILE avec Oracle Database</p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Masquer toutes les sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Désactiver tous les pills
+            const pills = document.querySelectorAll('.nav-pill');
+            pills.forEach(pill => {
+                pill.classList.remove('active');
+            });
+
+            // Afficher la section sélectionnée
+            document.getElementById(sectionId).classList.add('active');
+
+            // Activer le pill correspondant
+            event.target.classList.add('active');
+
+            // Scroll vers le haut
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

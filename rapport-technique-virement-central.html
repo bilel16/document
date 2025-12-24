@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport Technique - Module Virement Central BNA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .meta-info {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 3px solid #1e3c72;
+        }
+
+        .meta-info table {
+            width: 100%;
+        }
+
+        .meta-info td {
+            padding: 8px;
+        }
+
+        .meta-info td:first-child {
+            font-weight: bold;
+            width: 200px;
+            color: #1e3c72;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e3c72;
+        }
+
+        h3 {
+            color: #2a5298;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #4a7298;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .toc h2 {
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .toc ul li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #1e3c72;
+            text-decoration: none;
+            display: block;
+            padding: 5px 10px;
+            transition: all 0.3s;
+        }
+
+        .toc a:hover {
+            background: #1e3c72;
+            color: white;
+            padding-left: 20px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #1e3c72;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #c7254e;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        pre code {
+            background: none;
+            color: #f8f8f2;
+            padding: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .badge-primary {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .badge-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #ff9800;
+            color: white;
+        }
+
+        .badge-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .badge-info {
+            background: #2196F3;
+            color: white;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .toc a:hover {
+                background: transparent;
+                color: #1e3c72;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Rapport Technique Détaillé</h1>
+            <p>Module de Virement Central - Mandat BCT</p>
+            <p>Système SMILE - Banque Nationale Agricole (BNA)</p>
+        </div>
+
+        <div class="meta-info">
+            <table>
+                <tr>
+                    <td>📅 Date de génération :</td>
+                    <td><script>document.write(new Date().toLocaleDateString('fr-FR', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}));</script></td>
+                </tr>
+                <tr>
+                    <td>📁 Contrôleur :</td>
+                    <td><code>PecVirementCentralCtr.java</code></td>
+                </tr>
+                <tr>
+                    <td>📦 Package :</td>
+                    <td><code>com.bna.smile.web.virement.controller</code></td>
+                </tr>
+                <tr>
+                    <td>🔢 Lignes de code :</td>
+                    <td>3261 lignes</td>
+                </tr>
+                <tr>
+                    <td>🏗️ Architecture :</td>
+                    <td>JSF 1.2 + RichFaces + Spring</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="content">
+            <div class="toc">
+                <h2>📑 Table des Matières</h2>
+                <ul>
+                    <li><a href="#section1">1. Vue d'ensemble du module</a></li>
+                    <li><a href="#section2">2. Architecture technique</a></li>
+                    <li><a href="#section3">3. Fonctionnalités principales</a></li>
+                    <li><a href="#section4">4. Structure du contrôleur</a></li>
+                    <li><a href="#section5">5. Flux de traitement</a></li>
+                    <li><a href="#section6">6. Modèles de données</a></li>
+                    <li><a href="#section7">7. Validation et sécurité</a></li>
+                    <li><a href="#section8">8. Interfaces JSF</a></li>
+                    <li><a href="#section9">9. Points d'amélioration</a></li>
+                    <li><a href="#section10">10. Recommandations</a></li>
+                </ul>
+            </div>
+
+            <div id="section1" class="section">
+                <h2>1. Vue d'ensemble du module</h2>
+
+                <h3>1.1 Objectif</h3>
+                <p>Le module <strong>Virement Central - Mandat BCT</strong> est un composant essentiel du système SMILE de la Banque Nationale Agricole. Il permet la gestion complète des virements effectués via des mandats reçus de la Banque Centrale de Tunisie (BCT).</p>
+
+                <div class="info-box">
+                    <h4>💡 Contexte métier</h4>
+                    <p>Ce module traite les ordres de virement centralisés émanant de la BCT, permettant aux agences bancaires de :</p>
+                    <ul>
+                        <li>Créer des ordres de virement avec plusieurs bénéficiaires (jusqu'à 10)</li>
+                        <li>Consulter et modifier les ordres existants</li>
+                        <li>Exécuter les virements après validation</li>
+                        <li>Générer des documents de décharge</li>
+                    </ul>
+                </div>
+
+                <h3>1.2 Caractéristiques principales</h3>
+                <table>
+                    <tr>
+                        <th>Caractéristique</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Type de module</strong></td>
+                        <td>Contrôleur JSF avec portée Session</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bénéficiaires max</strong></td>
+                        <td>10 par ordre de virement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Validation RIB</strong></td>
+                        <td>Contrôle intégrité (20 chiffres) + Vérification base de données</td>
+                    </tr>
+                    <tr>
+                        <td><strong>États d'ordre</strong></td>
+                        <td>En Attente (A), Exécuté (E), Rejeté (R)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rapports</strong></td>
+                        <td>Génération PDF via JasperReports</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sécurité</strong></td>
+                        <td>Validation multi-niveaux + Contrôle des comptes en devises</td>
+                    </tr>
+                </table>
+
+                <h3>1.3 Acteurs et cas d'utilisation</h3>
+
+                <h4>Acteurs</h4>
+                <ul>
+                    <li><strong>Opérateur d'agence</strong> : Saisie et validation des ordres de virement</li>
+                    <li><strong>Responsable</strong> : Consultation et exécution des ordres</li>
+                    <li><strong>Système BCT</strong> : Source des mandats de virement</li>
+                    <li><strong>Système central BNA</strong> : Traitement et exécution des virements</li>
+                </ul>
+
+                <h4>Cas d'utilisation principaux</h4>
+                <ol>
+                    <li><strong>Créer un ordre de virement</strong>
+                        <ul>
+                            <li>Saisir le compte débiteur (compte interne mandat)</li>
+                            <li>Ajouter jusqu'à 10 bénéficiaires avec RIB, nom et montant</li>
+                            <li>Valider l'ordre et générer une décharge PDF</li>
+                        </ul>
+                    </li>
+                    <li><strong>Consulter les ordres</strong>
+                        <ul>
+                            <li>Rechercher par numéro de remise</li>
+                            <li>Filtrer par état (Attente/Exécuté/Rejeté)</li>
+                            <li>Visualiser tous les ordres</li>
+                        </ul>
+                    </li>
+                    <li><strong>Modifier un ordre</strong>
+                        <ul>
+                            <li>Éditer les bénéficiaires</li>
+                            <li>Modifier la date d'exécution</li>
+                            <li>Supprimer des bénéficiaires</li>
+                        </ul>
+                    </li>
+                    <li><strong>Exécuter un ordre</strong>
+                        <ul>
+                            <li>Lancer l'exécution du virement</li>
+                            <li>Mise à jour automatique des états</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div id="section2" class="section">
+                <h2>2. Architecture technique</h2>
+
+                <h3>2.1 Stack technologique</h3>
+                <table>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Technologie</th>
+                        <th>Version/Framework</th>
+                    </tr>
+                    <tr>
+                        <td>Framework Web</td>
+                        <td>JavaServer Faces (JSF)</td>
+                        <td>JSF 1.2</td>
+                    </tr>
+                    <tr>
+                        <td>Composants UI</td>
+                        <td>RichFaces</td>
+                        <td>Ajax4JSF + Rich Components</td>
+                    </tr>
+                    <tr>
+                        <td>Injection de dépendances</td>
+                        <td>Spring Framework</td>
+                        <td>Configuration XML</td>
+                    </tr>
+                    <tr>
+                        <td>Persistance</td>
+                        <td>Hibernate / JPA</td>
+                        <td>Via SearchEngine personnalisé</td>
+                    </tr>
+                    <tr>
+                        <td>Reporting</td>
+                        <td>JasperReports</td>
+                        <td>Génération PDF</td>
+                    </tr>
+                    <tr>
+                        <td>Logging</td>
+                        <td>Log4j</td>
+                        <td>Apache Log4j</td>
+                    </tr>
+                    <tr>
+                        <td>Serveur d'application</td>
+                        <td>J2EE Container</td>
+                        <td>Compatible Servlet 2.5+</td>
+                    </tr>
+                </table>
+
+                <h3>2.2 Architecture en couches</h3>
+
+                <div class="info-box">
+                    <h4>📐 Modèle MVC étendu</h4>
+                    <pre><code>
+┌─────────────────────────────────────────────────────┐
+│              COUCHE PRÉSENTATION                    │
+│  ┌──────────────────────────────────────────────┐  │
+│  │  JSF Views (XHTML)                           │  │
+│  │  - pecVirementMandatBct.xhtml                │  │
+│  │  - consultationpecVirementMandatBct.xhtml    │  │
+│  │  - modificationBeneficiaire...xhtml          │  │
+│  └──────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────┘
+                        ↕
+┌─────────────────────────────────────────────────────┐
+│              COUCHE CONTRÔLEUR                      │
+│  ┌──────────────────────────────────────────────┐  │
+│  │  PecVirementCentralCtr.java                  │  │
+│  │  - Managed Bean (Session Scope)              │  │
+│  │  - Gestion état UI                           │  │
+│  │  - Orchestration des appels                  │  │
+│  └──────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────┘
+                        ↕
+┌─────────────────────────────────────────────────────┐
+│              COUCHE COMMANDE                        │
+│  ┌──────────────────────────────────────────────┐  │
+│  │  VirementCmd.java                            │  │
+│  │  - Pattern Command                           │  │
+│  │  - Délégation vers services                  │  │
+│  └──────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────┘
+                        ↕
+┌─────────────────────────────────────────────────────┐
+│              COUCHE SERVICE                         │
+│  ┌──────────────────────────────────────────────┐  │
+│  │  IVirementService                            │  │
+│  │  - Logique métier                            │  │
+│  │  - Transactions                              │  │
+│  └──────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────┘
+                        ↕
+┌─────────────────────────────────────────────────────┐
+│              COUCHE DONNÉES                         │
+│  ┌──────────────────────────────────────────────┐  │
+│  │  Modèles JPA                                 │  │
+│  │  - OrdreVirement                             │  │
+│  │  - BeneficiaireOrdreVirement                 │  │
+│  │  - ContratCpt                                │  │
+│  └──────────────────────────────────────────────┘  │
+│  ┌──────────────────────────────────────────────┐  │
+│  │  SearchEngine / CRUDService                  │  │
+│  └──────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────┘
+                        ↕
+┌─────────────────────────────────────────────────────┐
+│              BASE DE DONNÉES                        │
+│              (Oracle / SQL Server)                  │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+                </div>
+
+                <h3>2.3 Dépendances principales</h3>
+
+<h4>Imports du contrôleur</h4>
+                <pre><code>// Java Standard
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+// JSF & Servlet
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
+// Ajax4JSF
+import org.ajax4jsf.model.KeepAlive;
+
+// Logging
+import org.apache.log4j.Logger;
+
+// Modèles métier BNA
+import com.bna.commun.model.*;
+import com.bna.smile.model.virement.commande.VirementCmd;
+import com.bna.smile.model.virement.model.VirementVo;
+
+// Framework OXIA
+import com.oxia.fwk.context.Context;
+import com.oxia.fwk.core.*;
+</code></pre>
+
+                <h3>2.4 Configuration Spring</h3>
+
+                <h4>faces-config.xml</h4>
+                <pre><code>&lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;pecVirementCentralCtr&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;
+        com.bna.smile.web.virement.controller.PecVirementCentralCtr
+    &lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;session&lt;/managed-bean-scope&gt;
+&lt;/managed-bean&gt;</code></pre>
+
+                <div class="warning-box">
+                    <h4>⚠️ Note importante</h4>
+                    <p><strong>Session Scope</strong> : Le bean est maintenu durant toute la session utilisateur. Cela permet de conserver l'état entre les requêtes mais augmente la consommation mémoire du serveur.</p>
+                </div>
+            </div>
+
+            <div id="section3" class="section">
+                <h2>3. Fonctionnalités principales</h2>
+
+                <h3>3.1 Création d'ordre de virement</h3>
+
+                <h4>Méthode : <code>validerVirementMandatBct()</code></h4>
+
+                <div class="success-box">
+                    <p><strong>Objectif :</strong> Valider et enregistrer un ordre de virement avec ses bénéficiaires</p>
+                </div>
+
+                <p><strong>Étapes du traitement :</strong></p>
+                <ol>
+                    <li><strong>Génération du numéro de remise</strong>
+                        <ul>
+                            <li>Récupération de la séquence globale via <code>getSeqAgence()</code></li>
+                            <li>Format : <code>[CodeAgence][Année][Séquence]</code></li>
+                            <li>Exemple : <code>00820250001</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>Construction de l'ordre</strong>
+                        <ul>
+                            <li>Création d'un objet <code>OrdreVirement</code></li>
+                            <li>Association avec la structure initiatrice</li>
+                            <li>Définition du personnel validateur</li>
+                            <li>État initial : "A" (En Attente)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Validation des bénéficiaires</strong>
+                        <ul>
+                            <li>Vérification de la liste (max 10)</li>
+                            <li>Contrôle des RIB</li>
+                            <li>Validation des montants</li>
+                        </ul>
+                    </li>
+                    <li><strong>Appel au service</strong>
+                        <ul>
+                            <li><code>VirementCmd.validerVirementCentralVirement()</code></li>
+                            <li>Transaction en base de données</li>
+                        </ul>
+                    </li>
+                    <li><strong>Génération du PDF</strong>
+                        <ul>
+                            <li>Préparation des paramètres Jasper</li>
+                            <li>Appel à <code>imprimerVirementMandatBct()</code></li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h4>Code simplifié :</h4>
+                <pre><code>public void validerVirementMandatBct() {
+    try {
+        // 1. Génération numéro de remise
+        Long seqGlobVir = getSeqAgence(virementVo);
+        String numeroRemise = formatNumeroRemise(seqGlobVir);
+
+        // 2. Construction ordre
+        OrdreVirement ordreVirement = new OrdreVirement();
+        ordreVirement.setNumOvirOvir(numeroRemise);
+        ordreVirement.setCodEtatOvir("A");
+        ordreVirement.setListeBeneficiaires(listeBeneficiaires);
+
+        // 3. Validation
+        virementVo = virementCmd.validerVirementCentral(virementVo);
+
+        if (virementVo.isStadeEnregistrement()) {
+            setStrEtatValidationTrt("1");
+            imprimerVirementMandatBct();
+            etatCmdValiderVirement = false; // Désactiver le bouton
+        }
+    } catch (Exception e) {
+        setStrEtatValidationTrt("2");
+        messageValidation = e.getMessage();
+    }
+}</code></pre>
+
+                <h3>3.2 Ajout de bénéficiaires</h3>
+
+                <h4>Méthode : <code>ajouterBeneficiaireVirement()</code></h4>
+
+                <table>
+                    <tr>
+                        <th>Validation</th>
+                        <th>Contrôle effectué</th>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Limite max</span></td>
+                        <td>Vérification ≤ 10 bénéficiaires</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">RIB</span></td>
+                        <td>20 caractères numériques</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Montant</span></td>
+                        <td>Montant &gt; 0</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Compte valide</span></td>
+                        <td>msgValidatorCompte.length &lt; 1</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Nom</span></td>
+                        <td>Max 60 caractères (tronqué si dépassé)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Motif</span></td>
+                        <td>Max 200 caractères (tronqué si dépassé)</td>
+                    </tr>
+                </table>
+
+                <h3>3.3 Validation RIB</h3>
+
+                <h4>Méthode : <code>verifierCompte()</code></h4>
+
+                <p>Cette méthode effectue une validation complexe en plusieurs étapes :</p>
+
+                <div class="info-box">
+                    <h4>🔍 Processus de validation RIB</h4>
+                    <pre><code>
+┌─────────────────────────────────────────────┐
+│  1. Format de saisie                        │
+│     - 13 chiffres (compte BNA simplifié)    │
+│     - 20 chiffres (RIB complet)             │
+└─────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────┐
+│  2. Conversion 13 → 20 si nécessaire        │
+│     - Récupération code BCT de la structure │
+│     - Ajout préfixe banque (03)             │
+│     - Calcul clé RIB (modulo 97)            │
+└─────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────┐
+│  3. Vérification intégrité mathématique     │
+│     - Décomposition : Banque|Agence|Cpte|Clé│
+│     - Appel VirementCmd.verifierRib()       │
+│     - Contrôle modulo 97                    │
+└─────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────┐
+│  4. Vérification compte BNA (03)            │
+│     - Si banque != 03 : erreur              │
+└─────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────┐
+│  5. Recherche en base de données            │
+│     - GetDetailContratCmd                   │
+│     - Vérification existence compte         │
+└─────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────┐
+│  6. Contrôles métier                        │
+│     - Compte pas en devises                 │
+│     - Compte pas en dinars convertibles     │
+│     - Compte pas clôturé (état != R)        │
+└─────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────┐
+│  7. Récupération nom titulaire              │
+│     - benificiaire = contrat.getNomInti()   │
+└─────────────────────────────────────────────┘
+</code></pre>
+                </div>
+
+                <h4>Calcul de la clé RIB</h4>
+                <pre><code>public String calculerRIB(String RIB) {
+    if (RIB.length() == 18) {
+        // RIB sans clé (18 chiffres)
+        BigInteger rr = new BigInteger(RIB + "00");
+        int rest = rr.mod(new BigInteger("97")).intValue();
+        int cle = 97 - rest;
+        return String.format("%02d", cle);
+    }
+    return "";
+}</code></pre>
+
+                <h3>3.4 Consultation des ordres</h3>
+
+                <h4>Méthodes de recherche</h4>
+
+                <table>
+                    <tr>
+                        <th>Méthode</th>
+                        <th>Critère</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>rechercherGlobalVirementByRemise()</code></td>
+                        <td>Numéro de remise</td>
+                        <td>Recherche exacte par N° remise</td>
+                    </tr>
+                    <tr>
+                        <td><code>rechercherGlobalVirementByEtat()</code></td>
+                        <td>État (A/E/R)</td>
+                        <td>Filtrage par état d'ordre</td>
+                    </tr>
+                    <tr>
+                        <td><code>listeTousLesOrdresVirement()</code></td>
+                        <td>Tous</td>
+                        <td>Liste complète des ordres</td>
+                    </tr>
+                    <tr>
+                        <td><code>filtrerOrdres()</code></td>
+                        <td>Montant min</td>
+                        <td>Filtrage par montant minimal</td>
+                    </tr>
+                </table>
+
+                <h4>États des ordres</h4>
+
+                <table>
+                    <tr>
+                        <th>Code</th>
+                        <th>Libellé</th>
+                        <th>Couleur UI</th>
+                        <th>Actions possibles</th>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-warning">A</span></td>
+                        <td>En Attente / Annulé</td>
+                        <td style="color: #FFA500; font-weight: bold;">Orange</td>
+                        <td>Modifier, Exécuter, Rejeter</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-danger">R</span></td>
+                        <td>Rejeté</td>
+                        <td style="color: #FF0000; font-weight: bold;">Rouge</td>
+                        <td>Consulter uniquement</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-success">E</span></td>
+                        <td>Exécuté</td>
+                        <td style="color: #008000; font-weight: bold;">Vert</td>
+                        <td>Consulter uniquement</td>
+                    </tr>
+                </table>
+
+                <h3>3.5 Modification d'ordres</h3>
+
+                <h4>Méthode : <code>modifierOrdreVirement()</code></h4>
+
+                <p><strong>Modifications autorisées :</strong></p>
+                <ul>
+                    <li>✅ Date d'exécution</li>
+                    <li>✅ Ajout de bénéficiaires (si &lt; 10)</li>
+                    <li>✅ Modification bénéficiaires existants</li>
+                    <li>✅ Suppression de bénéficiaires</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>⚠️ Règles métier</h4>
+                    <ul>
+                        <li>Seuls les ordres en état "A" (En Attente) peuvent être modifiés</li>
+                        <li>Les ordres exécutés (E) ou rejetés (R) sont en lecture seule</li>
+                        <li>Recalcul automatique des totaux après modification</li>
+                        <li>Les bénéficiaires supprimés sont conservés dans <code>listeBeneficiaireOrdreVirementSupprimes</code></li>
+                    </ul>
+                </div>
+
+                <h4>Recalcul des totaux</h4>
+                <pre><code>public void calculerTotauxGlobaux() {
+    Long montantTotal = 0L;
+    Long nombreTotal = 0L;
+
+    for (BeneficiaireOrdreVirement benef : listeBeneficiaires) {
+        if (benef.getMontOperBenf() != null) {
+            montantTotal += benef.getMontOperBenf();
+            nombreTotal++;
+        }
+    }
+
+    selectedOrdreVirement.setMontGlobOvir(montantTotal);
+    selectedOrdreVirement.setNbrVirOvir(nombreTotal);
+}</code></pre>
+
+                <h3>3.6 Exécution des virements</h3>
+
+                <h4>Méthode : <code>executerVirementDuJour()</code></h4>
+
+                <p><strong>Prérequis pour l'exécution :</strong></p>
+                <ol>
+                    <li>Ordre sélectionné non null</li>
+                    <li>État = "A" (En Attente)</li>
+                    <li>Au moins un bénéficiaire</li>
+                </ol>
+
+                <p><strong>Processus d'exécution :</strong></p>
+                <pre><code>
+┌────────────────────────────────────────────┐
+│  1. Validation de l'ordre                  │
+│     - État = "A" ?                         │
+│     - Bénéficiaires présents ?             │
+└────────────────────────────────────────────┘
+              ↓
+┌────────────────────────────────────────────┐
+│  2. Appel VirementCmd                      │
+│     ExecutionOrdreVirementCentralDuJour()  │
+└────────────────────────────────────────────┘
+              ↓
+┌────────────────────────────────────────────┐
+│  3. Traitement métier                      │
+│     - Déblocage compte débiteur            │
+│     - Exécution virements bénéficiaires    │
+│     - Mise à jour états                    │
+└────────────────────────────────────────────┘
+              ↓
+┌────────────────────────────────────────────┐
+│  4. Actualisation UI                       │
+│     - Rechargement ordre depuis BDD        │
+│     - Rafraîchissement liste bénéficiaires │
+│     - Affichage messages erreur éventuels  │
+└────────────────────────────────────────────┘
+</code></pre>
+
+                <h3>3.7 Génération de rapports</h3>
+
+                <h4>Méthode : <code>imprimerVirementMandatBct()</code></h4>
+
+                <p><strong>Paramètres JasperReports :</strong></p>
+                <table>
+                    <tr>
+                        <th>Paramètre</th>
+                        <th>Source</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>P_PATH</code></td>
+                        <td>ServletContext</td>
+                        <td>Chemin vers ressources Jasper</td>
+                    </tr>
+                    <tr>
+                        <td><code>P_NUM_VIREMENT</code></td>
+                        <td>NumOvirOvir</td>
+                        <td>Numéro de remise</td>
+                    </tr>
+                    <tr>
+                        <td><code>COMPTE_DEBIT_OVIR</code></td>
+                        <td>CompteDebitOvir</td>
+                        <td>Compte débiteur</td>
+                    </tr>
+                    <tr>
+                        <td><code>COD_ETAT_OVIR</code></td>
+                        <td>CodEtatOvir</td>
+                        <td>État de l'ordre (converti)</td>
+                    </tr>
+                    <tr>
+                        <td><code>COD_STRC_STRC</code></td>
+                        <td>ParamAgence</td>
+                        <td>Code structure</td>
+                    </tr>
+                    <tr>
+                        <td><code>P_DATE_COMPTABLE</code></td>
+                        <td>ParamAgence</td>
+                        <td>Date comptable</td>
+                    </tr>
+                </table>
+
+                <pre><code>public void imprimerVirementMandatBct() {
+    try {
+        // Préparation paramètres
+        parametersJasper.put("P_PATH", strPath);
+        parametersJasper.put("P_NUM_VIREMENT", numeroRemise);
+        parametersJasper.put("COD_ETAT_OVIR", convertirCodeEtat(etat));
+
+        // Connexion base de données
+        DataSource datasource = (DataSource) context.getBean("dataSource");
+        Connection connection = datasource.getConnection();
+
+        // Génération PDF
+        reportName = UtilCtr.printReport(
+            "dechargeVirementCentrale",
+            "Virement",
+            parametersJasper,
+            connection
+        );
+
+        // URL d'accès au PDF
+        setSrcRepport(contextPath + "/reporting/Virement/" + reportName);
+
+    } catch (Exception e) {
+        logger.error("Erreur génération PDF", e);
+    }
+}</code></pre>
+            </div>
+
+            <div id="section4" class="section">
+                <h2>4. Structure du contrôleur</h2>
+
+                <h3>4.1 Propriétés principales</h3>
+
+                <h4>Données de saisie</h4>
+                <table>
+                    <tr>
+                        <th>Propriété</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>montantVirement</code></td>
+                        <td>String</td>
+                        <td>Montant du virement (formaté avec espaces)</td>
+                    </tr>
+                    <tr>
+                        <td><code>compteInterneMandat</code></td>
+                        <td>String</td>
+                        <td>Compte débiteur (compte interne mandat)</td>
+                    </tr>
+                    <tr>
+                        <td><code>compteBenificiaire</code></td>
+                        <td>String</td>
+                        <td>RIB du bénéficiaire saisi</td>
+                    </tr>
+                    <tr>
+                        <td><code>benificiaire</code></td>
+                        <td>String</td>
+                        <td>Nom du bénéficiaire (max 60 car.)</td>
+                    </tr>
+                    <tr>
+                        <td><code>motif</code></td>
+                        <td>String</td>
+                        <td>Motif du virement (max 200 car.)</td>
+                    </tr>
+                    <tr>
+                        <td><code>dateExecution</code></td>
+                        <td>Date</td>
+                        <td>Date d'exécution souhaitée</td>
+                    </tr>
+                </table>
+
+                <h4>Collections</h4>
+                <table>
+                    <tr>
+                        <th>Propriété</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>listeBeneficiaireOrdreVirement</code></td>
+                        <td>List&lt;BeneficiaireOrdreVirement&gt;</td>
+                        <td>Liste des bénéficiaires de l'ordre en cours</td>
+                    </tr>
+                    <tr>
+                        <td><code>listeBeneficiaireOrdreVirementSupprimes</code></td>
+                        <td>List&lt;BeneficiaireOrdreVirement&gt;</td>
+                        <td>Bénéficiaires supprimés (pour traçabilité)</td>
+                    </tr>
+                    <tr>
+                        <td><code>listeOrdresVirements</code></td>
+                        <td>List&lt;OrdreVirement&gt;</td>
+                        <td>Liste des ordres affichés (consultation)</td>
+                    </tr>
+                    <tr>
+                        <td><code>listNumRemise</code></td>
+                        <td>List&lt;String&gt;</td>
+                        <td>Liste des numéros de remise existants</td>
+                    </tr>
+                    <tr>
+                        <td><code>listNumCompteInterne</code></td>
+                        <td>List&lt;String&gt;</td>
+                        <td>Comptes internes disponibles</td>
+                    </tr>
+                </table>
+
+                <h4>État et contrôle</h4>
+                <table>
+                    <tr>
+                        <th>Propriété</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>etatCmdValiderVirement</code></td>
+                        <td>boolean</td>
+                        <td>Activation/désactivation bouton validation</td>
+                    </tr>
+                    <tr>
+                        <td><code>etatSaveBenefVir</code></td>
+                        <td>boolean</td>
+                        <td>Statut enregistrement bénéficiaire</td>
+                    </tr>
+                    <tr>
+                        <td><code>etatRIBCorrecte</code></td>
+                        <td>boolean</td>
+                        <td>Indicateur validité RIB</td>
+                    </tr>
+                    <tr>
+                        <td><code>modeModification</code></td>
+                        <td>boolean</td>
+                        <td>Mode modification bénéficiaire actif</td>
+                    </tr>
+                    <tr>
+                        <td><code>strEtatValidationTrt</code></td>
+                        <td>String</td>
+                        <td>État validation : "0"=init, "1"=succès, "2"=échec</td>
+                    </tr>
+                </table>
+
+                <h4>Messages</h4>
+                <table>
+                    <tr>
+                        <th>Propriété</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>messageMontant</code></td>
+                        <td>Message validation montant</td>
+                    </tr>
+                    <tr>
+                        <td><code>msgValidatorCompte</code></td>
+                        <td>Message validation RIB</td>
+                    </tr>
+                    <tr>
+                        <td><code>messageValidationVirementBct</code></td>
+                        <td>Message validation ordre complet</td>
+                    </tr>
+                    <tr>
+                        <td><code>messageEnregistBenefVirement</code></td>
+                        <td>Message ajout bénéficiaire</td>
+                    </tr>
+                    <tr>
+                        <td><code>messageInformation</code></td>
+                        <td>Message informationnel général</td>
+                    </tr>
+                    <tr>
+                        <td><code>messageErreur</code></td>
+                        <td>Message d'erreur</td>
+                    </tr>
+                </table>
+
+                <h3>4.2 Constantes</h3>
+
+                <pre><code>public class PecVirementCentralCtr implements Serializable {
+
+    // Limite métier
+    private static final int LIMITE_MAX_BENEFICIAIRES = 10;
+
+    // Codes produits
+    public static Long codPrdVirementPonctuel = 1063L;
+    public static Long etatVirementPonctuelEncour = 0L;
+
+    // Logger
+    Logger logger = Logger.getLogger(PecVirementCentralCtr.class);
+}</code></pre>
+
+                <h3>4.3 Organisation des méthodes (par catégorie)</h3>
+
+                <h4>📝 Initialisation et cycle de vie</h4>
+                <ul>
+                    <li><code>@PostConstruct init()</code> - Initialisation du bean</li>
+                </ul>
+
+                <h4>✅ Validation</h4>
+                <ul>
+                    <li><code>validateMontant()</code> - Validation format montant</li>
+                    <li><code>validaterFormatCompte()</code> - Validation format RIB</li>
+                    <li><code>validateDateFormat()</code> - Validation format date</li>
+                    <li><code>verifierCompte()</code> - Vérification complète compte bénéficiaire</li>
+                    <li><code>verifierRib()</code> - Vérification RIB (version simplifiée)</li>
+                </ul>
+
+                <h4>➕ Gestion bénéficiaires</h4>
+                <ul>
+                    <li><code>creerNouveauBenefVirement()</code> - Réinitialisation formulaire</li>
+                    <li><code>ajouterBeneficiaireVirement()</code> - Ajout nouveau bénéficiaire</li>
+                    <li><code>editerBeneficiaireVirement()</code> - Charger bénéficiaire pour édition</li>
+                    <li><code>modifierBeneficiaire()</code> - Sauvegarder modifications</li>
+                    <li><code>supprimerBeneficiaireVirement()</code> - Supprimer bénéficiaire</li>
+                    <li><code>calculerTotauxGlobaux()</code> - Recalcul montant total et nombre</li>
+                </ul>
+
+                <h4>💾 CRUD Ordres de virement</h4>
+                <ul>
+                    <li><code>validerVirementMandatBct()</code> - Créer et valider ordre</li>
+                    <li><code>rechercherGlobalVirementByRemise()</code> - Recherche par N° remise</li>
+                    <li><code>rechercherGlobalVirementByEtat()</code> - Recherche par état</li>
+                    <li><code>listeTousLesOrdresVirement()</code> - Lister tous les ordres</li>
+                    <li><code>modifierOrdreVirement()</code> - Modifier ordre existant</li>
+                    <li><code>rejeterOrdreVirement()</code> - Rejeter un ordre</li>
+                </ul>
+
+                <h4>▶️ Exécution</h4>
+                <ul>
+                    <li><code>executerVirementDuJour()</code> - Exécuter ordre sélectionné</li>
+                    <li><code>executerOrdreSelectionne()</code> - Wrapper avec validations</li>
+                    <li><code>isPeutExecuterOrdre()</code> - Vérifier possibilité exécution</li>
+                </ul>
+
+                <h4>📄 Rapports</h4>
+                <ul>
+                    <li><code>imprimerVirementMandatBct()</code> - Générer PDF décharge</li>
+                </ul>
+
+                <h4>🔧 Utilitaires</h4>
+                <ul>
+                    <li><code>calculerRIB()</code> - Calcul clé RIB (modulo 97)</li>
+                    <li><code>convertirCodeEtat()</code> - Conversion code → libellé</li>
+                    <li><code>getCouleurEtatOrdre()</code> - Style CSS selon état</li>
+                    <li><code>getSeqAgence()</code> - Récupération séquence</li>
+                    <li><code>formatMontant()</code> - Formatage montants</li>
+                </ul>
+
+                <h4>🔄 Navigation et réinitialisation</h4>
+                <ul>
+                    <li><code>quitterVirementMandatBct()</code> - Retour menu</li>
+                    <li><code>annulerBoutton()</code> - Annulation saisie</li>
+                    <li><code>reinitialiserTout()</code> - Reset complet</li>
+                    <li><code>viderFormulaire()</code> - Vider champs saisie</li>
+                </ul>
+
+                <h3>4.4 Métriques du code</h3>
+
+                <table>
+                    <tr>
+                        <th>Métrique</th>
+                        <th>Valeur</th>
+                        <th>Observation</th>
+                    </tr>
+                    <tr>
+                        <td>Nombre de lignes</td>
+                        <td>3261</td>
+                        <td><span class="badge badge-warning">Très élevé</span></td>
+                    </tr>
+                    <tr>
+                        <td>Nombre de méthodes</td>
+                        <td>~70</td>
+                        <td><span class="badge badge-warning">Élevé</span></td>
+                    </tr>
+                    <tr>
+                        <td>Nombre de propriétés</td>
+                        <td>~80</td>
+                        <td><span class="badge badge-warning">Très élevé</span></td>
+                    </tr>
+                    <tr>
+                        <td>Complexité cyclomatique</td>
+                        <td>Élevée</td>
+                        <td><span class="badge badge-danger">Refactoring recommandé</span></td>
+                    </tr>
+                    <tr>
+                        <td>Gestion erreurs</td>
+                        <td>Try-catch génériques</td>
+                        <td><span class="badge badge-warning">À améliorer</span></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>📄 Rapport généré automatiquement pour le module PecVirementCentralCtr</p>
+            <p>Système SMILE - Banque Nationale Agricole © 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll pour les liens de la table des matières
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
