@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Complet - Module Virement SMILE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #2c3e50;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            background: #34495e;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: block;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        code {
+            background: #2c3e50;
+            color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2c3e50;
+            color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 10px 0;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .highlight {
+            background: #fff176;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .workflow-step {
+            background: white;
+            border: 2px solid #3498db;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .workflow-step::before {
+            content: '→';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #3498db;
+        }
+
+        .workflow-step:first-child::before {
+            content: '';
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #3498db;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .badge-success { background: #28a745; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .badge-danger { background: #dc3545; }
+        .badge-info { background: #17a2b8; }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guide Complet du Module Virement SMILE</h1>
+            <p>Documentation détaillée pour débutants - Système Bancaire BNA</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#types-virements">Types de Virements</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#workflow">Workflows</a></li>
+                <li><a href="#validation">Validation RIB</a></li>
+                <li><a href="#controllers">Contrôleurs</a></li>
+                <li><a href="#etats">États & Transitions</a></li>
+                <li><a href="#fichiers">Fichiers Masse</a></li>
+                <li><a href="#integration">Intégration</a></li>
+                <li><a href="#exemples">Exemples</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <section id="introduction">
+                <h2>1. Introduction au Module Virement</h2>
+
+                <div class="info-box">
+                    <h3>Qu'est-ce qu'un virement bancaire ?</h3>
+                    <p>Un virement bancaire est une opération de transfert d'argent d'un compte bancaire (débiteur) vers un autre compte (créditeur). Dans le système SMILE de la BNA, le module virement gère tous les types de virements possibles.</p>
+                </div>
+
+                <h3>Localisation du Module</h3>
+                <div class="card">
+                    <p><strong>Chemin:</strong> <code>com.bna.smile.web.virement</code></p>
+                    <p><strong>Nombre de fichiers:</strong> 30 fichiers Java</p>
+                    <ul>
+                        <li>25 contrôleurs (Controllers)</li>
+                        <li>3 convertisseurs (Converters)</li>
+                        <li>1 validateur (Validator)</li>
+                        <li>1 utilitaire</li>
+                    </ul>
+                </div>
+
+                <h3>Rôle du Module</h3>
+                <p>Le module virement permet de :</p>
+                <ul>
+                    <li><strong>Créer</strong> différents types de virements</li>
+                    <li><strong>Valider</strong> les RIB (Relevé d'Identité Bancaire)</li>
+                    <li><strong>Gérer</strong> le cycle de vie des virements (états, transitions)</li>
+                    <li><strong>Exécuter</strong> les virements en lot (batch)</li>
+                    <li><strong>Modifier</strong> et <strong>annuler</strong> les virements</li>
+                    <li><strong>Consulter</strong> l'historique des opérations</li>
+                    <li><strong>Intégrer</strong> avec la BCT (Banque Centrale de Tunisie)</li>
+                    <li><strong>Générer</strong> des rapports et des fichiers télé-compensables</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>Important pour les débutants</h4>
+                    <p>Ce module utilise le pattern JSF (JavaServer Faces) avec des <strong>Managed Beans</strong>. Chaque contrôleur est annoté avec <code>@ManagedBean</code> et <code>@ViewScoped</code>.</p>
+                </div>
+            </section>
+
+            <section id="types-virements">
+                <h2>2. Les 10 Types de Virements</h2>
+
+                <p>Le système SMILE gère 10 types de virements différents, chacun avec ses spécificités :</p>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4><span class="badge">1063</span> Virement Ponctuel</h4>
+                        <p><strong>Description:</strong> Virement unique, effectué une seule fois</p>
+                        <p><strong>Contrôleur:</strong> <code>PecVirementPonctuelCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Paiement fournisseur, transfert occasionnel</p>
+                    </div>
+
+                    <div class="card">
+                        <h4><span class="badge">1064</span> Virement Permanent</h4>
+                        <p><strong>Description:</strong> Virement récurrent avec périodicité</p>
+                        <p><strong>Contrôleur:</strong> <code>PecVirementPermanentCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Loyer mensuel, abonnements réguliers</p>
+                    </div>
+
+                    <div class="card">
+                        <h4><span class="badge">1062</span> Virement de Masse</h4>
+                        <p><strong>Description:</strong> Traitement de fichiers avec plusieurs virements</p>
+                        <p><strong>Contrôleur:</strong> <code>PecVirementMasseCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Paie des employés, paiements multiples</p>
+                    </div>
+
+                    <div class="card">
+                        <h4><span class="badge badge-info">CàC</span> Compte à Compte</h4>
+                        <p><strong>Description:</strong> Virement interne entre deux comptes BNA</p>
+                        <p><strong>Contrôleur:</strong> <code>PecVirementCompteACompteCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Transfert entre vos propres comptes</p>
+                    </div>
+
+                    <div class="card">
+                        <h4><span class="badge badge-success">DEVISE</span> Virement en Devise</h4>
+                        <p><strong>Description:</strong> Virement en monnaie étrangère</p>
+                        <p><strong>Contrôleur:</strong> <code>PecVirementDeviseCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Paiements internationaux</p>
+                    </div>
+
+                    <div class="card">
+                        <h4><span class="badge badge-warning">CENTRAL</span> Virement Central/BCT</h4>
+                        <p><strong>Description:</strong> Mandats envoyés à la Banque Centrale</p>
+                        <p><strong>Contrôleur:</strong> <code>PecVirementCentralCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Transferts interbancaires via BCT</p>
+                    </div>
+
+                    <div class="card">
+                        <h4><span class="badge badge-info">CAPI</span> Virement CAPI</h4>
+                        <p><strong>Description:</strong> Virements spécifiques CAPI</p>
+                        <p><strong>Contrôleur:</strong> <code>PecVirementCapiCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Opérations CAPI</p>
+                    </div>
+
+                    <div class="card">
+                        <h4><span class="badge badge-danger">SUCCESSION</span> Virement Succession</h4>
+                        <p><strong>Description:</strong> Virements liés aux successions</p>
+                        <p><strong>Contrôleur:</strong> <code>PecVirementSuccessionCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Règlement de succession</p>
+                    </div>
+
+                    <div class="card">
+                        <h4><span class="badge badge-success">CARTES</span> Cartes Salaires</h4>
+                        <p><strong>Description:</strong> Alimentation des cartes salaires</p>
+                        <p><strong>Contrôleur:</strong> <code>PecVirementCartesSalairesCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Versement salaires sur cartes</p>
+                    </div>
+
+                    <div class="card">
+                        <h4><span class="badge">DETAIL</span> Detail Virement Ponctuel</h4>
+                        <p><strong>Description:</strong> Détails d'un virement ponctuel</p>
+                        <p><strong>Contrôleur:</strong> <code>DetailVirementPonctuelCtr.java</code></p>
+                        <p><strong>Cas d'usage:</strong> Consultation détaillée</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="architecture">
+                <h2>3. Architecture du Module</h2>
+
+                <h3>Pattern MVC (Model-View-Controller)</h3>
+                <div class="info-box">
+                    <p>Le module virement suit le pattern MVC avec JSF :</p>
+                    <ul>
+                        <li><strong>Model:</strong> Entités JPA (VirementPonctuel, VirementPermanent, etc.)</li>
+                        <li><strong>View:</strong> Pages XHTML (non présentes dans ce dossier)</li>
+                        <li><strong>Controller:</strong> Managed Beans (@ManagedBean, @ViewScoped)</li>
+                    </ul>
+                </div>
+
+                <h3>Structure des Contrôleurs</h3>
+                <p>Tous les contrôleurs suivent une structure similaire :</p>
+
+                <pre><code>@ManagedBean
+@ViewScoped
+public class PecVirementPonctuelCtr extends AbstractCtr {
+
+    // 1. Services injectés
+    private VirementService virementService;
+
+    // 2. Propriétés du formulaire
+    private VirementPonctuel virement;
+    private String ribDebiteur;
+    private String ribCrediteur;
+    private BigDecimal montant;
+
+    // 3. Méthodes de navigation
+    public String init() { ... }
+
+    // 4. Méthodes d'action
+    public String enregistrer() { ... }
+    public String valider() { ... }
+    public String annuler() { ... }
+
+    // 5. Méthodes de recherche
+    public void rechercherRib() { ... }
+
+    // 6. Getters/Setters
+    // ...
+}</code></pre>
+
+                <h3>Composants Principaux</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Contrôleurs de Prise en Charge (PEC)</h4>
+                        <p>Préfixe: <code>PecVirement*Ctr.java</code></p>
+                        <p>Rôle: Créer et saisir de nouveaux virements</p>
+                        <ul>
+                            <li>PecVirementPonctuelCtr</li>
+                            <li>PecVirementPermanentCtr</li>
+                            <li>PecVirementMasseCtr</li>
+                            <li>etc.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>Contrôleurs de Modification</h4>
+                        <p>Préfixe: <code>ModificationVirement*Ctr.java</code></p>
+                        <p>Rôle: Modifier les virements en attente</p>
+                        <ul>
+                            <li>ModificationVirementPonctuelCtr</li>
+                            <li>ModificationVirementPermanentCtr</li>
+                            <li>ModificationVirementMasseCtr</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>Contrôleurs d'Annulation</h4>
+                        <p>Préfixe: <code>AnnulationVirement*Ctr.java</code></p>
+                        <p>Rôle: Annuler les virements</p>
+                        <ul>
+                            <li>AnnulationVirementPonctuelCtr</li>
+                            <li>AnnulationVirementPermanentCtr</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>Autres Contrôleurs</h4>
+                        <ul>
+                            <li><code>ExecutionVirementCtr</code> - Batch d'exécution</li>
+                            <li><code>ConsultationVirementCtr</code> - Consultation/Recherche</li>
+                            <li><code>DetailVirementPonctuelCtr</code> - Affichage détails</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Utilitaires et Composants Support</h3>
+                <table>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Rôle</th>
+                        <th>Fichier</th>
+                    </tr>
+                    <tr>
+                        <td>Validateur RIB</td>
+                        <td>Valider la clé RIB (modulo 97)</td>
+                        <td><code>RibValidator.java</code></td>
+                    </tr>
+                    <tr>
+                        <td>Convertisseur Virement</td>
+                        <td>Convertir entités en DTOs</td>
+                        <td><code>VirementConverter.java</code></td>
+                    </tr>
+                    <tr>
+                        <td>Convertisseur Périodicité</td>
+                        <td>Gérer les périodicités</td>
+                        <td><code>PeriodiciteConverter.java</code></td>
+                    </tr>
+                    <tr>
+                        <td>Convertisseur Mandat</td>
+                        <td>Gérer les mandats BCT</td>
+                        <td><code>MandatConverter.java</code></td>
+                    </tr>
+                </table>
+            </section>
+
+            <section id="workflow">
+                <h2>4. Workflows et Cycle de Vie</h2>
+
+                <h3>Workflow Principal d'un Virement</h3>
+                <div class="workflow-step">
+                    <h4>Étape 1: Prise en Charge (PEC)</h4>
+                    <p>L'utilisateur saisit un nouveau virement via un contrôleur <code>PecVirement*Ctr</code></p>
+                    <ul>
+                        <li>Saisie des informations (RIB, montant, motif)</li>
+                        <li>Validation du formulaire</li>
+                        <li>Création de l'entité avec état <span class="badge-warning">ATTENTE</span></li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Étape 2: Modification (Optionnel)</h4>
+                    <p>Si nécessaire, modification via <code>ModificationVirement*Ctr</code></p>
+                    <ul>
+                        <li>Uniquement pour les virements en attente</li>
+                        <li>Modification des données</li>
+                        <li>Re-validation</li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Étape 3: Validation</h4>
+                    <p>Validation métier et technique</p>
+                    <ul>
+                        <li>Vérification de la provision</li>
+                        <li>Validation du RIB créditeur</li>
+                        <li>Contrôles métier spécifiques</li>
+                        <li>État passe à <span class="badge-info">VALIDÉ</span></li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Étape 4: Exécution</h4>
+                    <p>Traitement batch via <code>ExecutionVirementCtr</code></p>
+                    <ul>
+                        <li>Débit du compte émetteur</li>
+                        <li>Crédit du compte bénéficiaire</li>
+                        <li>Génération des écritures comptables</li>
+                        <li>État passe à <span class="badge-success">EXÉCUTÉ</span></li>
+                    </ul>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>Étape 5: Consultation</h4>
+                    <p>Consultation via <code>ConsultationVirementCtr</code></p>
+                    <ul>
+                        <li>Recherche multi-critères</li>
+                        <li>Affichage de l'historique</li>
+                        <li>Génération de rapports</li>
+                    </ul>
+                </div>
+
+                <h3>Workflow Spécifique: Virement de Masse</h3>
+                <div class="info-box">
+                    <h4>Traitement en 2 Phases</h4>
+                    <ol>
+                        <li><strong>Phase 1:</strong> Upload et parsing du fichier
+                            <ul>
+                                <li>Téléchargement du fichier (format spécifique)</li>
+                                <li>Validation de la structure</li>
+                                <li>Création d'un enregistrement global</li>
+                                <li>Création des détails (lignes du fichier)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Phase 2:</strong> Exécution batch
+                            <ul>
+                                <li>Traitement ligne par ligne</li>
+                                <li>Validation de chaque virement</li>
+                                <li>Exécution ou rejet individuel</li>
+                                <li>Génération du fichier de retour</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <h3>Workflow: Virement Permanent</h3>
+                <div class="success-box">
+                    <h4>Périodicité et Échéances</h4>
+                    <p>Le virement permanent possède une <strong>périodicité</strong> (mensuelle, trimestrielle, etc.)</p>
+                    <ol>
+                        <li>Création avec date de début et périodicité</li>
+                        <li>Calcul automatique des échéances futures</li>
+                        <li>Exécution automatique à chaque échéance</li>
+                        <li>Possibilité de résiliation</li>
+                    </ol>
+                    <p><strong>États spécifiques:</strong> ACTIF, RÉSILIÉ, SUSPENDU, DÉCALÉ J+1</p>
+                </div>
+            </section>
+
+            <section id="validation">
+                <h2>5. Validation du RIB (Relevé d'Identité Bancaire)</h2>
+
+                <h3>Qu'est-ce qu'un RIB ?</h3>
+                <div class="info-box">
+                    <p>Le RIB est l'identifiant unique d'un compte bancaire. En Tunisie, il est composé de 20 caractères :</p>
+                    <ul>
+                        <li><strong>Positions 1-2:</strong> Code banque (2 chiffres)</li>
+                        <li><strong>Positions 3-5:</strong> Code agence (3 chiffres)</li>
+                        <li><strong>Positions 6-18:</strong> Numéro de compte (13 chiffres)</li>
+                        <li><strong>Positions 19-20:</strong> Clé RIB (2 chiffres)</li>
+                    </ul>
+                    <p><strong>Exemple:</strong> <code class="highlight">08 032 0000123456789 17</code> (20 caractères)</p>
+                </div>
+
+                <h3>Algorithme de Validation (Modulo 97)</h3>
+                <div class="card">
+                    <h4>Principe</h4>
+                    <p>La clé RIB (2 derniers chiffres) est calculée à partir des 18 premiers chiffres par l'algorithme modulo 97 :</p>
+
+                    <pre><code>// Code Java du validateur RIB
+public boolean validateRib(String rib) {
+    // 1. Vérifier la longueur
+    if (rib == null || rib.length() != 20) {
+        return false;
+    }
+
+    // 2. Extraire les 18 premiers chiffres (RI)
+    String RI = rib.substring(0, 18);
+
+    // 3. Extraire la clé (2 derniers chiffres)
+    String cleeFournie = rib.substring(18, 20);
+
+    // 4. Calculer la clé attendue
+    // Formule: Clé = 97 - (RI + "00") % 97
+    BigInteger rr = new BigInteger(RI + "00");
+    int rest = rr.mod(new BigInteger("97")).intValue();
+    int cleeCalculee = 97 - rest;
+
+    // 5. Comparer
+    return Integer.parseInt(cleeFournie) == cleeCalculee;
+}</code></pre>
+                </div>
+
+                <h3>Exemple de Calcul Manuel</h3>
+                <div class="warning-box">
+                    <h4>RIB: 08 032 0000123456789 17</h4>
+                    <ol>
+                        <li>RI = 080320000123456789 (18 chiffres)</li>
+                        <li>RI + "00" = 08032000012345678900</li>
+                        <li>08032000012345678900 % 97 = 80</li>
+                        <li>Clé = 97 - 80 = 17</li>
+                        <li>Clé fournie = 17 ✓ <strong>RIB VALIDE</strong></li>
+                    </ol>
+                </div>
+
+                <h3>Validations Complémentaires</h3>
+                <table>
+                    <tr>
+                        <th>Validation</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>Format</td>
+                        <td>20 caractères numériques exactement</td>
+                    </tr>
+                    <tr>
+                        <td>Code Banque</td>
+                        <td>Doit exister dans le référentiel des banques</td>
+                    </tr>
+                    <tr>
+                        <td>Code Agence</td>
+                        <td>Doit exister pour la banque donnée</td>
+                    </tr>
+                    <tr>
+                        <td>Compte Actif</td>
+                        <td>Le compte doit être actif (non clôturé)</td>
+                    </tr>
+                    <tr>
+                        <td>Clé RIB</td>
+                        <td>Validation par algorithme modulo 97</td>
+                    </tr>
+                </table>
+
+                <h3>Utilisation dans les Contrôleurs</h3>
+                <pre><code>// Dans PecVirementPonctuelCtr
+public void validerRibCrediteur() {
+    // 1. Appel du validateur
+    RibValidator validator = new RibValidator();
+
+    if (!validator.validate(ribCrediteur)) {
+        FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "RIB créditeur invalide",
+                "La clé RIB ne correspond pas"));
+        return;
+    }
+
+    // 2. Rechercher le compte dans la base
+    ContratCpt compte = virementService.rechercherCompteParRib(ribCrediteur);
+
+    if (compte == null) {
+        FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Compte introuvable",
+                "Aucun compte ne correspond à ce RIB"));
+        return;
+    }
+
+    // 3. Vérifier l'état du compte
+    if (!"ACTIF".equals(compte.getCodEtatCcpt())) {
+        FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                "Compte inactif",
+                "Le compte bénéficiaire n'est pas actif"));
+        return;
+    }
+
+    // 4. Tout est OK, on peut continuer
+    virement.setRibCrediteur(ribCrediteur);
+    virement.setCompteCrediteur(compte);
+}</code></pre>
+            </section>
+
+            <section id="controllers">
+                <h2>6. Détail des Contrôleurs Principaux</h2>
+
+                <h3>PecVirementPonctuelCtr</h3>
+                <div class="card">
+                    <h4>Rôle</h4>
+                    <p>Gestion de la création de virements ponctuels (code opération 1063)</p>
+
+                    <h4>Attributs Principaux</h4>
+                    <pre><code>private VirementPonctuel virement;
+private String ribDebiteur;
+private String ribCrediteur;
+private BigDecimal montant;
+private String motif;
+private Date dateExecution;</code></pre>
+
+                    <h4>Méthodes Principales</h4>
+                    <ul>
+                        <li><code>init()</code> - Initialisation de la page</li>
+                        <li><code>rechercherRibDebiteur()</code> - Recherche et validation RIB débiteur</li>
+                        <li><code>rechercherRibCrediteur()</code> - Recherche et validation RIB créditeur</li>
+                        <li><code>calculerProvision()</code> - Calcul de la provision nécessaire</li>
+                        <li><code>enregistrer()</code> - Sauvegarde du virement (état ATTENTE)</li>
+                        <li><code>validerEtEnregistrer()</code> - Validation et enregistrement direct</li>
+                    </ul>
+
+                    <h4>Workflow</h4>
+                    <ol>
+                        <li>Utilisateur saisit RIB débiteur → validation</li>
+                        <li>Utilisateur saisit RIB créditeur → validation</li>
+                        <li>Saisie montant et motif</li>
+                        <li>Vérification de la provision</li>
+                        <li>Enregistrement avec état ATTENTE</li>
+                    </ol>
+                </div>
+
+                <h3>PecVirementPermanentCtr</h3>
+                <div class="card">
+                    <h4>Spécificités</h4>
+                    <p>Ajoute la gestion de la périodicité par rapport au virement ponctuel</p>
+
+                    <h4>Attributs Supplémentaires</h4>
+                    <pre><code>private Periodicite periodicite; // MENSUEL, TRIMESTRIEL, etc.
+private Date dateDebut;
+private Date dateFin; // Optionnel
+private Integer nombreEcheances; // Optionnel</code></pre>
+
+                    <h4>Méthodes Spécifiques</h4>
+                    <ul>
+                        <li><code>calculerEcheances()</code> - Calcul des dates d'exécution futures</li>
+                        <li><code>afficherCalendrierEcheances()</code> - Affichage prévisionnel</li>
+                        <li><code>resilier()</code> - Résiliation du virement permanent</li>
+                    </ul>
+
+                    <h4>Exemple de Calcul d'Échéances</h4>
+                    <pre><code>// Virement permanent mensuel de 500 DT
+Date dateDebut = "2024-01-15"
+Periodicite = MENSUEL
+NombreEcheances = 12
+
+// Échéances calculées:
+// 2024-01-15, 2024-02-15, 2024-03-15, ..., 2024-12-15</code></pre>
+                </div>
+
+                <h3>PecVirementMasseCtr</h3>
+                <div class="card">
+                    <h4>Rôle</h4>
+                    <p>Traitement de fichiers contenant plusieurs virements (paie, paiements multiples)</p>
+
+                    <h4>Attributs Principaux</h4>
+                    <pre><code>private UploadedFile fichier;
+private VirementMasseGlobal virementGlobal;
+private List<VirementMasseDetail> details;
+private int nombreLignes;
+private BigDecimal montantTotal;</code></pre>
+
+                    <h4>Format du Fichier</h4>
+                    <div class="info-box">
+                        <p><strong>Ligne Globale (50 caractères):</strong></p>
+                        <ul>
+                            <li>Pos 1-20: RIB débiteur</li>
+                            <li>Pos 21-28: Date d'exécution (YYYYMMDD)</li>
+                            <li>Pos 29-43: Montant total (15 chiffres)</li>
+                            <li>Pos 44-50: Nombre de lignes</li>
+                        </ul>
+
+                        <p><strong>Lignes Détails (148 caractères chacune):</strong></p>
+                        <ul>
+                            <li>Pos 1-20: RIB créditeur</li>
+                            <li>Pos 21-35: Montant (15 chiffres)</li>
+                            <li>Pos 36-135: Motif (100 caractères)</li>
+                            <li>Pos 136-148: Référence (13 caractères)</li>
+                        </ul>
+                    </div>
+
+                    <h4>Méthodes Principales</h4>
+                    <ul>
+                        <li><code>uploadFichier()</code> - Upload du fichier</li>
+                        <li><code>parserFichier()</code> - Lecture et parsing</li>
+                        <li><code>validerStructure()</code> - Validation du format</li>
+                        <li><code>validerMontants()</code> - Cohérence des montants</li>
+                        <li><code>enregistrerVirementMasse()</code> - Sauvegarde global + détails</li>
+                    </ul>
+
+                    <h4>Exemple de Fichier</h4>
+                    <pre><code>08032000012345678917202401150000000015000000003
+08045000098765432145000000005000Salaire janvier 2024    REF001
+08032000056789012378000000005000Salaire janvier 2024    REF002
+08078000011223344556000000005000Salaire janvier 2024    REF003</code></pre>
+                </div>
+
+                <h3>ExecutionVirementCtr</h3>
+                <div class="card">
+                    <h4>Rôle</h4>
+                    <p>Traitement batch pour l'exécution effective des virements validés</p>
+
+                    <h4>Workflow d'Exécution</h4>
+                    <ol>
+                        <li><strong>Sélection:</strong> Récupérer tous les virements VALIDÉS avec date d'exécution ≤ aujourd'hui</li>
+                        <li><strong>Provision:</strong> Vérifier la provision pour chaque virement</li>
+                        <li><strong>Débit:</strong> Débiter le compte émetteur</li>
+                        <li><strong>Crédit:</strong> Créditer le compte bénéficiaire</li>
+                        <li><strong>Comptabilisation:</strong> Générer les écritures comptables</li>
+                        <li><strong>Mise à jour:</strong> Marquer comme EXÉCUTÉ ou REJETÉ</li>
+                        <li><strong>Notifications:</strong> Générer les avis de débit/crédit</li>
+                    </ol>
+
+                    <h4>Gestion des Erreurs</h4>
+                    <table>
+                        <tr>
+                            <th>Erreur</th>
+                            <th>Action</th>
+                            <th>État</th>
+                        </tr>
+                        <tr>
+                            <td>Provision insuffisante</td>
+                            <td>Rejet ou Décalage J+1</td>
+                            <td>REJETÉ ou DÉCALÉ J+1</td>
+                        </tr>
+                        <tr>
+                            <td>Compte clôturé</td>
+                            <td>Rejet définitif</td>
+                            <td>REJETÉ</td>
+                        </tr>
+                        <tr>
+                            <td>Erreur technique</td>
+                            <td>Mise en attente</td>
+                            <td>EN_ERREUR</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>ConsultationVirementCtr</h3>
+                <div class="card">
+                    <h4>Critères de Recherche</h4>
+                    <ul>
+                        <li>RIB débiteur / créditeur</li>
+                        <li>Période (date de création, date d'exécution)</li>
+                        <li>Type de virement</li>
+                        <li>État</li>
+                        <li>Montant (min/max)</li>
+                        <li>Motif (recherche textuelle)</li>
+                    </ul>
+
+                    <h4>Fonctionnalités</h4>
+                    <ul>
+                        <li>Recherche multi-critères avec pagination</li>
+                        <li>Export Excel/PDF des résultats</li>
+                        <li>Affichage détaillé d'un virement</li>
+                        <li>Historique des modifications</li>
+                        <li>Génération de rapports</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="etats">
+                <h2>7. États et Transitions</h2>
+
+                <h3>Diagramme d'États</h3>
+                <div class="info-box">
+                    <h4>États Possibles d'un Virement</h4>
+                    <table>
+                        <tr>
+                            <th>État</th>
+                            <th>Description</th>
+                            <th>Actions Possibles</th>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-warning">ATTENTE</span></td>
+                            <td>Virement créé, en attente de validation</td>
+                            <td>Modifier, Valider, Annuler</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-info">VALIDÉ</span></td>
+                            <td>Virement validé, en attente d'exécution</td>
+                            <td>Exécuter, Annuler</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-success">EXÉCUTÉ</span></td>
+                            <td>Virement effectué avec succès</td>
+                            <td>Consulter uniquement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-danger">REJETÉ</span></td>
+                            <td>Virement rejeté (provision insuffisante, etc.)</td>
+                            <td>Consulter, Créer nouveau</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge">ANNULÉ</span></td>
+                            <td>Virement annulé par l'utilisateur</td>
+                            <td>Consulter uniquement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-warning">DÉCALÉ J+1</span></td>
+                            <td>Exécution reportée au lendemain</td>
+                            <td>Exécuter, Annuler</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-danger">RÉSILIÉ</span></td>
+                            <td>Virement permanent résilié</td>
+                            <td>Consulter uniquement</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>Transitions d'États</h3>
+                <pre><code>ATTENTE → VALIDÉ (action: valider)
+ATTENTE → ANNULÉ (action: annuler)
+ATTENTE → ATTENTE (action: modifier)
+
+VALIDÉ → EXÉCUTÉ (batch: exécution réussie)
+VALIDÉ → REJETÉ (batch: provision insuffisante définitive)
+VALIDÉ → DÉCALÉ J+1 (batch: provision insuffisante temporaire)
+VALIDÉ → ANNULÉ (action: annuler)
+
+DÉCALÉ J+1 → EXÉCUTÉ (batch: exécution réussie)
+DÉCALÉ J+1 → REJETÉ (batch: provision toujours insuffisante)
+
+EXÉCUTÉ → (état final, aucune transition)
+REJETÉ → (état final, aucune transition)
+ANNULÉ → (état final, aucune transition)</code></pre>
+
+                <h3>États Spécifiques: Virement Permanent</h3>
+                <div class="success-box">
+                    <h4>Cycle de Vie Particulier</h4>
+                    <ul>
+                        <li><strong>ACTIF:</strong> Virement permanent en cours, génère des échéances</li>
+                        <li><strong>SUSPENDU:</strong> Temporairement inactif (ne génère pas d'échéances)</li>
+                        <li><strong>RÉSILIÉ:</strong> Définitivement arrêté</li>
+                    </ul>
+                    <p>Chaque échéance générée passe par les états classiques (ATTENTE → VALIDÉ → EXÉCUTÉ)</p>
+                </div>
+            </section>
+
+            <section id="fichiers">
+                <h2>8. Gestion des Fichiers de Masse</h2>
+
+                <h3>Structure Détaillée du Fichier</h3>
+                <div class="card">
+                    <h4>Ligne Globale (En-tête)</h4>
+                    <table>
+                        <tr>
+                            <th>Position</th>
+                            <th>Longueur</th>
+                            <th>Champ</th>
+                            <th>Format</th>
+                            <th>Exemple</th>
+                        </tr>
+                        <tr>
+                            <td>1-20</td>
+                            <td>20</td>
+                            <td>RIB Débiteur</td>
+                            <td>Numérique</td>
+                            <td>08032000012345678917</td>
+                        </tr>
+                        <tr>
+                            <td>21-28</td>
+                            <td>8</td>
+                            <td>Date Exécution</td>
+                            <td>YYYYMMDD</td>
+                            <td>20240115</td>
+                        </tr>
+                        <tr>
+                            <td>29-43</td>
+                            <td>15</td>
+                            <td>Montant Total</td>
+                            <td>Numérique (millimes)</td>
+                            <td>000000015000000</td>
+                        </tr>
+                        <tr>
+                            <td>44-50</td>
+                            <td>7</td>
+                            <td>Nombre Lignes</td>
+                            <td>Numérique</td>
+                            <td>0000003</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h4>Lignes Détails</h4>
+                    <table>
+                        <tr>
+                            <th>Position</th>
+                            <th>Longueur</th>
+                            <th>Champ</th>
+                            <th>Format</th>
+                            <th>Exemple</th>
+                        </tr>
+                        <tr>
+                            <td>1-20</td>
+                            <td>20</td>
+                            <td>RIB Créditeur</td>
+                            <td>Numérique</td>
+                            <td>08045000098765432145</td>
+                        </tr>
+                        <tr>
+                            <td>21-35</td>
+                            <td>15</td>
+                            <td>Montant</td>
+                            <td>Numérique (millimes)</td>
+                            <td>000000005000000</td>
+                        </tr>
+                        <tr>
+                            <td>36-135</td>
+                            <td>100</td>
+                            <td>Motif</td>
+                            <td>Alphanumérique</td>
+                            <td>Salaire janvier 2024...</td>
+                        </tr>
+                        <tr>
+                            <td>136-148</td>
+                            <td>13</td>
+                            <td>Référence</td>
+                            <td>Alphanumérique</td>
+                            <td>REF001</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>Processus de Traitement</h3>
+                <div class="workflow-step">
+                    <h4>1. Upload du Fichier</h4>
+                    <pre><code>public void handleFileUpload(FileUploadEvent event) {
+    UploadedFile file = event.getFile();
+
+    // Validation taille
+    if (file.getSize() > MAX_FILE_SIZE) {
+        addError("Fichier trop volumineux");
+        return;
+    }
+
+    // Validation extension
+    if (!file.getFileName().endsWith(".txt")) {
+        addError("Format de fichier non supporté");
+        return;
+    }
+
+    this.fichier = file;
+}</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>2. Parsing et Validation</h4>
+                    <pre><code>public void parserFichier() throws Exception {
+    BufferedReader reader = new BufferedReader(
+        new InputStreamReader(fichier.getInputStream()));
+
+    // Lecture ligne globale
+    String ligneGlobale = reader.readLine();
+    if (ligneGlobale.length() != 50) {
+        throw new Exception("Ligne globale invalide");
+    }
+
+    // Extraction des données globales
+    String ribDebiteur = ligneGlobale.substring(0, 20);
+    String dateExec = ligneGlobale.substring(20, 28);
+    String montantTotal = ligneGlobale.substring(28, 43);
+    int nbLignes = Integer.parseInt(ligneGlobale.substring(43, 50));
+
+    // Validation RIB débiteur
+    if (!ribValidator.validate(ribDebiteur)) {
+        throw new Exception("RIB débiteur invalide");
+    }
+
+    // Lecture et parsing des détails
+    List<VirementMasseDetail> details = new ArrayList<>();
+    String ligne;
+    int compteur = 0;
+    BigDecimal sommeMontants = BigDecimal.ZERO;
+
+    while ((ligne = reader.readLine()) != null) {
+        compteur++;
+
+        if (ligne.length() != 148) {
+            throw new Exception("Ligne " + compteur + " invalide");
+        }
+
+        VirementMasseDetail detail = new VirementMasseDetail();
+        detail.setRibCrediteur(ligne.substring(0, 20));
+        detail.setMontant(new BigDecimal(ligne.substring(20, 35)).divide(new BigDecimal(1000)));
+        detail.setMotif(ligne.substring(35, 135).trim());
+        detail.setReference(ligne.substring(135, 148).trim());
+
+        // Validation RIB créditeur
+        if (!ribValidator.validate(detail.getRibCrediteur())) {
+            throw new Exception("RIB créditeur invalide ligne " + compteur);
+        }
+
+        sommeMontants = sommeMontants.add(detail.getMontant());
+        details.add(detail);
+    }
+
+    // Validation cohérence
+    if (compteur != nbLignes) {
+        throw new Exception("Nombre de lignes incorrect");
+    }
+
+    BigDecimal montantTotalAttendu = new BigDecimal(montantTotal).divide(new BigDecimal(1000));
+    if (sommeMontants.compareTo(montantTotalAttendu) != 0) {
+        throw new Exception("Montant total incohérent");
+    }
+
+    // Tout est OK
+    this.details = details;
+    this.virementGlobal.setNombreLignes(nbLignes);
+    this.virementGlobal.setMontantTotal(montantTotalAttendu);
+}</code></pre>
+                </div>
+
+                <div class="workflow-step">
+                    <h4>3. Enregistrement en Base</h4>
+                    <pre><code>public void enregistrer() {
+    // Sauvegarde du global
+    virementGlobal.setEtat("ATTENTE");
+    virementGlobal.setDateCreation(new Date());
+    virementMasseService.saveGlobal(virementGlobal);
+
+    // Sauvegarde des détails
+    for (VirementMasseDetail detail : details) {
+        detail.setVirementGlobal(virementGlobal);
+        detail.setEtat("ATTENTE");
+        virementMasseService.saveDetail(detail);
+    }
+
+    addInfo("Fichier traité avec succès: " + details.size() + " virements");
+}</code></pre>
+                </div>
+
+                <h3>Fichier de Retour</h3>
+                <div class="info-box">
+                    <h4>Génération après Exécution</h4>
+                    <p>Après le traitement batch, un fichier de retour est généré avec le statut de chaque virement :</p>
+                    <ul>
+                        <li>Même structure que le fichier d'entrée</li>
+                        <li>Ajout d'une colonne "Statut" (OK, KO, ERREUR)</li>
+                        <li>Ajout d'une colonne "Motif rejet" si applicable</li>
+                    </ul>
+                    <p><strong>Format ligne de retour (168 caractères):</strong></p>
+                    <p>RIB(20) + Montant(15) + Motif(100) + Ref(13) + Statut(2) + MotifRejet(18)</p>
+                </div>
+            </section>
+
+            <section id="integration">
+                <h2>9. Intégration avec Systèmes Externes</h2>
+
+                <h3>Intégration BCT (Banque Centrale de Tunisie)</h3>
+                <div class="card">
+                    <h4>Contrôleur: PecVirementCentralCtr</h4>
+                    <p>Gestion des mandats envoyés à la BCT pour les virements interbancaires</p>
+
+                    <h4>Processus</h4>
+                    <ol>
+                        <li><strong>Création Mandat:</strong> Création d'un mandat avec les informations du virement</li>
+                        <li><strong>Validation:</strong> Validation métier et technique</li>
+                        <li><strong>Génération Fichier:</strong> Génération d'un fichier au format BCT</li>
+                        <li><strong>Envoi BCT:</strong> Transmission sécurisée à la Banque Centrale</li>
+                        <li><strong>Acquittement:</strong> Réception de l'accusé de réception</li>
+                        <li><strong>Traitement Retour:</strong> Traitement du fichier de retour BCT</li>
+                    </ol>
+
+                    <h4>Format Mandat BCT</h4>
+                    <pre><code>// Structure d'un mandat BCT
+public class MandatBCT {
+    private String numeroMandat;        // Unique
+    private String ribEmetteur;         // 20 caractères
+    private String ribBeneficiaire;     // 20 caractères
+    private BigDecimal montant;         // 15 chiffres max
+    private String motif;               // 140 caractères max
+    private Date dateValeur;            // YYYYMMDD
+    private String priorite;            // NORMALE, URGENTE
+    private String codeOperation;       // Code BCT
+}</code></pre>
+                </div>
+
+                <h3>Intégration SGMT (Système de Gros Montants Tunisien)</h3>
+                <div class="info-box">
+                    <h4>Seuil SGMT</h4>
+                    <p>Les virements dont le montant dépasse un certain seuil (paramétrable) doivent passer par le SGMT</p>
+                    <ul>
+                        <li>Seuil par défaut: 50 000 DT</li>
+                        <li>Traitement en temps réel</li>
+                        <li>Confirmation immédiate ou rejet</li>
+                    </ul>
+                </div>
+
+                <h3>Télé-compensation (SWIFT MT103)</h3>
+                <div class="card">
+                    <h4>Génération de Fichiers Télé-compensables</h4>
+                    <p>Pour les virements de masse, génération de fichiers au format télé-compensation</p>
+
+                    <pre><code>// Exemple de message SWIFT MT103
+{1:F01BNATTNTTAXXX0000000000}
+{2:I103BNATTNTTXXXXN}
+{4:
+:20:REF20240115001
+:23B:CRED
+:32A:240115TND5000,00
+:50K:/08032000012345678917
+BNA TUNIS
+:59:/08045000098765432145
+BENEFICIAIRE SA
+:70:SALAIRE JANVIER 2024
+:71A:SHA
+-}</code></pre>
+                </div>
+
+                <h3>Paramètres Système</h3>
+                <table>
+                    <tr>
+                        <th>Paramètre</th>
+                        <th>Description</th>
+                        <th>Valeur Exemple</th>
+                    </tr>
+                    <tr>
+                        <td>SEUIL_SGMT</td>
+                        <td>Seuil pour passage SGMT</td>
+                        <td>50000.000</td>
+                    </tr>
+                    <tr>
+                        <td>MAX_VIREMENT_MASSE</td>
+                        <td>Nombre max de lignes fichier masse</td>
+                        <td>10000</td>
+                    </tr>
+                    <tr>
+                        <td>HEURE_BATCH_EXECUTION</td>
+                        <td>Heure d'exécution batch quotidien</td>
+                        <td>23:00</td>
+                    </tr>
+                    <tr>
+                        <td>NB_JOURS_DECALAGE_MAX</td>
+                        <td>Nombre max de décalages J+1</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>MONTANT_MAX_PONCTUEL</td>
+                        <td>Montant maximum virement ponctuel</td>
+                        <td>999999999999.999</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section id="exemples">
+                <h2>10. Exemples Pratiques</h2>
+
+                <h3>Exemple 1: Créer un Virement Ponctuel Simple</h3>
+                <div class="success-box">
+                    <h4>Cas d'Usage</h4>
+                    <p>Un client souhaite transférer 500 DT à un fournisseur</p>
+
+                    <h4>Étapes</h4>
+                    <ol>
+                        <li>Accéder au contrôleur <code>PecVirementPonctuelCtr</code></li>
+                        <li>Saisir le RIB débiteur: <code>08032000012345678917</code></li>
+                        <li>Cliquer sur "Rechercher" → Validation automatique du RIB</li>
+                        <li>Vérification de la provision (compte doit avoir ≥ 500 DT)</li>
+                        <li>Saisir le RIB créditeur: <code>08045000098765432145</code></li>
+                        <li>Cliquer sur "Rechercher" → Validation automatique</li>
+                        <li>Saisir le montant: <code>500.000</code> DT</li>
+                        <li>Saisir le motif: <code>Paiement facture F-2024-001</code></li>
+                        <li>Choisir la date d'exécution: <code>15/01/2024</code></li>
+                        <li>Cliquer sur "Enregistrer" → Virement créé avec état ATTENTE</li>
+                    </ol>
+
+                    <h4>Résultat en Base</h4>
+                    <pre><code>-- Table VIREMENT_PONCTUEL
+INSERT INTO VIREMENT_PONCTUEL VALUES (
+    1,                              -- ID
+    '08032000012345678917',         -- RIB_DEBITEUR
+    '08045000098765432145',         -- RIB_CREDITEUR
+    500.000,                        -- MONTANT
+    'Paiement facture F-2024-001',  -- MOTIF
+    TO_DATE('2024-01-15', 'YYYY-MM-DD'), -- DATE_EXECUTION
+    'ATTENTE',                      -- ETAT
+    SYSDATE,                        -- DATE_CREATION
+    'USER123',                      -- UTILISATEUR_CREATION
+    1063                            -- CODE_OPERATION
+);</code></pre>
+                </div>
+
+                <h3>Exemple 2: Créer un Virement Permanent Mensuel</h3>
+                <div class="info-box">
+                    <h4>Cas d'Usage</h4>
+                    <p>Un client veut payer un loyer de 800 DT chaque mois pendant 12 mois</p>
+
+                    <h4>Étapes</h4>
+                    <ol>
+                        <li>Accéder à <code>PecVirementPermanentCtr</code></li>
+                        <li>Saisir RIB débiteur et créditeur (comme exemple 1)</li>
+                        <li>Saisir montant: <code>800.000</code> DT</li>
+                        <li>Saisir motif: <code>Loyer mensuel</code></li>
+                        <li>Choisir périodicité: <code>MENSUEL</code></li>
+                        <li>Date de début: <code>15/01/2024</code></li>
+                        <li>Nombre d'échéances: <code>12</code></li>
+                        <li>Cliquer sur "Calculer échéances" → Affichage du calendrier prévisionnel</li>
+                        <li>Cliquer sur "Enregistrer"</li>
+                    </ol>
+
+                    <h4>Échéances Générées</h4>
+                    <pre><code>-- 12 échéances créées automatiquement
+15/01/2024 - 800.000 DT - ATTENTE
+15/02/2024 - 800.000 DT - ATTENTE
+15/03/2024 - 800.000 DT - ATTENTE
+...
+15/12/2024 - 800.000 DT - ATTENTE
+
+-- Total: 9,600.000 DT sur 12 mois</code></pre>
+                </div>
+
+                <h3>Exemple 3: Traiter un Fichier de Paie (Virement de Masse)</h3>
+                <div class="warning-box">
+                    <h4>Cas d'Usage</h4>
+                    <p>Une entreprise veut payer les salaires de 150 employés</p>
+
+                    <h4>Préparation du Fichier</h4>
+                    <pre><code>// fichier_paie_janvier_2024.txt
+
+// Ligne globale (50 caractères)
+08032000012345678917202401150000000750000000000150
+
+// Détails (148 caractères par ligne) - Exemple 3 lignes sur 150
+08045000098765432145000000005000000Salaire janvier 2024 - DUPONT Jean                                                                 EMP001
+08032000056789012378000000004500000Salaire janvier 2024 - MARTIN Sophie                                                               EMP002
+08078000011223344556000000005200000Salaire janvier 2024 - BERNARD Luc                                                                 EMP003
+...
+// 147 autres lignes</code></pre>
+
+                    <h4>Traitement</h4>
+                    <ol>
+                        <li>Accéder à <code>PecVirementMasseCtr</code></li>
+                        <li>Cliquer sur "Choisir fichier" → Sélectionner <code>fichier_paie_janvier_2024.txt</code></li>
+                        <li>Cliquer sur "Upload" → Parsing automatique</li>
+                        <li>Validation de la structure (50 + 148*150 caractères)</li>
+                        <li>Validation de chaque RIB créditeur</li>
+                        <li>Vérification montant total: 750,000.000 DT</li>
+                        <li>Affichage d'un résumé:
+                            <ul>
+                                <li>Nombre de lignes: 150</li>
+                                <li>Montant total: 750,000.000 DT</li>
+                                <li>RIBs valides: 150</li>
+                                <li>RIBs invalides: 0</li>
+                            </ul>
+                        </li>
+                        <li>Cliquer sur "Enregistrer" → 1 virement global + 150 détails créés</li>
+                    </ol>
+
+                    <h4>Résultat</h4>
+                    <pre><code>-- Table VIREMENT_MASSE_GLOBAL
+1 enregistrement créé (état ATTENTE)
+
+-- Table VIREMENT_MASSE_DETAIL
+150 enregistrements créés (état ATTENTE)
+
+-- Lors de l'exécution batch
+-- Chaque ligne sera traitée individuellement
+-- Génération de 150 débits/crédits
+-- Fichier de retour avec statut de chaque ligne</code></pre>
+                </div>
+
+                <h3>Exemple 4: Annuler un Virement en Attente</h3>
+                <div class="card">
+                    <h4>Cas d'Usage</h4>
+                    <p>Un client a créé un virement par erreur et souhaite l'annuler</p>
+
+                    <h4>Étapes</h4>
+                    <ol>
+                        <li>Accéder à <code>ConsultationVirementCtr</code></li>
+                        <li>Rechercher le virement (par RIB, date, référence)</li>
+                        <li>Cliquer sur le virement dans la liste → Affichage des détails</li>
+                        <li>Vérifier l'état: doit être <span class="badge-warning">ATTENTE</span> ou <span class="badge-info">VALIDÉ</span></li>
+                        <li>Cliquer sur le bouton "Annuler"</li>
+                        <li>Confirmation: "Êtes-vous sûr de vouloir annuler ce virement ?"</li>
+                        <li>Cliquer sur "Oui"</li>
+                        <li>Virement passe à l'état <span class="badge">ANNULÉ</span></li>
+                    </ol>
+
+                    <h4>Code d'Annulation</h4>
+                    <pre><code>public String annuler() {
+    // Vérifier que le virement est annulable
+    if (!"ATTENTE".equals(virement.getEtat()) &&
+        !"VALIDE".equals(virement.getEtat())) {
+        addError("Impossible d'annuler un virement " + virement.getEtat());
+        return null;
+    }
+
+    // Vérifier que pas déjà exécuté
+    if ("EXECUTE".equals(virement.getEtat())) {
+        addError("Impossible d'annuler un virement déjà exécuté");
+        return null;
+    }
+
+    // Annulation
+    virement.setEtat("ANNULE");
+    virement.setDateAnnulation(new Date());
+    virement.setUtilisateurAnnulation(getCurrentUser());
+
+    virementService.update(virement);
+
+    addInfo("Virement annulé avec succès");
+    return "consultation";
+}</code></pre>
+                </div>
+
+                <h3>Exemple 5: Exécution Batch Quotidienne</h3>
+                <div class="success-box">
+                    <h4>Scénario</h4>
+                    <p>Chaque jour à 23h00, le système exécute automatiquement tous les virements validés dont la date d'exécution est atteinte</p>
+
+                    <h4>Algorithme d'Exécution</h4>
+                    <pre><code>public void executerVirements() {
+    // 1. Sélectionner les virements à exécuter
+    Date aujourdhui = new Date();
+    List<Virement> virements = virementService.findVirementsAExecuter(aujourdhui);
+
+    logger.info("Batch exécution: " + virements.size() + " virements à traiter");
+
+    int nbExeutes = 0;
+    int nbRejetes = 0;
+    int nbDecales = 0;
+
+    // 2. Traiter chaque virement
+    for (Virement virement : virements) {
+        try {
+            // Vérifier la provision
+            ContratCpt compteDebiteur = virement.getCompteDebiteur();
+            BigDecimal provision = compteDebiteur.getMontSoldCcpt();
+
+            if (provision.compareTo(virement.getMontant()) < 0) {
+                // Provision insuffisante
+                if (virement.getNbDecalages() < 3) {
+                    // Décalage J+1
+                    virement.setEtat("DECALE_J1");
+                    virement.setDateExecution(DateUtils.addDays(aujourdhui, 1));
+                    virement.setNbDecalages(virement.getNbDecalages() + 1);
+                    nbDecales++;
+                } else {
+                    // Rejet définitif après 3 décalages
+                    virement.setEtat("REJETE");
+                    virement.setMotifRejet("Provision insuffisante après 3 décalages");
+                    nbRejetes++;
+                }
+                virementService.update(virement);
+                continue;
+            }
+
+            // Provision OK, exécution
+            // a) Débiter le compte émetteur
+            compteDebiteur.setMontSoldCcpt(
+                compteDebiteur.getMontSoldCcpt().subtract(virement.getMontant())
+            );
+            contratCptService.update(compteDebiteur);
+
+            // b) Créditer le compte bénéficiaire
+            ContratCpt compteCrediteur = virement.getCompteCrediteur();
+            compteCrediteur.setMontSoldCcpt(
+                compteCrediteur.getMontSoldCcpt().add(virement.getMontant())
+            );
+            contratCptService.update(compteCrediteur);
+
+            // c) Créer les écritures comptables
+            Ecriture ecritureDebit = new Ecriture();
+            ecritureDebit.setCompte(compteDebiteur);
+            ecritureDebit.setSens("DEBIT");
+            ecritureDebit.setMontant(virement.getMontant());
+            ecritureDebit.setLibelle("Virement émis - " + virement.getMotif());
+            ecritureService.save(ecritureDebit);
+
+            Ecriture ecritureCredit = new Ecriture();
+            ecritureCredit.setCompte(compteCrediteur);
+            ecritureCredit.setSens("CREDIT");
+            ecritureCredit.setMontant(virement.getMontant());
+            ecritureCredit.setLibelle("Virement reçu - " + virement.getMotif());
+            ecritureService.save(ecritureCredit);
+
+            // d) Marquer comme exécuté
+            virement.setEtat("EXECUTE");
+            virement.setDateExecutionEffective(new Date());
+            virementService.update(virement);
+
+            nbExeutes++;
+
+        } catch (Exception e) {
+            logger.error("Erreur exécution virement " + virement.getId(), e);
+            virement.setEtat("EN_ERREUR");
+            virement.setMotifRejet(e.getMessage());
+            virementService.update(virement);
+        }
+    }
+
+    // 3. Rapport d'exécution
+    logger.info("Batch terminé: " + nbExeutes + " exécutés, " +
+                nbRejetes + " rejetés, " + nbDecales + " décalés");
+
+    // 4. Envoyer email récapitulatif
+    emailService.sendBatchReport(nbExeutes, nbRejetes, nbDecales);
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="conclusion">
+                <h2>Conclusion</h2>
+
+                <div class="info-box">
+                    <h3>Points Clés à Retenir</h3>
+                    <ul>
+                        <li>Le module virement gère <strong>10 types différents</strong> de virements</li>
+                        <li>Architecture basée sur <strong>JSF avec Managed Beans</strong></li>
+                        <li>Workflow standard: <strong>PEC → Validation → Exécution → Consultation</strong></li>
+                        <li>Validation RIB par <strong>algorithme modulo 97</strong></li>
+                        <li>Gestion d'états complexe avec <strong>7 états possibles</strong></li>
+                        <li>Traitement batch quotidien pour l'exécution automatique</li>
+                        <li>Intégration avec BCT, SGMT et télé-compensation</li>
+                        <li>Format de fichier strict pour les virements de masse</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h3>Prochaines Étapes pour Approfondir</h3>
+                    <ol>
+                        <li>Étudier les entités JPA (VirementPonctuel, VirementPermanent, etc.)</li>
+                        <li>Analyser les services métier (VirementService, etc.)</li>
+                        <li>Examiner les pages XHTML (vues JSF)</li>
+                        <li>Comprendre les règles de gestion spécifiques de chaque type</li>
+                        <li>Explorer l'intégration avec le module comptabilité</li>
+                        <li>Étudier les rapports et états de sortie</li>
+                    </ol>
+                </div>
+
+                <div class="warning-box">
+                    <h3>Bonnes Pratiques</h3>
+                    <ul>
+                        <li>Toujours valider le RIB avant toute opération</li>
+                        <li>Vérifier la provision avant validation</li>
+                        <li>Ne jamais modifier un virement EXÉCUTÉ</li>
+                        <li>Logger toutes les opérations critiques</li>
+                        <li>Gérer les transactions avec rollback en cas d'erreur</li>
+                        <li>Sécuriser les fichiers de masse (virus scan, validation stricte)</li>
+                        <li>Générer des rapports d'audit réguliers</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>Guide Module Virement SMILE - Système Bancaire BNA</p>
+            <p>Documentation générée pour débutants - Version 1.0 - 2024</p>
+        </footer>
+    </div>
+</body>
+</html>
