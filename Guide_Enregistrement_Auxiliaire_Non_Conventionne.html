@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Enregistrement Auxiliaire Non Conventionné</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            color: #ff6b35;
+            border-left: 6px solid #f7931e;
+            padding-left: 20px;
+            margin: 35px 0 25px 0;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: #1e3c72;
+            margin: 30px 0 20px 0;
+            font-size: 1.5em;
+            border-bottom: 3px solid #e8f4f8;
+            padding-bottom: 12px;
+        }
+
+        h4 {
+            color: #2a5298;
+            margin: 25px 0 15px 0;
+            font-size: 1.3em;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%);
+            border-left: 5px solid #2196f3;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-left: 5px solid #ff9800;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 5px solid #4caf50;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border-left: 5px solid #f44336;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95em;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'Code';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #ff6b35;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 3px;
+            font-size: 0.7em;
+        }
+
+        .code-block .keyword {
+            color: #569cd6;
+            font-weight: bold;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .code-block .type {
+            color: #4ec9b0;
+        }
+
+        .code-block .number {
+            color: #b5cea8;
+        }
+
+        .sql-block {
+            background: #2d2d30;
+            color: #dcdcaa;
+            padding: 25px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95em;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .sql-block::before {
+            content: 'SQL';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #2a5298;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 3px;
+            font-size: 0.7em;
+        }
+
+        .step-card {
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-right: 20px;
+            box-shadow: 0 4px 10px rgba(255,107,53,0.3);
+        }
+
+        .step-title {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        tr:nth-child(even):hover {
+            background: #f0f0f0;
+        }
+
+        .flow-diagram {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%);
+            padding: 35px;
+            border-radius: 12px;
+            margin: 30px 0;
+            text-align: center;
+            font-family: monospace;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border: 2px solid #2196f3;
+        }
+
+        .flow-step {
+            background: white;
+            padding: 18px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border-left: 6px solid #ff6b35;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .arrow {
+            color: #ff6b35;
+            font-size: 2.5em;
+            margin: 12px 0;
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #2196f3;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            margin: 6px;
+            font-weight: bold;
+        }
+
+        .tag.warning {
+            background: #ff9800;
+        }
+
+        .tag.success {
+            background: #4caf50;
+        }
+
+        .tag.danger {
+            background: #f44336;
+        }
+
+        .tag.info {
+            background: #00bcd4;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .highlight {
+            background: #fff9c4;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: 1px solid #fbc02d;
+        }
+
+        .variable {
+            color: #d32f2f;
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+        ul, ol {
+            margin: 20px 0 20px 35px;
+        }
+
+        li {
+            margin: 12px 0;
+            line-height: 1.8;
+        }
+
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .comparison-column {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .comparison-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .current {
+            border: 3px solid #f44336;
+        }
+
+        .current .comparison-header {
+            color: #f44336;
+            border-color: #f44336;
+        }
+
+        .proposed {
+            border: 3px solid #4caf50;
+        }
+
+        .proposed .comparison-header {
+            color: #4caf50;
+            border-color: #4caf50;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #ff6b35 0%, #2a5298 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 120px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 35px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #ff6b35;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #ff6b35;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #ff6b35;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 3px;
+        }
+
+        .badge-new {
+            background: #4caf50;
+            color: white;
+        }
+
+        .badge-modified {
+            background: #ff9800;
+            color: white;
+        }
+
+        .badge-table {
+            background: #2196f3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Guide Complet</h1>
+            <p>Enregistrement d'un Auxiliaire Non Conventionné</p>
+            <p style="font-size: 1em; margin-top: 15px; opacity: 0.9;">
+                Création dans la table PERSONNE + Table AUXILIAIRE
+            </p>
+        </header>
+
+        <div class="content">
+            <!-- INTRODUCTION -->
+            <section>
+                <h2>🎯 Objectif du Guide</h2>
+
+                <div class="success-box">
+                    <h4>✅ Ce que vous allez apprendre</h4>
+                    <p>Ce guide vous explique comment <strong>modifier le système actuel</strong> pour que lors de l'enregistrement d'un auxiliaire non conventionné :</p>
+                    <ol>
+                        <li>Une nouvelle <strong>personne</strong> soit créée dans la table <code>PERSONNE</code></li>
+                        <li>Un enregistrement soit créé dans une nouvelle table <code>AUXILIAIRE</code></li>
+                        <li>Le lien soit établi entre <code>FRAIS_AUXILIAIRE</code> et <code>PERSONNE</code></li>
+                    </ol>
+                </div>
+
+                <div class="comparison-table">
+                    <div class="comparison-column current">
+                        <div class="comparison-header">❌ Système Actuel</div>
+                        <ul>
+                            <li>Auxiliaire NC stocké uniquement dans <code>FRAIS_AUXILIAIRE</code></li>
+                            <li>Champs: CIN_AUXILIAIRE_NC, NOM_AUXILIAIRE_NC, etc.</li>
+                            <li><code>NUM_SEQ_PERS_AUXILIAIRE = NULL</code></li>
+                            <li>Pas d'entité Personne pour l'auxiliaire</li>
+                            <li>Données dupliquées si même auxiliaire intervient plusieurs fois</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-column proposed">
+                        <div class="comparison-header">✅ Système Proposé</div>
+                        <ul>
+                            <li>Auxiliaire NC créé comme <code>PERSONNE</code></li>
+                            <li>Enregistrement dans table <code>AUXILIAIRE</code></li>
+                            <li><code>NUM_SEQ_PERS_AUXILIAIRE</code> référence la personne</li>
+                            <li>Réutilisation de la même personne pour plusieurs interventions</li>
+                            <li>Centralisation des données</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ÉTAPE 1 -->
+            <section>
+                <h2>📊 ÉTAPE 1 : Création de la Table AUXILIAIRE</h2>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">1</span>
+                        Créer la nouvelle table AUXILIAIRE
+                    </div>
+
+                    <h4>🔹 Script SQL de Création</h4>
+
+                    <div class="sql-block">
+<span class="keyword">CREATE TABLE</span> SMILE.AUXILIAIRE (
+    <span class="comment">-- Clé primaire</span>
+    NUM_SEQ_AUX           <span class="type">NUMBER</span>(<span class="number">20</span>) <span class="keyword">NOT NULL</span>,
+
+    <span class="comment">-- Lien vers la table PERSONNE (obligatoire)</span>
+    NUM_SEQ_PERS          <span class="type">NUMBER</span>(<span class="number">20</span>) <span class="keyword">NOT NULL</span>,
+
+    <span class="comment">-- Type d'auxiliaire</span>
+    TYP_AUXILIAIRE        <span class="type">VARCHAR2</span>(<span class="number">20</span>) <span class="keyword">NOT NULL</span>,
+    <span class="comment">-- Valeurs possibles: 'AVOCAT', 'HUISSIER', 'EXPERT'</span>
+
+    <span class="comment">-- Nature</span>
+    NAT_AUXILIAIRE        <span class="type">VARCHAR2</span>(<span class="number">20</span>) <span class="keyword">NOT NULL</span>,
+    <span class="comment">-- Valeurs possibles: 'CONVENTIONNE', 'NON_CONVENTIONNE'</span>
+
+    <span class="comment">-- Régime fiscal (pour non conventionnés)</span>
+    REGIME_AUXILIAIRE     <span class="type">VARCHAR2</span>(<span class="number">20</span>),
+    <span class="comment">-- Valeurs possibles: 'FORFAITAIRE', 'REEL'</span>
+
+    <span class="comment">-- Taux de retenue à la source par défaut</span>
+    TAUX_RETENUE_SOURCE   <span class="type">NUMBER</span>(<span class="number">5</span>,<span class="number">2</span>),
+    <span class="comment">-- 3.00 pour FORFAITAIRE, 10.00 pour REEL</span>
+
+    <span class="comment">-- Numéros d'identification professionnels</span>
+    RNE_AUXILIAIRE        <span class="type">VARCHAR2</span>(<span class="number">20</span>),
+    <span class="comment">-- Registre National des Entreprises</span>
+
+    MATRICULE_FISCAL      <span class="type">VARCHAR2</span>(<span class="number">30</span>),
+    <span class="comment">-- Numéro d'identification fiscale</span>
+
+    <span class="comment">-- Coordonnées bancaires</span>
+    RIB_AUXILIAIRE        <span class="type">VARCHAR2</span>(<span class="number">24</span>),
+    DOMICILIATION_BANCAIRE <span class="type">VARCHAR2</span>(<span class="number">100</span>),
+
+    <span class="comment">-- Informations contractuelles (pour conventionnés)</span>
+    DATE_DEBUT_CONVENTION <span class="type">DATE</span>,
+    DATE_FIN_CONVENTION   <span class="type">DATE</span>,
+    NUM_CONVENTION        <span class="type">VARCHAR2</span>(<span class="number">30</span>),
+
+    <span class="comment">-- Statut</span>
+    STATUT_AUXILIAIRE     <span class="type">VARCHAR2</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="string">'ACTIF'</span>,
+    <span class="comment">-- Valeurs: 'ACTIF', 'INACTIF', 'SUSPENDU'</span>
+
+    <span class="comment">-- Audit</span>
+    DATE_CREATION         <span class="type">DATE</span> <span class="keyword">DEFAULT</span> <span class="keyword">SYSDATE</span>,
+    UTILISATEUR_CREATION  <span class="type">VARCHAR2</span>(<span class="number">50</span>),
+    DATE_MODIFICATION     <span class="type">DATE</span>,
+    UTILISATEUR_MODIFICATION <span class="type">VARCHAR2</span>(<span class="number">50</span>),
+
+    <span class="comment">-- Contraintes</span>
+    <span class="keyword">CONSTRAINT</span> PK_AUXILIAIRE <span class="keyword">PRIMARY KEY</span> (NUM_SEQ_AUX),
+    <span class="keyword">CONSTRAINT</span> FK_AUX_PERSONNE <span class="keyword">FOREIGN KEY</span> (NUM_SEQ_PERS)
+        <span class="keyword">REFERENCES</span> PERSONNE(NUM_SEQ_PERS),
+    <span class="keyword">CONSTRAINT</span> CHK_TYP_AUX <span class="keyword">CHECK</span> (TYP_AUXILIAIRE <span class="keyword">IN</span> (<span class="string">'AVOCAT'</span>, <span class="string">'HUISSIER'</span>, <span class="string">'EXPERT'</span>)),
+    <span class="keyword">CONSTRAINT</span> CHK_NAT_AUX <span class="keyword">CHECK</span> (NAT_AUXILIAIRE <span class="keyword">IN</span> (<span class="string">'CONVENTIONNE'</span>, <span class="string">'NON_CONVENTIONNE'</span>)),
+    <span class="keyword">CONSTRAINT</span> CHK_REGIME_AUX <span class="keyword">CHECK</span> (REGIME_AUXILIAIRE <span class="keyword">IN</span> (<span class="string">'FORFAITAIRE'</span>, <span class="string">'REEL'</span>)),
+    <span class="keyword">CONSTRAINT</span> CHK_STATUT_AUX <span class="keyword">CHECK</span> (STATUT_AUXILIAIRE <span class="keyword">IN</span> (<span class="string">'ACTIF'</span>, <span class="string">'INACTIF'</span>, <span class="string">'SUSPENDU'</span>))
+);
+
+<span class="comment">-- Création de la séquence</span>
+<span class="keyword">CREATE SEQUENCE</span> SMILE.SEQ_AUXILIAIRE
+    <span class="keyword">START WITH</span> <span class="number">1</span>
+    <span class="keyword">INCREMENT BY</span> <span class="number">1</span>
+    <span class="keyword">NOCACHE</span>
+    <span class="keyword">NOCYCLE</span>;
+
+<span class="comment">-- Index pour optimiser les recherches</span>
+<span class="keyword">CREATE INDEX</span> IDX_AUX_PERSONNE <span class="keyword">ON</span> SMILE.AUXILIAIRE(NUM_SEQ_PERS);
+<span class="keyword">CREATE INDEX</span> IDX_AUX_TYPE <span class="keyword">ON</span> SMILE.AUXILIAIRE(TYP_AUXILIAIRE);
+<span class="keyword">CREATE INDEX</span> IDX_AUX_NATURE <span class="keyword">ON</span> SMILE.AUXILIAIRE(NAT_AUXILIAIRE);
+<span class="keyword">CREATE INDEX</span> IDX_AUX_RNE <span class="keyword">ON</span> SMILE.AUXILIAIRE(RNE_AUXILIAIRE);
+
+<span class="comment">-- Commentaires sur les colonnes</span>
+<span class="keyword">COMMENT ON TABLE</span> SMILE.AUXILIAIRE <span class="keyword">IS</span>
+    <span class="string">'Table des auxiliaires de justice (avocats, huissiers, experts)'</span>;
+<span class="keyword">COMMENT ON COLUMN</span> SMILE.AUXILIAIRE.NUM_SEQ_AUX <span class="keyword">IS</span>
+    <span class="string">'Numéro de séquence unique de l''auxiliaire'</span>;
+<span class="keyword">COMMENT ON COLUMN</span> SMILE.AUXILIAIRE.NUM_SEQ_PERS <span class="keyword">IS</span>
+    <span class="string">'Référence vers la table PERSONNE'</span>;
+                    </div>
+
+                    <h4>🔹 Pourquoi cette structure ?</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Colonne</th>
+                                <th>Utilité</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>NUM_SEQ_PERS</code></td>
+                                <td>Lien vers PERSONNE - toutes les infos identitaires (nom, prénom, CIN, adresse, etc.)</td>
+                            </tr>
+                            <tr>
+                                <td><code>TYP_AUXILIAIRE</code></td>
+                                <td>Type professionnel (AVOCAT, HUISSIER, EXPERT)</td>
+                            </tr>
+                            <tr>
+                                <td><code>REGIME_AUXILIAIRE</code></td>
+                                <td>Régime fiscal pour calculer la retenue à la source</td>
+                            </tr>
+                            <tr>
+                                <td><code>RNE_AUXILIAIRE</code></td>
+                                <td>Numéro professionnel unique</td>
+                            </tr>
+                            <tr>
+                                <td><code>RIB_AUXILIAIRE</code></td>
+                                <td>Coordonnées bancaires pour les virements</td>
+                            </tr>
+                            <tr>
+                                <td><code>STATUT_AUXILIAIRE</code></td>
+                                <td>Gestion du cycle de vie (actif, inactif, suspendu)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ÉTAPE 2 -->
+            <section>
+                <h2>🏗️ ÉTAPE 2 : Création de l'Entité Java Auxiliaire</h2>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">2</span>
+                        Créer la classe Java Auxiliaire.java
+                    </div>
+
+                    <h4>🔹 Chemin du fichier</h4>
+                    <div class="info-box">
+                        <code>commun/src/main/java/com/bna/commun/model/Auxiliaire.java</code>
+                    </div>
+
+                    <h4>🔹 Code Java</h4>
+
+                    <div class="code-block">
+<span class="keyword">package</span> com.bna.commun.model;
+
+<span class="keyword">import</span> java.io.Serializable;
+<span class="keyword">import</span> java.math.BigDecimal;
+<span class="keyword">import</span> java.util.Date;
+
+<span class="keyword">public class</span> <span class="type">Auxiliaire</span> <span class="keyword">extends</span> com.oxia.fwk.core.ValueObject
+    <span class="keyword">implements</span> Serializable {
+
+    <span class="comment">// Constantes</span>
+    <span class="keyword">public static final</span> String TYPE_AVOCAT = <span class="string">"AVOCAT"</span>;
+    <span class="keyword">public static final</span> String TYPE_HUISSIER = <span class="string">"HUISSIER"</span>;
+    <span class="keyword">public static final</span> String TYPE_EXPERT = <span class="string">"EXPERT"</span>;
+
+    <span class="keyword">public static final</span> String NAT_CONVENTIONNE = <span class="string">"CONVENTIONNE"</span>;
+    <span class="keyword">public static final</span> String NAT_NON_CONVENTIONNE = <span class="string">"NON_CONVENTIONNE"</span>;
+
+    <span class="keyword">public static final</span> String REGIME_FORFAITAIRE = <span class="string">"FORFAITAIRE"</span>;
+    <span class="keyword">public static final</span> String REGIME_REEL = <span class="string">"REEL"</span>;
+
+    <span class="keyword">public static final</span> BigDecimal TAUX_RS_FORFAITAIRE = <span class="keyword">new</span> BigDecimal(<span class="string">"3.00"</span>);
+    <span class="keyword">public static final</span> BigDecimal TAUX_RS_REEL = <span class="keyword">new</span> BigDecimal(<span class="string">"10.00"</span>);
+
+    <span class="keyword">public static final</span> String STATUT_ACTIF = <span class="string">"ACTIF"</span>;
+    <span class="keyword">public static final</span> String STATUT_INACTIF = <span class="string">"INACTIF"</span>;
+    <span class="keyword">public static final</span> String STATUT_SUSPENDU = <span class="string">"SUSPENDU"</span>;
+
+    <span class="comment">// Attributs</span>
+    <span class="keyword">private</span> Long numSeqAux;
+    <span class="keyword">private</span> Personne personne;
+    <span class="keyword">private</span> String typAuxiliaire;
+    <span class="keyword">private</span> String natAuxiliaire;
+    <span class="keyword">private</span> String regimeAuxiliaire;
+    <span class="keyword">private</span> BigDecimal tauxRetenueSource;
+    <span class="keyword">private</span> String rneAuxiliaire;
+    <span class="keyword">private</span> String matriculeFiscal;
+    <span class="keyword">private</span> String ribAuxiliaire;
+    <span class="keyword">private</span> String domiciliationBancaire;
+    <span class="keyword">private</span> Date dateDebutConvention;
+    <span class="keyword">private</span> Date dateFinConvention;
+    <span class="keyword">private</span> String numConvention;
+    <span class="keyword">private</span> String statutAuxiliaire;
+    <span class="keyword">private</span> Date dateCreation;
+    <span class="keyword">private</span> String utilisateurCreation;
+    <span class="keyword">private</span> Date dateModification;
+    <span class="keyword">private</span> String utilisateurModification;
+
+    <span class="comment">// Constructeurs</span>
+    <span class="keyword">public</span> Auxiliaire() {
+        <span class="keyword">super</span>();
+        <span class="keyword">this</span>.statutAuxiliaire = STATUT_ACTIF;
+        <span class="keyword">this</span>.dateCreation = <span class="keyword">new</span> Date();
+    }
+
+    <span class="comment">// Getters et Setters</span>
+    <span class="keyword">public</span> Long getNumSeqAux() {
+        <span class="keyword">return</span> numSeqAux;
+    }
+
+    <span class="keyword">public void</span> setNumSeqAux(Long numSeqAux) {
+        <span class="keyword">this</span>.numSeqAux = numSeqAux;
+    }
+
+    <span class="keyword">public</span> Personne getPersonne() {
+        <span class="keyword">return</span> personne;
+    }
+
+    <span class="keyword">public void</span> setPersonne(Personne personne) {
+        <span class="keyword">this</span>.personne = personne;
+    }
+
+    <span class="keyword">public</span> String getTypAuxiliaire() {
+        <span class="keyword">return</span> typAuxiliaire;
+    }
+
+    <span class="keyword">public void</span> setTypAuxiliaire(String typAuxiliaire) {
+        <span class="keyword">this</span>.typAuxiliaire = typAuxiliaire;
+    }
+
+    <span class="keyword">public</span> String getNatAuxiliaire() {
+        <span class="keyword">return</span> natAuxiliaire;
+    }
+
+    <span class="keyword">public void</span> setNatAuxiliaire(String natAuxiliaire) {
+        <span class="keyword">this</span>.natAuxiliaire = natAuxiliaire;
+    }
+
+    <span class="keyword">public</span> String getRegimeAuxiliaire() {
+        <span class="keyword">return</span> regimeAuxiliaire;
+    }
+
+    <span class="keyword">public void</span> setRegimeAuxiliaire(String regimeAuxiliaire) {
+        <span class="keyword">this</span>.regimeAuxiliaire = regimeAuxiliaire;
+        <span class="comment">// Mise à jour automatique du taux selon le régime</span>
+        <span class="keyword">if</span> (REGIME_FORFAITAIRE.equals(regimeAuxiliaire)) {
+            <span class="keyword">this</span>.tauxRetenueSource = TAUX_RS_FORFAITAIRE;
+        } <span class="keyword">else if</span> (REGIME_REEL.equals(regimeAuxiliaire)) {
+            <span class="keyword">this</span>.tauxRetenueSource = TAUX_RS_REEL;
+        }
+    }
+
+    <span class="keyword">public</span> BigDecimal getTauxRetenueSource() {
+        <span class="keyword">return</span> tauxRetenueSource;
+    }
+
+    <span class="keyword">public void</span> setTauxRetenueSource(BigDecimal tauxRetenueSource) {
+        <span class="keyword">this</span>.tauxRetenueSource = tauxRetenueSource;
+    }
+
+    <span class="comment">// ... Autres getters/setters ...</span>
+
+    <span class="comment">// Méthodes métier</span>
+    <span class="keyword">public boolean</span> isConventionne() {
+        <span class="keyword">return</span> NAT_CONVENTIONNE.equals(<span class="keyword">this</span>.natAuxiliaire);
+    }
+
+    <span class="keyword">public boolean</span> isNonConventionne() {
+        <span class="keyword">return</span> NAT_NON_CONVENTIONNE.equals(<span class="keyword">this</span>.natAuxiliaire);
+    }
+
+    <span class="keyword">public boolean</span> isActif() {
+        <span class="keyword">return</span> STATUT_ACTIF.equals(<span class="keyword">this</span>.statutAuxiliaire);
+    }
+
+    <span class="keyword">public</span> String getNomComplet() {
+        <span class="keyword">if</span> (personne != <span class="keyword">null</span>) {
+            <span class="keyword">return</span> personne.getNomNomPers() + <span class="string">" "</span> +
+                   personne.getNomPrnPers();
+        }
+        <span class="keyword">return</span> <span class="string">""</span>;
+    }
+
+    @Override
+    <span class="keyword">public</span> String toString() {
+        <span class="keyword">return</span> <span class="string">"Auxiliaire [numSeqAux="</span> + numSeqAux +
+               <span class="string">", type="</span> + typAuxiliaire +
+               <span class="string">", nature="</span> + natAuxiliaire + <span class="string">"]"</span>;
+    }
+}
+                    </div>
+                </div>
+            </section>
+
+            <!-- ÉTAPE 3 -->
+            <section>
+                <h2>🗺️ ÉTAPE 3 : Mapping Hibernate Auxiliaire.hbm.xml</h2>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">3</span>
+                        Créer le fichier de mapping Hibernate
+                    </div>
+
+                    <h4>🔹 Chemin du fichier</h4>
+                    <div class="info-box">
+                        <code>commun/src/main/java/com/bna/commun/model/Auxiliaire.hbm.xml</code>
+                    </div>
+
+                    <h4>🔹 Code XML</h4>
+
+                    <div class="code-block">
+<span class="keyword">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="keyword">&lt;!DOCTYPE hibernate-mapping PUBLIC</span>
+    <span class="string">"-//Hibernate/Hibernate Mapping DTD 3.0//EN"</span>
+    <span class="string">"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"</span><span class="keyword">&gt;</span>
+
+<span class="keyword">&lt;hibernate-mapping&gt;</span>
+    <span class="keyword">&lt;class</span> <span class="type">name</span>=<span class="string">"com.bna.commun.model.Auxiliaire"</span>
+           <span class="type">table</span>=<span class="string">"AUXILIAIRE"</span>
+           <span class="type">schema</span>=<span class="string">"SMILE"</span><span class="keyword">&gt;</span>
+
+        <span class="comment">&lt;!-- Clé primaire --&gt;</span>
+        <span class="keyword">&lt;id</span> <span class="type">name</span>=<span class="string">"numSeqAux"</span> <span class="type">column</span>=<span class="string">"NUM_SEQ_AUX"</span> <span class="type">type</span>=<span class="string">"java.lang.Long"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;generator</span> <span class="type">class</span>=<span class="string">"assigned"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/id&gt;</span>
+
+        <span class="comment">&lt;!-- Relation vers PERSONNE --&gt;</span>
+        <span class="keyword">&lt;many-to-one</span>
+            <span class="type">name</span>=<span class="string">"personne"</span>
+            <span class="type">class</span>=<span class="string">"com.bna.commun.model.Personne"</span>
+            <span class="type">column</span>=<span class="string">"NUM_SEQ_PERS"</span>
+            <span class="type">not-null</span>=<span class="string">"true"</span>
+            <span class="type">fetch</span>=<span class="string">"join"</span>
+            <span class="type">lazy</span>=<span class="string">"false"</span><span class="keyword">&gt;</span>
+        <span class="keyword">&lt;/many-to-one&gt;</span>
+
+        <span class="comment">&lt;!-- Type d'auxiliaire --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"typAuxiliaire"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"TYP_AUXILIAIRE"</span> <span class="type">length</span>=<span class="string">"20"</span> <span class="type">not-null</span>=<span class="string">"true"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="comment">&lt;!-- Nature --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"natAuxiliaire"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"NAT_AUXILIAIRE"</span> <span class="type">length</span>=<span class="string">"20"</span> <span class="type">not-null</span>=<span class="string">"true"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="comment">&lt;!-- Régime fiscal --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"regimeAuxiliaire"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"REGIME_AUXILIAIRE"</span> <span class="type">length</span>=<span class="string">"20"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="comment">&lt;!-- Taux retenue source --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"tauxRetenueSource"</span> <span class="type">type</span>=<span class="string">"java.math.BigDecimal"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"TAUX_RETENUE_SOURCE"</span> <span class="type">precision</span>=<span class="string">"5"</span> <span class="type">scale</span>=<span class="string">"2"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="comment">&lt;!-- RNE --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"rneAuxiliaire"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"RNE_AUXILIAIRE"</span> <span class="type">length</span>=<span class="string">"20"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="comment">&lt;!-- Matricule fiscal --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"matriculeFiscal"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"MATRICULE_FISCAL"</span> <span class="type">length</span>=<span class="string">"30"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="comment">&lt;!-- Coordonnées bancaires --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"ribAuxiliaire"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"RIB_AUXILIAIRE"</span> <span class="type">length</span>=<span class="string">"24"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"domiciliationBancaire"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"DOMICILIATION_BANCAIRE"</span> <span class="type">length</span>=<span class="string">"100"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="comment">&lt;!-- Convention --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"dateDebutConvention"</span> <span class="type">type</span>=<span class="string">"java.util.Date"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"DATE_DEBUT_CONVENTION"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"dateFinConvention"</span> <span class="type">type</span>=<span class="string">"java.util.Date"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"DATE_FIN_CONVENTION"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"numConvention"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"NUM_CONVENTION"</span> <span class="type">length</span>=<span class="string">"30"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="comment">&lt;!-- Statut --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"statutAuxiliaire"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"STATUT_AUXILIAIRE"</span> <span class="type">length</span>=<span class="string">"10"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="comment">&lt;!-- Audit --&gt;</span>
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"dateCreation"</span> <span class="type">type</span>=<span class="string">"java.util.Date"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"DATE_CREATION"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"utilisateurCreation"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"UTILISATEUR_CREATION"</span> <span class="type">length</span>=<span class="string">"50"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"dateModification"</span> <span class="type">type</span>=<span class="string">"java.util.Date"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"DATE_MODIFICATION"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+        <span class="keyword">&lt;property</span> <span class="type">name</span>=<span class="string">"utilisateurModification"</span> <span class="type">type</span>=<span class="string">"java.lang.String"</span><span class="keyword">&gt;</span>
+            <span class="keyword">&lt;column</span> <span class="type">name</span>=<span class="string">"UTILISATEUR_MODIFICATION"</span> <span class="type">length</span>=<span class="string">"50"</span> <span class="keyword">/&gt;</span>
+        <span class="keyword">&lt;/property&gt;</span>
+
+    <span class="keyword">&lt;/class&gt;</span>
+<span class="keyword">&lt;/hibernate-mapping&gt;</span>
+                    </div>
+
+                    <h4>🔹 Enregistrer le mapping dans spring.xml</h4>
+                    <div class="warning-box">
+                        <p><strong>Important !</strong> Ajouter cette ligne dans le fichier <code>spring.xml</code> :</p>
+                        <div class="code-block">
+<span class="keyword">&lt;value&gt;</span>com/bna/commun/model/Auxiliaire.hbm.xml<span class="keyword">&lt;/value&gt;</span>
+                        </div>
+                        <p>Insérer après la ligne <code>&lt;value&gt;com/bna/commun/model/FraisAuxiliaire.hbm.xml&lt;/value&gt;</code></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ÉTAPE 4 -->
+            <section>
+                <h2>🔧 ÉTAPE 4 : Modification du Contrôleur FraisAuxiliairesCtr</h2>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">4</span>
+                        Adapter la méthode enregistrerPEC()
+                    </div>
+
+                    <h4>🔹 Fichier à modifier</h4>
+                    <div class="info-box">
+                        <code>smile/src/main/java/com/bna/smile/web/reglementFrais/controller/FraisAuxiliairesCtr.java</code>
+                    </div>
+
+                    <h4>🔹 Modifications à apporter</h4>
+
+                    <div class="code-block">
+<span class="keyword">public void</span> enregistrerPEC() {
+    <span class="keyword">try</span> {
+        <span class="comment">// ... Validations existantes ...</span>
+
+        <span class="comment">// === NOUVEAU CODE POUR AUXILIAIRE NON CONVENTIONNE ===</span>
+        <span class="keyword">if</span> (<span class="string">"NON_CONVENTIONNE"</span>.equals(natureAuxiliaire)) {
+
+            <span class="comment">// 1. Créer l'objet Personne pour l'auxiliaire</span>
+            Personne personneAuxiliaireNC = <span class="keyword">new</span> Personne();
+
+            <span class="comment">// Catégorie personne (Physique)</span>
+            CategoriePersonne categoriePersonne = <span class="keyword">new</span> CategoriePersonne();
+            categoriePersonne.setCodCatpCatp(<span class="string">"P"</span>); <span class="comment">// P = Physique</span>
+            personneAuxiliaireNC.setCategoriePersonne(categoriePersonne);
+
+            <span class="comment">// Type de pièce (CIN)</span>
+            TypePiece typePiece = <span class="keyword">new</span> TypePiece();
+            typePiece.setCodTpceTpce(<span class="keyword">new</span> Long(<span class="string">"1"</span>)); <span class="comment">// 1 = CIN</span>
+            personneAuxiliaireNC.setTypePiece(typePiece);
+
+            <span class="comment">// Numéro de pièce (CIN)</span>
+            personneAuxiliaireNC.setNumPcePers(cinAuxiliaireNC);
+
+            <span class="comment">// Nom et Prénom</span>
+            personneAuxiliaireNC.setNomNomPers(nomAuxiliaireNC);
+            personneAuxiliaireNC.setNomPrnPers(prenomAuxiliaireNC);
+
+            <span class="comment">// Nationalité par défaut (Tunisie)</span>
+            Pays paysTunisie = <span class="keyword">new</span> Pays();
+            paysTunisie.setCodPaysPays(<span class="string">"TN"</span>);
+            personneAuxiliaireNC.setPaysByCodNat1Pays(paysTunisie);
+            personneAuxiliaireNC.setPaysByCodNaisPays(paysTunisie);
+
+            <span class="comment">// Activité par défaut (Services juridiques)</span>
+            Activite activite = <span class="keyword">new</span> Activite();
+            ActiviteId activiteId = <span class="keyword">new</span> ActiviteId();
+            activiteId.setCodActAct(<span class="string">"69"</span>);     <span class="comment">// Services juridiques</span>
+            activiteId.setCodCactCact(<span class="string">"M"</span>);   <span class="comment">// Services</span>
+            activiteId.setCodSactSact(<span class="keyword">new</span> Long(<span class="string">"69"</span>));
+            activite.setActiviteId(activiteId);
+            personneAuxiliaireNC.setActivite(activite);
+
+            <span class="comment">// Profession (Avocat/Huissier/Expert)</span>
+            Profession profession = <span class="keyword">new</span> Profession();
+            ProfessionId professionId = <span class="keyword">new</span> ProfessionId();
+            <span class="keyword">if</span> (<span class="string">"AVOCAT"</span>.equals(typeAuxiliaire)) {
+                professionId.setCodProfProf(<span class="keyword">new</span> Long(<span class="string">"1"</span>));
+                professionId.setCodGproGpro(<span class="keyword">new</span> Long(<span class="string">"1"</span>));
+            } <span class="keyword">else if</span> (<span class="string">"HUISSIER"</span>.equals(typeAuxiliaire)) {
+                professionId.setCodProfProf(<span class="keyword">new</span> Long(<span class="string">"2"</span>));
+                professionId.setCodGproGpro(<span class="keyword">new</span> Long(<span class="string">"1"</span>));
+            } <span class="keyword">else if</span> (<span class="string">"EXPERT"</span>.equals(typeAuxiliaire)) {
+                professionId.setCodProfProf(<span class="keyword">new</span> Long(<span class="string">"3"</span>));
+                professionId.setCodGproGpro(<span class="keyword">new</span> Long(<span class="string">"1"</span>));
+            }
+            profession.setProfessionId(professionId);
+            personneAuxiliaireNC.setProfession(profession);
+
+            <span class="comment">// Forme juridique (Personne physique)</span>
+            FormeJuridique formeJuridique = <span class="keyword">new</span> FormeJuridique();
+            formeJuridique.setCodFjFj(<span class="string">"PP"</span>); <span class="comment">// PP = Personne Physique</span>
+            personneAuxiliaireNC.setFormeJuridique(formeJuridique);
+
+            <span class="comment">// 2. Insérer la personne via la commande</span>
+            InsertPersonneCmd insertPersonneCmd = <span class="keyword">new</span> InsertPersonneCmd();
+            personneAuxiliaireNC = (Personne) insertPersonneCmd.execute(personneAuxiliaireNC);
+
+            <span class="keyword">if</span> (personneAuxiliaireNC.hasError()) {
+                <span class="comment">// Gestion erreur insertion personne</span>
+                messageErreur = <span class="string">"Erreur lors de la création de l'auxiliaire"</span>;
+                <span class="keyword">return</span>;
+            }
+
+            <span class="comment">// 3. Créer l'enregistrement Auxiliaire</span>
+            Auxiliaire auxiliaire = <span class="keyword">new</span> Auxiliaire();
+            auxiliaire.setPersonne(personneAuxiliaireNC);
+            auxiliaire.setTypAuxiliaire(typeAuxiliaire);
+            auxiliaire.setNatAuxiliaire(Auxiliaire.NAT_NON_CONVENTIONNE);
+            auxiliaire.setRegimeAuxiliaire(regimeAuxiliaireNC);
+            auxiliaire.setRneAuxiliaire(rneAuxiliaireNC);
+            auxiliaire.setMatriculeFiscal(matriculeFiscalNC);
+            auxiliaire.setRibAuxiliaire(ribBeneficiaire);
+            auxiliaire.setDomiciliationBancaire(domiciliationBeneficiaire);
+            auxiliaire.setUtilisateurCreation(getUserConnecte());
+
+            <span class="comment">// Appel du traitement d'insertion Auxiliaire</span>
+            InsertAuxiliaireCmd insertAuxiliaireCmd = <span class="keyword">new</span> InsertAuxiliaireCmd();
+            auxiliaire = (Auxiliaire) insertAuxiliaireCmd.execute(auxiliaire);
+
+            <span class="keyword">if</span> (auxiliaire.hasError()) {
+                messageErreur = <span class="string">"Erreur lors de l'enregistrement de l'auxiliaire"</span>;
+                <span class="keyword">return</span>;
+            }
+
+            <span class="comment">// 4. Créer FraisAuxiliaire avec le lien vers Personne</span>
+            FraisAuxiliaire fraisAuxiliaire = <span class="keyword">new</span> FraisAuxiliaire();
+            fraisAuxiliaire.setPersonneClient(clientSelectionne);
+            fraisAuxiliaire.setPersonneAuxiliaire(personneAuxiliaireNC); <span class="comment">// IMPORTANT !</span>
+            fraisAuxiliaire.setTypAuxiliaire(typeAuxiliaire);
+            fraisAuxiliaire.setNatAuxiliaire(Auxiliaire.NAT_NON_CONVENTIONNE);
+
+            <span class="comment">// Plus besoin de remplir les champs NC car on a la relation</span>
+            <span class="comment">// fraisAuxiliaire.setCinAuxiliaireNc(...);</span>
+            <span class="comment">// fraisAuxiliaire.setNomAuxiliaireNc(...);</span>
+
+            <span class="comment">// Montants et calculs</span>
+            fraisAuxiliaire.setMontHonorairesHt(montantHonoraireHT);
+            <span class="comment">// ... autres champs ...</span>
+
+            <span class="comment">// Insertion FraisAuxiliaire</span>
+            CreationFraisAuxiliaireCmd cmdFrais = <span class="keyword">new</span> CreationFraisAuxiliaireCmd();
+            fraisAuxiliaire = (FraisAuxiliaire) cmdFrais.execute(fraisAuxiliaire);
+
+            <span class="keyword">if</span> (!fraisAuxiliaire.hasError()) {
+                operationEnregistree = <span class="keyword">true</span>;
+                messageValidation = <span class="string">"PEC enregistrée avec succès\nRéférence: "</span> +
+                                  fraisAuxiliaire.getNumSeqFraux();
+            }
+        }
+
+    } <span class="keyword">catch</span> (Exception e) {
+        messageErreur = <span class="string">"Erreur technique: "</span> + e.getMessage();
+        e.printStackTrace();
+    }
+}
+                    </div>
+                </div>
+            </section>
+
+            <!-- ÉTAPE 5 -->
+            <section>
+                <h2>⚙️ ÉTAPE 5 : Création des Commandes et Traitements</h2>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">5</span>
+                        Créer InsertAuxiliaireCmd et InsertAuxiliaireTrt
+                    </div>
+
+                    <h4>🔹 A) Commande InsertAuxiliaireCmd.java</h4>
+                    <div class="info-box">
+                        <code>smile/src/main/java/com/bna/smile/model/reglementFrais/commande/InsertAuxiliaireCmd.java</code>
+                    </div>
+
+                    <div class="code-block">
+<span class="keyword">package</span> com.bna.smile.model.reglementFrais.commande;
+
+<span class="keyword">import</span> com.bna.smile.model.reglementFrais.service.IReglementFraisService;
+<span class="keyword">import</span> com.oxia.fwk.core.IValueObject;
+<span class="keyword">import</span> com.oxia.fwk.util.SpringUtil;
+
+<span class="keyword">public class</span> <span class="type">InsertAuxiliaireCmd</span> {
+
+    <span class="keyword">public</span> IValueObject execute(IValueObject vo) {
+        IReglementFraisService reglementFraisService =
+            (IReglementFraisService) SpringUtil.getBeanFromContext(
+                <span class="string">"reglementFraisService"</span>);
+        <span class="keyword">return</span> reglementFraisService.insertAuxiliaire(vo);
+    }
+}
+                    </div>
+
+                    <h4>🔹 B) Traitement InsertAuxiliaireTrt.java</h4>
+                    <div class="info-box">
+                        <code>smile/src/main/java/com/bna/smile/model/reglementFrais/traitement/InsertAuxiliaireTrt.java</code>
+                    </div>
+
+                    <div class="code-block">
+<span class="keyword">package</span> com.bna.smile.model.reglementFrais.traitement;
+
+<span class="keyword">import</span> com.bna.commun.model.Auxiliaire;
+<span class="keyword">import</span> com.bna.smile.model.domainecommun.service.CRUDservice;
+<span class="keyword">import</span> com.bna.smile.model.reglementFrais.dao.ReglementFraisDAO;
+<span class="keyword">import</span> com.oxia.fwk.core.IValueObject;
+<span class="keyword">import</span> com.oxia.fwk.core.Traitement;
+<span class="keyword">import</span> com.oxia.fwk.util.SpringUtil;
+
+<span class="keyword">public class</span> <span class="type">InsertAuxiliaireTrt</span> <span class="keyword">extends</span> Traitement {
+
+    @Override
+    <span class="keyword">public</span> IValueObject perform(IValueObject vo) <span class="keyword">throws</span> Exception {
+
+        Auxiliaire auxiliaire = (Auxiliaire) vo;
+
+        <span class="comment">// Récupération des beans Spring</span>
+        CRUDservice crudService = (CRUDservice) SpringUtil.getBeanFromContext(
+            <span class="string">"crudservice"</span>);
+        ReglementFraisDAO dao = (ReglementFraisDAO) SpringUtil.getBeanFromContext(
+            <span class="string">"reglementFraisDAO"</span>);
+
+        <span class="comment">// 1. Générer le numéro de séquence</span>
+        Long numSeqAux = dao.getSequenceAuxiliaire();
+        auxiliaire.setNumSeqAux(numSeqAux);
+
+        <span class="comment">// 2. Vérifier que la personne existe</span>
+        <span class="keyword">if</span> (auxiliaire.getPersonne() == <span class="keyword">null</span> ||
+            auxiliaire.getPersonne().getNumSeqPers() == <span class="keyword">null</span>) {
+            auxiliaire.addError(
+                <span class="string">"ERR_AUX_001"</span>,
+                <span class="string">"La personne de l'auxiliaire est obligatoire"</span>);
+            <span class="keyword">return</span> auxiliaire;
+        }
+
+        <span class="comment">// 3. Valider le type</span>
+        <span class="keyword">if</span> (!Auxiliaire.TYPE_AVOCAT.equals(auxiliaire.getTypAuxiliaire()) &&
+            !Auxiliaire.TYPE_HUISSIER.equals(auxiliaire.getTypAuxiliaire()) &&
+            !Auxiliaire.TYPE_EXPERT.equals(auxiliaire.getTypAuxiliaire())) {
+            auxiliaire.addError(
+                <span class="string">"ERR_AUX_002"</span>,
+                <span class="string">"Type d'auxiliaire invalide"</span>);
+            <span class="keyword">return</span> auxiliaire;
+        }
+
+        <span class="comment">// 4. Définir le taux de retenue selon le régime</span>
+        <span class="keyword">if</span> (Auxiliaire.NAT_NON_CONVENTIONNE.equals(auxiliaire.getNatAuxiliaire())) {
+            <span class="keyword">if</span> (Auxiliaire.REGIME_FORFAITAIRE.equals(auxiliaire.getRegimeAuxiliaire())) {
+                auxiliaire.setTauxRetenueSource(Auxiliaire.TAUX_RS_FORFAITAIRE);
+            } <span class="keyword">else if</span> (Auxiliaire.REGIME_REEL.equals(auxiliaire.getRegimeAuxiliaire())) {
+                auxiliaire.setTauxRetenueSource(Auxiliaire.TAUX_RS_REEL);
+            }
+        }
+
+        <span class="comment">// 5. Insertion en base de données</span>
+        <span class="keyword">try</span> {
+            crudService.create(auxiliaire);
+            <span class="comment">// INSERT INTO SMILE.AUXILIAIRE (...) VALUES (...)</span>
+        } <span class="keyword">catch</span> (Exception e) {
+            auxiliaire.addError(
+                <span class="string">"ERR_AUX_003"</span>,
+                <span class="string">"Erreur lors de l'insertion: "</span> + e.getMessage());
+            <span class="keyword">return</span> auxiliaire;
+        }
+
+        <span class="keyword">return</span> auxiliaire;
+    }
+}
+                    </div>
+
+                    <h4>🔹 C) Ajouter la méthode dans ReglementFraisDAO.java</h4>
+
+                    <div class="code-block">
+<span class="keyword">public</span> Long getSequenceAuxiliaire() {
+    String sql = <span class="string">"SELECT SMILE.SEQ_AUXILIAIRE.NEXTVAL FROM DUAL"</span>;
+    <span class="keyword">return</span> jdbcTemplate.queryForObject(sql, Long.<span class="keyword">class</span>);
+}
+                    </div>
+
+                    <h4>🔹 D) Ajouter la méthode dans IReglementFraisService.java</h4>
+
+                    <div class="code-block">
+<span class="keyword">public</span> IValueObject insertAuxiliaire(IValueObject vo);
+                    </div>
+                </div>
+            </section>
+
+            <!-- FLUX COMPLET -->
+            <section>
+                <h2>🔄 Flux d'Enregistrement Complet</h2>
+
+                <div class="flow-diagram">
+                    <div class="flow-step" style="background: #e8f5e9;">
+                        <strong>1. Utilisateur saisit l'auxiliaire NC dans le formulaire</strong><br>
+                        → CIN, Nom, Prénom, Régime, RNE, etc.
+                    </div>
+                    <div class="arrow">↓</div>
+                    <div class="flow-step" style="background: #fff3e0;">
+                        <strong>2. FraisAuxiliairesCtr.enregistrerPEC()</strong><br>
+                        → Création objet Personne avec les données saisies
+                    </div>
+                    <div class="arrow">↓</div>
+                    <div class="flow-step" style="background: #e3f2fd;">
+                        <strong>3. InsertPersonneCmd.execute(personne)</strong><br>
+                        → PersonneService.insertPersonne()<br>
+                        → InsertPersonneTrt.perform()<br>
+                        → <strong>INSERT INTO PERSONNE</strong>
+                    </div>
+                    <div class="arrow">↓</div>
+                    <div class="flow-step" style="background: #fce4ec;">
+                        <strong>4. Récupération NUM_SEQ_PERS</strong><br>
+                        → Identifiant unique de la personne créée
+                    </div>
+                    <div class="arrow">↓</div>
+                    <div class="flow-step" style="background: #f3e5f5;">
+                        <strong>5. Création objet Auxiliaire</strong><br>
+                        → Lien avec Personne (NUM_SEQ_PERS)<br>
+                        → Type, Nature, Régime, RNE, RIB, etc.
+                    </div>
+                    <div class="arrow">↓</div>
+                    <div class="flow-step" style="background: #e0f2f1;">
+                        <strong>6. InsertAuxiliaireCmd.execute(auxiliaire)</strong><br>
+                        → ReglementFraisService.insertAuxiliaire()<br>
+                        → InsertAuxiliaireTrt.perform()<br>
+                        → <strong>INSERT INTO AUXILIAIRE</strong>
+                    </div>
+                    <div class="arrow">↓</div>
+                    <div class="flow-step" style="background: #fff8e1;">
+                        <strong>7. Création FraisAuxiliaire</strong><br>
+                        → Lien vers Personne Client<br>
+                        → Lien vers Personne Auxiliaire (NUM_SEQ_PERS_AUXILIAIRE)<br>
+                        → Montants, calculs, documents
+                    </div>
+                    <div class="arrow">↓</div>
+                    <div class="flow-step" style="background: #e8f5e9;">
+                        <strong>8. CreationFraisAuxiliaireCmd.execute()</strong><br>
+                        → <strong>INSERT INTO FRAIS_AUXILIAIRE</strong><br>
+                        → <strong>INSERT INTO PIECE_REGLEMENT_FRAIS</strong>
+                    </div>
+                    <div class="arrow">↓</div>
+                    <div class="flow-step" style="background: #c8e6c9; font-weight: bold; border: 3px solid #4caf50;">
+                        <strong>✅ Enregistrement terminé avec succès</strong><br>
+                        → 1 PERSONNE créée<br>
+                        → 1 AUXILIAIRE créé<br>
+                        → 1 FRAIS_AUXILIAIRE créé avec lien vers PERSONNE
+                    </div>
+                </div>
+            </section>
+
+            <!-- VÉRIFICATIONS -->
+            <section>
+                <h2>✅ Vérifications en Base de Données</h2>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">✓</span>
+                        Requêtes SQL de Vérification
+                    </div>
+
+                    <h4>🔹 1. Vérifier la création de la PERSONNE</h4>
+                    <div class="sql-block">
+<span class="keyword">SELECT</span>
+    NUM_SEQ_PERS,
+    NUM_PCE_PERS <span class="keyword">AS</span> CIN,
+    NOM_NOM_PERS <span class="keyword">AS</span> NOM,
+    NOM_PRN_PERS <span class="keyword">AS</span> PRENOM,
+    COD_CATP_CATP <span class="keyword">AS</span> CATEGORIE
+<span class="keyword">FROM</span> PERSONNE
+<span class="keyword">WHERE</span> NUM_PCE_PERS = <span class="string">'12345678'</span>  <span class="comment">-- Votre CIN</span>
+<span class="keyword">ORDER BY</span> NUM_SEQ_PERS <span class="keyword">DESC</span>;
+                    </div>
+
+                    <h4>🔹 2. Vérifier la création de l'AUXILIAIRE</h4>
+                    <div class="sql-block">
+<span class="keyword">SELECT</span>
+    a.NUM_SEQ_AUX,
+    a.NUM_SEQ_PERS,
+    p.NOM_NOM_PERS || <span class="string">' '</span> || p.NOM_PRN_PERS <span class="keyword">AS</span> NOM_COMPLET,
+    a.TYP_AUXILIAIRE,
+    a.NAT_AUXILIAIRE,
+    a.REGIME_AUXILIAIRE,
+    a.TAUX_RETENUE_SOURCE,
+    a.RNE_AUXILIAIRE,
+    a.MATRICULE_FISCAL,
+    a.RIB_AUXILIAIRE,
+    a.STATUT_AUXILIAIRE
+<span class="keyword">FROM</span> SMILE.AUXILIAIRE a
+<span class="keyword">INNER JOIN</span> PERSONNE p <span class="keyword">ON</span> a.NUM_SEQ_PERS = p.NUM_SEQ_PERS
+<span class="keyword">WHERE</span> a.NAT_AUXILIAIRE = <span class="string">'NON_CONVENTIONNE'</span>
+<span class="keyword">ORDER BY</span> a.NUM_SEQ_AUX <span class="keyword">DESC</span>;
+                    </div>
+
+                    <h4>🔹 3. Vérifier le lien dans FRAIS_AUXILIAIRE</h4>
+                    <div class="sql-block">
+<span class="keyword">SELECT</span>
+    fa.NUM_SEQ_FRAUX,
+    fa.NUM_SEQ_PERS_CLIENT,
+    pc.NOM_NOM_PERS || <span class="string">' '</span> || pc.NOM_PRN_PERS <span class="keyword">AS</span> CLIENT,
+    fa.NUM_SEQ_PERS_AUXILIAIRE,
+    pa.NOM_NOM_PERS || <span class="string">' '</span> || pa.NOM_PRN_PERS <span class="keyword">AS</span> AUXILIAIRE,
+    fa.TYP_AUXILIAIRE,
+    fa.NAT_AUXILIAIRE,
+    fa.MONT_A_SERVIR
+<span class="keyword">FROM</span> SMILE.FRAIS_AUXILIAIRE fa
+<span class="keyword">INNER JOIN</span> PERSONNE pc <span class="keyword">ON</span> fa.NUM_SEQ_PERS_CLIENT = pc.NUM_SEQ_PERS
+<span class="keyword">INNER JOIN</span> PERSONNE pa <span class="keyword">ON</span> fa.NUM_SEQ_PERS_AUXILIAIRE = pa.NUM_SEQ_PERS
+<span class="keyword">WHERE</span> fa.NAT_AUXILIAIRE = <span class="string">'NON_CONVENTIONNE'</span>
+<span class="keyword">ORDER BY</span> fa.NUM_SEQ_FRAUX <span class="keyword">DESC</span>;
+                    </div>
+
+                    <h4>🔹 4. Vue complète avec toutes les informations</h4>
+                    <div class="sql-block">
+<span class="keyword">SELECT</span>
+    fa.NUM_SEQ_FRAUX <span class="keyword">AS</span> REF_PEC,
+    pc.NOM_NOM_PERS || <span class="string">' '</span> || pc.NOM_PRN_PERS <span class="keyword">AS</span> CLIENT,
+    pa.NUM_PCE_PERS <span class="keyword">AS</span> CIN_AUXILIAIRE,
+    pa.NOM_NOM_PERS || <span class="string">' '</span> || pa.NOM_PRN_PERS <span class="keyword">AS</span> AUXILIAIRE,
+    a.TYP_AUXILIAIRE,
+    a.REGIME_AUXILIAIRE,
+    a.TAUX_RETENUE_SOURCE || <span class="string">'%'</span> <span class="keyword">AS</span> TAUX_RS,
+    a.RNE_AUXILIAIRE,
+    a.RIB_AUXILIAIRE,
+    fa.MONT_HONORAIRES_HT,
+    fa.MONT_TTC,
+    fa.MONT_RETENUE_SOURCE,
+    fa.MONT_A_SERVIR,
+    fa.DATE_REGLEMENT
+<span class="keyword">FROM</span> SMILE.FRAIS_AUXILIAIRE fa
+<span class="keyword">INNER JOIN</span> PERSONNE pc <span class="keyword">ON</span> fa.NUM_SEQ_PERS_CLIENT = pc.NUM_SEQ_PERS
+<span class="keyword">INNER JOIN</span> PERSONNE pa <span class="keyword">ON</span> fa.NUM_SEQ_PERS_AUXILIAIRE = pa.NUM_SEQ_PERS
+<span class="keyword">INNER JOIN</span> SMILE.AUXILIAIRE a <span class="keyword">ON</span> a.NUM_SEQ_PERS = pa.NUM_SEQ_PERS
+<span class="keyword">WHERE</span> fa.NAT_AUXILIAIRE = <span class="string">'NON_CONVENTIONNE'</span>
+<span class="keyword">ORDER BY</span> fa.DATE_REGLEMENT <span class="keyword">DESC</span>;
+                    </div>
+                </div>
+            </section>
+
+            <!-- AVANTAGES -->
+            <section>
+                <h2>🎁 Avantages de Cette Approche</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Avantage</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>✅ Centralisation</strong></td>
+                            <td>Toutes les informations personnelles dans PERSONNE (un seul endroit)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>✅ Réutilisation</strong></td>
+                            <td>Si le même auxiliaire intervient plusieurs fois, on réutilise la même PERSONNE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>✅ Intégrité</strong></td>
+                            <td>Contraintes de clés étrangères garantissent la cohérence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>✅ Évolutivité</strong></td>
+                            <td>Facile d'ajouter de nouvelles informations dans AUXILIAIRE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>✅ Recherche</strong></td>
+                            <td>Possibilité de rechercher tous les frais d'un auxiliaire facilement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>✅ Reporting</strong></td>
+                            <td>Requêtes SQL simplifiées avec jointures standards</td>
+                        </tr>
+                        <tr>
+                            <td><strong>✅ Historique</strong></td>
+                            <td>Traçabilité complète des interventions d'un auxiliaire</td>
+                        </tr>
+                        <tr>
+                            <td><strong>✅ Normalisation</strong></td>
+                            <td>Respect des principes de normalisation des bases de données</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- TIMELINE -->
+            <section>
+                <h2>📅 Checklist de Mise en Œuvre</h2>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4>Phase 1 : Base de Données</h4>
+                            <span class="badge badge-table">TABLE</span>
+                            <ul>
+                                <li>✓ Créer table SMILE.AUXILIAIRE</li>
+                                <li>✓ Créer séquence SEQ_AUXILIAIRE</li>
+                                <li>✓ Créer index</li>
+                                <li>✓ Tester la structure</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background: #2a5298;"></div>
+                        <div class="timeline-content">
+                            <h4>Phase 2 : Modèle Java</h4>
+                            <span class="badge badge-new">NEW</span>
+                            <ul>
+                                <li>✓ Créer Auxiliaire.java</li>
+                                <li>✓ Créer Auxiliaire.hbm.xml</li>
+                                <li>✓ Enregistrer dans spring.xml</li>
+                                <li>✓ Compiler et tester</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background: #4caf50;"></div>
+                        <div class="timeline-content">
+                            <h4>Phase 3 : Couche DAO</h4>
+                            <span class="badge badge-modified">MODIFIED</span>
+                            <ul>
+                                <li>✓ Ajouter getSequenceAuxiliaire() dans DAO</li>
+                                <li>✓ Créer InsertAuxiliaireCmd</li>
+                                <li>✓ Créer InsertAuxiliaireTrt</li>
+                                <li>✓ Tester les méthodes</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background: #ff9800;"></div>
+                        <div class="timeline-content">
+                            <h4>Phase 4 : Contrôleur</h4>
+                            <span class="badge badge-modified">MODIFIED</span>
+                            <ul>
+                                <li>✓ Modifier FraisAuxiliairesCtr.enregistrerPEC()</li>
+                                <li>✓ Adapter la création de Personne</li>
+                                <li>✓ Intégrer l'appel à InsertAuxiliaireCmd</li>
+                                <li>✓ Tester le flux complet</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker" style="background: #9c27b0;"></div>
+                        <div class="timeline-content">
+                            <h4>Phase 5 : Tests et Validation</h4>
+                            <span class="badge" style="background: #9c27b0;">TEST</span>
+                            <ul>
+                                <li>✓ Tester création auxiliaire NC complet</li>
+                                <li>✓ Vérifier insertions en base</li>
+                                <li>✓ Vérifier les liens entre tables</li>
+                                <li>✓ Valider les calculs</li>
+                                <li>✓ Tester les requêtes SQL</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONCLUSION -->
+            <section>
+                <h2>🏁 Conclusion</h2>
+
+                <div class="success-box" style="text-align: center; padding: 40px;">
+                    <h3 style="color: #4caf50; margin-bottom: 20px;">🎉 Félicitations !</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">
+                        Vous avez maintenant un système complet pour enregistrer un <strong>auxiliaire non conventionné</strong> en créant :
+                    </p>
+                    <div style="margin: 30px 0; font-size: 1.1em;">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                            <strong>1.</strong> Une entrée dans la table <span class="highlight">PERSONNE</span>
+                        </div>
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                            <strong>2.</strong> Une entrée dans la table <span class="highlight">AUXILIAIRE</span>
+                        </div>
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                            <strong>3.</strong> Un lien dans <span class="highlight">FRAIS_AUXILIAIRE</span> vers PERSONNE
+                        </div>
+                    </div>
+                    <p style="font-style: italic; color: #666; margin-top: 30px;">
+                        Ce système respecte les bonnes pratiques de conception de bases de données et facilite la maintenance et l'évolution future.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+
+        <footer>
+            <p>Guide Technique - Application SMILE BNA</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Enregistrement Auxiliaire Non Conventionné - Version 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
